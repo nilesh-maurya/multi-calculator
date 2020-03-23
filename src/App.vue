@@ -14,12 +14,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: 1px solid red; */
 }
 
 body {
   max-width: 400px;
+  min-height: 100vh;
   margin: 0 auto;
+  background: linear-gradient(150deg, #0a845c 0%, #024f28 100%);
 }
 
 #app {
@@ -30,7 +31,7 @@ body {
 }
 
 #nav {
-  padding: 30px;
+  padding: 15px 0 0 0;
   text-align: center;
 }
 
