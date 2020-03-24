@@ -1,5 +1,4 @@
 <template>
-  <!--  @keydown.enter=" fontSize = fontSize == 1.0 ? fontSize : fontSize - 0.2 -->
   <div class="home">
     <div class="calculator">
       <div class="calculator__display">

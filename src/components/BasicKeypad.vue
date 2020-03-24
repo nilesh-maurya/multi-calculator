@@ -1,62 +1,6 @@
 <template>
   <div class="basic-keypad keypad__wrapper">
-    <!-- <div class="keypad__row">
-      <keypad-button
-        class="keypad__btn"
-        @click-keypad-btn="clickKeypad"
-      ></keypad-button>
-      <keypad-button
-        class="keypad__btn"
-        @click-keypad-btn="clickKeypad"
-      ></keypad-button>
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >sin<sup>-1</sup></keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >cos<sup>-1</sup></keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >tan<sup>-1</sup></keypad-button
-      >
-    </div>
     <div class="keypad__row">
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >rad</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >deg</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >sin</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >cos</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >tan</keypad-button
-      >
-    </div>
-    <div class="keypad__row">
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >log<sub>&#x2610;</sub></keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >lg</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >ln</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >(</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >)</keypad-button
-      >
-    </div> -->
-    <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >X<sup>y</sup></keypad-button
-      > -->
       <keypad-button
         class="keypad__btn"
         type="clear"
@@ -91,7 +35,6 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn">&#x221A;x</keypad-button> -->
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -126,9 +69,6 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >x!</keypad-button
-      > -->
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -163,14 +103,6 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button
-        class="keypad__btn"
-        type="number"
-        action=""
-        value="PI"
-        @click-keypad-btn="clickKeypad"
-        >&#x220F;</keypad-button
-      > -->
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -205,14 +137,6 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button
-        class="keypad__btn"
-        type="number"
-        action=""
-        value="E"
-        @click-keypad-btn="clickKeypad"
-        >e</keypad-button
-      > -->
       <keypad-button
         class="keypad__btn"
         type="Exchange"
