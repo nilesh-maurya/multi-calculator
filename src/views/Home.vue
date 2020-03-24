@@ -12,7 +12,7 @@
       </div>
       <span class="hr"></span>
       <div class="calculator__keypad">
-        <basic-keypad></basic-keypad>
+        <component :is="currentComponent" @result="calculate"></component>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@
 <script>
 // @ is an alias to /src
 import BasicKeypad from "../components/BasicKeypad.vue";
+import ScientificKeypad from "../components/ScientificKeypad.vue";
 
 export default {
   name: "Home",
@@ -28,21 +29,65 @@ export default {
     return {
       inputText: "0",
       result: "",
-      isEnterPress: false
+      isEnterPress: false,
+      isBasic: true
     };
+  },
+  computed: {
+    currentComponent() {
+      if (this.isBasic) {
+        return "basic-keypad";
+      }
+      return "scientific-keypad";
+    }
   },
   methods: {
     calculate(event) {
       console.log(event);
-      this.result = this.inputText;
+      switch (event.type) {
+        case "clear": {
+          if (event.action === "backspace" && this.inputText !== "0") {
+            this.inputText = this.inputText.slice(0, this.inputText.length - 1);
+            if (this.inputText.length === 0) {
+              this.inputText = "0";
+            }
+          } else {
+            this.inputText = "0";
+            this.result = "";
+          }
+          break;
+        }
+        case "number": {
+          console.log("number", event.value);
+          if (this.inputText === "0") {
+            this.inputText = event.value;
+          } else {
+            this.inputText = this.inputText + event.value;
+          }
+          break;
+        }
+        case "operator": {
+          console.log("operator", event.value);
+          break;
+        }
+        case "Evaluate": {
+          console.log("evaluate", event.value);
+          break;
+        }
+        case "Exchange": {
+          console.log("evaluate", event.value);
+          this.isBasic = !this.isBasic;
+          break;
+        }
+        default:
+          console.log("default", event);
+          break;
+      }
     }
   },
   components: {
-    BasicKeypad
-  },
-  mounted() {
-    const input = document.querySelector(".input");
-    input.focus();
+    BasicKeypad,
+    ScientificKeypad
   }
 };
 </script>
@@ -79,9 +124,9 @@ export default {
   line-height: 2;
   color: #019b55;
   font-size: 2rem;
-  /* overflow-x: scroll;
+  overflow-x: scroll;
   overflow-wrap: normal;
-  scrollbar-width: none; */
+  scrollbar-width: none;
 }
 
 .input::-webkit-scrollbar {

@@ -1,6 +1,6 @@
 <template>
   <div class="basic-keypad keypad__wrapper">
-    <!-- <div class="keypad__row">
+    <div class="keypad__row">
       <keypad-button
         class="keypad__btn"
         @click-keypad-btn="clickKeypad"
@@ -52,11 +52,11 @@
       <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
         >)</keypad-button
       >
-    </div> -->
+    </div>
     <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
         >X<sup>y</sup></keypad-button
-      > -->
+      >
       <keypad-button
         class="keypad__btn"
         type="clear"
@@ -91,7 +91,7 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn">&#x221A;x</keypad-button> -->
+      <keypad-button class="keypad__btn">&#x221A;x</keypad-button>
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -126,9 +126,9 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
         >x!</keypad-button
-      > -->
+      >
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -163,14 +163,14 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button
+      <keypad-button
         class="keypad__btn"
         type="number"
         action=""
         value="PI"
         @click-keypad-btn="clickKeypad"
         >&#x220F;</keypad-button
-      > -->
+      >
       <keypad-button
         class="keypad__btn"
         type="number"
@@ -205,14 +205,14 @@
       >
     </div>
     <div class="keypad__row">
-      <!-- <keypad-button
+      <keypad-button
         class="keypad__btn"
         type="number"
         action=""
         value="E"
         @click-keypad-btn="clickKeypad"
         >e</keypad-button
-      > -->
+      >
       <keypad-button
         class="keypad__btn"
         type="Exchange"
@@ -285,7 +285,7 @@ export default {
   outline: none;
   border: 0;
   margin: 0;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   background-color: #fff;
   border-radius: 5px;
