@@ -17,10 +17,12 @@
 }
 
 body {
-  max-width: 400px;
+  max-width: 100vw;
   min-height: 100vh;
-  margin: 0 auto;
-  background: linear-gradient(150deg, #0a845c 0%, #024f28 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef;
 }
 
 #app {
@@ -28,6 +30,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  background-color: #fff;
+  border: 1px solid #eee;
 }
 
 #nav {
@@ -38,9 +42,17 @@ body {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    max-width: 400px;
+    min-height: 86.5vh;
+  }
 }
 </style>

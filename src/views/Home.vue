@@ -4,7 +4,7 @@
     <div class="calculator">
       <div class="calculator__display">
         <div class="calculator__input">
-          <input v-model="inputText" class="input" @input="calculate($event)" />
+          <div class="input">{{ inputText }}</div>
         </div>
         <div class="calculator__result">
           {{ result }}
@@ -26,19 +26,14 @@ export default {
   name: "Home",
   data() {
     return {
-      inputText: "",
+      inputText: "0",
       result: "",
       isEnterPress: false
     };
   },
   methods: {
     calculate(event) {
-      if (event.key == "Enter") {
-        event.preventDefault();
-        console.log(event.keyCode);
-        this.isEnterPress = true;
-      }
-      // this.result = parseInt(this.inputText, 10);
+      console.log(event);
       this.result = this.inputText;
     }
   },
@@ -54,8 +49,6 @@ export default {
 
 <style scoped>
 .calculator {
-  background-color: #fefefe;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   padding: 10px;
   margin: 1rem;
@@ -66,6 +59,8 @@ export default {
 }
 
 .calculator__result {
+  font-size: 1.2rem;
+  margin-right: 1rem;
   text-align: right;
   overflow: scroll;
   overflow-wrap: normal;
@@ -74,18 +69,19 @@ export default {
 }
 
 .input {
-  outline: 0;
-  border: 0;
+  max-width: 348px;
+  min-height: 6rem;
   text-align: left;
   padding: 10px;
-  min-height: 6rem;
   margin-left: auto;
+  outline: 0;
+  border: 0;
   line-height: 2;
   color: #019b55;
-  overflow-x: scroll;
-  overflow-wrap: normal;
-  scrollbar-width: none;
   font-size: 2rem;
+  /* overflow-x: scroll;
+  overflow-wrap: normal;
+  scrollbar-width: none; */
 }
 
 .input::-webkit-scrollbar {
@@ -112,6 +108,9 @@ export default {
   .calculator {
     padding: 10px 0px;
     margin: 1rem 0;
+  }
+  .calculator__display {
+    max-height: 348px;
   }
 }
 </style>
