@@ -21,9 +21,9 @@
         class="keypad__btn"
         type="operator"
         action="modulus"
-        value="%"
+        value="mod"
         @click-keypad-btn="clickKeypad"
-        >&#x25;</keypad-button
+        >mod</keypad-button
       >
       <keypad-button
         class="keypad__btn"

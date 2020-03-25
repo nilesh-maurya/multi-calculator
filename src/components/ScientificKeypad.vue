@@ -77,9 +77,9 @@
         class="keypad__btn"
         type="operator"
         action="modulus"
-        value="%"
+        value="mod"
         @click-keypad-btn="clickKeypad"
-        >&#x25;</keypad-button
+        >mod</keypad-button
       >
       <keypad-button
         class="keypad__btn"
@@ -167,7 +167,7 @@
         class="keypad__btn"
         type="number"
         action=""
-        value="PI"
+        value="pi"
         @click-keypad-btn="clickKeypad"
         >&#x220F;</keypad-button
       >
@@ -207,20 +207,20 @@
     <div class="keypad__row">
       <keypad-button
         class="keypad__btn"
-        type="number"
-        action=""
-        value="E"
-        @click-keypad-btn="clickKeypad"
-        >e</keypad-button
-      >
-      <keypad-button
-        class="keypad__btn"
         type="Exchange"
         action="Exchange"
         value=""
         @click-keypad-btn="clickKeypad"
         ><img src="../assets/transfer.svg" />
       </keypad-button>
+      <keypad-button
+        class="keypad__btn"
+        type="number"
+        action=""
+        value="e"
+        @click-keypad-btn="clickKeypad"
+        >e</keypad-button
+      >
       <keypad-button
         class="keypad__btn"
         type="number"
