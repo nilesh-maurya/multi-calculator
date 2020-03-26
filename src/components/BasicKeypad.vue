@@ -29,7 +29,7 @@
         class="keypad__btn"
         type="operator"
         action="divide"
-        value="/"
+        value="&#xf7;"
         @click-keypad-btn="clickKeypad"
         >&#xf7;</keypad-button
       >
@@ -63,7 +63,7 @@
         class="keypad__btn"
         type="operator"
         action="multiply"
-        value="*"
+        value="&#10005;"
         @click-keypad-btn="clickKeypad"
         >&#10005;</keypad-button
       >
@@ -97,7 +97,7 @@
         class="keypad__btn"
         type="operator"
         acton="subtract"
-        value="-"
+        value="&#x2212;"
         @click-keypad-btn="clickKeypad"
         >&#x2212;</keypad-button
       >
@@ -131,7 +131,7 @@
         class="keypad__btn"
         type="operator"
         action="add"
-        value="+"
+        value="&#x2b;"
         @click-keypad-btn="clickKeypad"
         >&#x2b;</keypad-button
       >

@@ -3,9 +3,17 @@
     <div class="calculator">
       <div class="calculator__display">
         <div class="calculator__input">
-          <div class="input">{{ inputText.join("") }}</div>
+          <div
+            class="input"
+            v-dompurify-html="inputText.join('')"
+            :style="{ fontSize: inputTextFont + 'rem' }"
+          ></div>
+          <!-- <div class="input">{{ inputText.join("") }}</div> -->
         </div>
-        <div class="calculator__result">
+        <div
+          class="calculator__result"
+          :style="{ fontSize: resultFont + 'rem' }"
+        >
           {{ result }}
         </div>
       </div>
@@ -29,7 +37,9 @@ export default {
       inputText: ["0"],
       result: "",
       isEnterPress: false,
-      isBasic: true
+      isBasic: true,
+      inputTextFont: 2,
+      resultFont: 1.4
     };
   },
   computed: {
@@ -75,7 +85,7 @@ export default {
           break;
         }
         case "number": {
-          console.log("number", event.value);
+          // console.log("number", event.value);
           // if `textArray.length` is greater than 1
           //  -- set `current` = last element of `textArray`
           //  -- if `current.length` equal to 0 i.e. `current` === ""
@@ -96,7 +106,6 @@ export default {
           const textArray = this.inputText.copyWithin();
           let current;
           if (textArray.length >= 1) {
-            console.log(textArray);
             current = textArray[textArray.length - 1];
             const regex = /\d|\.+/g;
             if (regex.test(current) || current === "") {
@@ -115,14 +124,13 @@ export default {
           }
 
           textArray[textArray.length - 1] = current;
-          console.log(textArray);
 
           this.inputText.pop();
           this.inputText.push(current);
           break;
         }
         case "operator": {
-          console.log("operator", event.value, this.inputText);
+          // console.log("operator", event.value, this.inputText);
           if (this.inputText[this.inputText.length - 1] !== "") {
             this.inputText.push(event.value);
             this.inputText.push("");
@@ -131,10 +139,12 @@ export default {
         }
         case "Evaluate": {
           console.log("evaluate", event.value);
+          this.evaluate(this.inputText.join(""));
+          this.resultFont = 2.2;
           break;
         }
         case "Exchange": {
-          console.log("evaluate", event.value);
+          // console.log("evaluate", event.value);
           this.isBasic = !this.isBasic;
           break;
         }
@@ -144,6 +154,41 @@ export default {
       }
       const input = document.querySelector(".input");
       input.scrollLeft = 360;
+    },
+    evaluate(text) {
+      // Add => &#x2b; => +
+      // subtract => &#x2212; => -
+      // multiply => &#10005; => *
+      // Divide => &#xf7; => /
+      // modulus => mod => %
+      // e => e => Math.E
+      // pi => &#x213C; => Math.PI
+      const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)/g;
+      const mutatedText = text.replace(regex, function(...arr) {
+        const match = arr[0];
+        if (match === "&#x2b;") {
+          return "+";
+        } else if (match === "&#x2212;") {
+          return "-";
+        } else if (match === "&#10005;") {
+          return "*";
+        } else if (match === "&#xf7;") {
+          return "/";
+        } else if (match === "mod") {
+          return "%";
+        } else if (match === "e") {
+          return "Math.E";
+        } else if (match === "&#x213C;") {
+          return "Math.PI";
+        }
+      });
+
+      console.log(mutatedText);
+      try {
+        this.result = "= " + eval(mutatedText);
+      } catch (error) {
+        this.result = "= Error";
+      }
     }
   },
   components: {
@@ -165,26 +210,28 @@ export default {
 }
 
 .calculator__result {
-  font-size: 1.2rem;
+  /* font-size: 1.4rem; */
   margin-right: 1rem;
   text-align: right;
-  overflow: scroll;
+  overflow-x: scroll;
   overflow-wrap: normal;
   scrollbar-width: none;
-  min-height: 5px;
+  min-height: 2.5rem;
+  color: #019b55;
+  font-weight: 500;
 }
 
 .input {
   max-width: 348px;
-  min-height: 6rem;
+  min-height: 5rem;
   text-align: left;
   padding: 10px;
   margin-left: auto;
   outline: 0;
   border: 0;
   line-height: 2;
-  color: #019b55;
-  font-size: 2rem;
+  color: #000;
+  /* font-size: 2rem; */
   overflow-x: scroll;
   overflow-wrap: normal;
   scrollbar-width: none;
