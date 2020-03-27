@@ -85,24 +85,6 @@ export default {
           break;
         }
         case "number": {
-          // console.log("number", event.value);
-          // if `textArray.length` is greater than 1
-          //  -- set `current` = last element of `textArray`
-          //  -- if `current.length` equal to 0 i.e. `current` === ""
-          //          -- if `event.value` === "." then
-          //              -- `current` = "0."
-          //                 else
-          //                   -- `current` = `event.value`;
-          //  -- else
-          //      -- Here, `current.length` is greater than 0
-          //      -- check if `current` contains 'numbers' then
-          //                -- if `event.value` === "." then
-          //                    -- check if "." was entered previously => then don't append
-          //                        else
-          //                          -- append "."
-          //      -- else
-          //           -- TODO: Not Completed
-
           const textArray = this.inputText.copyWithin();
           let current;
           if (textArray.length >= 1) {
@@ -127,6 +109,7 @@ export default {
 
           this.inputText.pop();
           this.inputText.push(current);
+          this.evaluate(this.inputText.join(""));
           break;
         }
         case "operator": {
@@ -210,7 +193,7 @@ export default {
 }
 
 .calculator__result {
-  /* font-size: 1.4rem; */
+  max-width: 348px;
   margin-right: 1rem;
   text-align: right;
   overflow-x: scroll;
