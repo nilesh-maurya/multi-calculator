@@ -34,12 +34,14 @@ export default {
   name: "Home",
   data() {
     return {
+      previousInputText: [],
       inputText: ["0"],
       result: "",
-      isEnterPress: false,
-      isBasic: true,
       inputTextFont: 2,
-      resultFont: 1.4
+      resultFont: 1.4,
+      changeFontPoint: 84,
+      isBasic: true,
+      wasEqualPressed: false
     };
   },
   computed: {
@@ -52,7 +54,24 @@ export default {
   },
   methods: {
     calculate(event) {
-      console.log(event);
+      // console.log(event);
+      if (this.wasEqualPressed) {
+        this.previousInputText = this.inputText.splice(0);
+        if (event.type === "operator") {
+          this.inputText.push(this.result.slice(1));
+        } else if (event.type === "number") {
+          this.inputText.push("0");
+        }
+        this.result = "";
+        this.wasEqualPressed = false;
+      }
+
+      // check for type "number"
+      const numberRegex = /\d+|\./g;
+      // check for type "operator"
+      const operatorRegex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)/g;
+      // check for type "function"
+      const functionRegex = /[a-zA-Z]\($/g;
       switch (event.type) {
         case "clear": {
           // let textArray = this.inputText;
@@ -81,16 +100,24 @@ export default {
           } else {
             this.inputText = ["0"];
             this.result = "";
+            this.inputTextFont = 2;
+            this.resultFont = 1.4;
           }
           break;
         }
         case "number": {
-          const textArray = this.inputText.copyWithin();
           let current;
-          if (textArray.length >= 1) {
-            current = textArray[textArray.length - 1];
-            const regex = /\d|\.+/g;
-            if (regex.test(current) || current === "") {
+          if (this.inputText.length >= 1) {
+            const tempHolder = this.inputText.pop();
+            if (this.inputText[this.inputText.length - 1] === ")") {
+              // push multiply unicode character
+              this.inputText.push("&#10005;");
+            }
+
+            this.inputText.push(tempHolder);
+            current = this.inputText[this.inputText.length - 1];
+
+            if (numberRegex.test(current) || current === "") {
               if (event.value === ".") {
                 if (current === "0") {
                   current = "0.";
@@ -105,29 +132,90 @@ export default {
             }
           }
 
-          textArray[textArray.length - 1] = current;
-
           this.inputText.pop();
           this.inputText.push(current);
-          this.evaluate(this.inputText.join(""));
           break;
         }
         case "operator": {
-          // console.log("operator", event.value, this.inputText);
+          if (this.inputText[this.inputText.length - 1] === "") {
+            if (functionRegex.test(this.inputText[this.inputText.length - 2])) {
+              break;
+            }
+          }
+
           if (this.inputText[this.inputText.length - 1] !== "") {
+            this.inputText.push(event.value);
+            this.inputText.push("");
+          } else {
+            const last = this.inputText.pop();
+            if (this.inputText[this.inputText.length - 1] === "(") {
+              this.inputText.push(last);
+              break;
+            } else if (!(this.inputText[this.inputText.length - 1] === ")")) {
+              this.inputText.pop();
+            }
             this.inputText.push(event.value);
             this.inputText.push("");
           }
           break;
         }
+        case "function": {
+          console.log(event);
+
+          if (this.inputText[this.inputText.length - 1] === "0") {
+            this.inputText.pop();
+          } else if (
+            numberRegex.test(this.inputText[this.inputText.length - 1])
+          ) {
+            this.inputText.push("&#10005;");
+          } else if (this.inputText[this.inputText.length - 1] === "") {
+            //  remove empty string ""
+            this.inputText.pop();
+            if (this.inputText[this.inputText.length - 1] === ")") {
+              this.inputText.push("&#10005;");
+            }
+          }
+          this.inputText.push(event.value + "(");
+          this.inputText.push("");
+
+          break;
+        }
+        case "paren": {
+          if (this.inputText[this.inputText.length - 1] === "") {
+            this.inputText.pop();
+          }
+
+          if (event.value === "(") {
+            if (
+              (!operatorRegex.test(this.inputText[this.inputText.length - 1]) &&
+                numberRegex.test(this.inputText[this.inputText.length - 1])) ||
+              this.inputText[this.inputText.length - 1] === ")"
+            ) {
+              this.inputText.push("&#10005;");
+            }
+            this.inputText.push("(");
+            this.inputText.push("");
+          } else if (event.value === ")") {
+            // ")"
+            if (
+              this.inputText[this.inputText.length - 1] === "(" ||
+              functionRegex.test(this.inputText[this.inputText.length - 1]) ||
+              operatorRegex.test(this.inputText[this.inputText.length - 1])
+            ) {
+              this.inputText.push("");
+              break;
+            }
+            this.inputText.push(")");
+            this.inputText.push("");
+          }
+          break;
+        }
         case "Evaluate": {
-          console.log("evaluate", event.value);
           this.evaluate(this.inputText.join(""));
-          this.resultFont = 2.2;
+          this.wasEqualPressed = true;
           break;
         }
         case "Exchange": {
-          // console.log("evaluate", event.value);
           this.isBasic = !this.isBasic;
           break;
         }
@@ -135,8 +223,53 @@ export default {
           console.log("default", event);
           break;
       }
+
+      if (event.type === "Evaluate") {
+        this.resultFont = 2;
+      } else {
+        this.resultFont = 1.4;
+      }
+
       const input = document.querySelector(".input");
-      input.scrollLeft = 360;
+      if (input.clientHeight > this.changeFontPoint) {
+        this.inputTextFont =
+          this.inputTextFont <= 1.2 ? 1 : this.inputTextFont - 0.3;
+        this.changeFontPoint *= 2;
+      }
+      // const calculatorResult = document.querySelector(".calculator__result");
+
+      // if (input.scrollWidth > 348) {
+      //   this.inputTextFont =
+      //     this.inputTextFont <= 1.2 ? 1 : this.inputTextFont - 0.3;
+      // }
+      // if (calculatorResult.scrollWidth > 348) {
+      //   this.resultFont = this.resultFont <= 1.4 ? 1.4 : this.resultFont - 0.5;
+      // }
+
+      this.evaluate(this.inputText.join(""));
+    },
+    balanceParentheses(text) {
+      let opening = 0;
+      let closing = 0;
+
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === "(") {
+          opening++;
+        } else if (text[i] === ")") {
+          closing++;
+        }
+      }
+
+      if (opening > closing) {
+        for (let i = 0; i < opening - closing; i++) {
+          text += ")";
+        }
+      } else if (closing > opening) {
+        for (let i = 0; i < closing - opening; i++) {
+          text = "(" + text;
+        }
+      }
+      return text;
     },
     evaluate(text) {
       // Add => &#x2b; => +
@@ -147,7 +280,7 @@ export default {
       // e => e => Math.E
       // pi => &#x213C; => Math.PI
       const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)/g;
-      const mutatedText = text.replace(regex, function(...arr) {
+      let mutatedText = text.replace(regex, function(...arr) {
         const match = arr[0];
         if (match === "&#x2b;") {
           return "+";
@@ -166,11 +299,13 @@ export default {
         }
       });
 
+      mutatedText = this.balanceParentheses(mutatedText);
       console.log(mutatedText);
+
       try {
-        this.result = "= " + eval(mutatedText);
+        this.result = "=" + eval(mutatedText);
       } catch (error) {
-        this.result = "= Error";
+        this.result = "=Error";
       }
     }
   },
@@ -194,7 +329,7 @@ export default {
 
 .calculator__result {
   max-width: 348px;
-  margin-right: 1rem;
+  padding-right: 1rem;
   text-align: right;
   overflow-x: scroll;
   overflow-wrap: normal;
@@ -214,10 +349,9 @@ export default {
   border: 0;
   line-height: 2;
   color: #000;
-  /* font-size: 2rem; */
-  overflow-x: scroll;
-  overflow-wrap: normal;
-  scrollbar-width: none;
+  /* overflow-x: scroll; */
+  overflow-wrap: break-word;
+  /* scrollbar-width: none; */
 }
 
 .input::-webkit-scrollbar {

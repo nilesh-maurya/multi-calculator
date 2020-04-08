@@ -20,13 +20,35 @@
       >
     </div>
     <div class="keypad__row">
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        @click-keypad-btn="clickKeypad"
+      ></keypad-button>
+
+      <keypad-button
+        v-if="isRadian"
+        class="keypad__btn"
+        type="measure"
+        action=""
+        value="rad"
+        @click-keypad-btn="clickKeypad"
         >rad</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        v-else
+        class="keypad__btn"
+        type="measure"
+        action=""
+        value="deg"
+        @click-keypad-btn="clickKeypad"
         >deg</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="sine"
+        value="sin"
+        @click-keypad-btn="clickKeypad"
         >sin</keypad-button
       >
       <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
@@ -46,10 +68,20 @@
       <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
         >ln</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="paren"
+        action=""
+        value="("
+        @click-keypad-btn="clickKeypad"
         >(</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="paren"
+        action=""
+        value=")"
+        @click-keypad-btn="clickKeypad"
         >)</keypad-button
       >
     </div>
@@ -252,11 +284,22 @@
 <script>
 import KeypadButton from "./KeypadButton.vue";
 export default {
+  data() {
+    return {
+      isRadian: false
+    };
+  },
   components: {
     KeypadButton
   },
   methods: {
     clickKeypad(event) {
+      if (event.value === "rad") {
+        this.isRadian = false;
+      } else if (event.value === "deg") {
+        this.isRadian = true;
+      }
+      event.isRadian = this.isRadian;
       this.$emit("result", event);
     }
   }
