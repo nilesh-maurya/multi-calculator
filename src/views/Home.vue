@@ -8,7 +8,6 @@
             v-dompurify-html="inputText.join('')"
             :style="{ fontSize: inputTextFont + 'rem' }"
           ></div>
-          <!-- <div class="input">{{ inputText.join("") }}</div> -->
         </div>
         <div
           class="calculator__result"
@@ -74,29 +73,8 @@ export default {
       const functionRegex = /[a-zA-Z]\($/g;
       switch (event.type) {
         case "clear": {
-          // let textArray = this.inputText;
           if (event.action === "backspace") {
-            // 1: if length of `textArray` is greater than 1
-            //      -- get last element of textArray and store in `current`
-            //      -- if current.length is greater than 0
-            //          -- then slice(0, `current`.length - 1)  => which will remove last element of `current`
-            //      else
-            //        -- which means `current` is empty and pop this element from `textArray`
-            //        -- set `current` = last element of `textArray`
-            //        -- and remove last element of `current`
-            //   else
-            //    -- set `current` =  first element of `textArray`
-            //    -- if `current` === "0" then do nothing
-            //       else
-            //         -- slice(0, `current`.length - 1) =>  which will remove last element of `current`
-            //  set textArray[textArray.length - 1] = `current` value
-            // if (textArray.length > 1) {
-            // }
-            // let current = textArray[textArray.length - 1];
-            // current = current.slice(0, current.length - 1);
-            // if (this.inputText.length === 0) {
-            //   this.inputText = "0";
-            // }
+            break;
           } else {
             this.inputText = ["0"];
             this.result = "";
@@ -236,15 +214,6 @@ export default {
           this.inputTextFont <= 1.2 ? 1 : this.inputTextFont - 0.3;
         this.changeFontPoint *= 2;
       }
-      // const calculatorResult = document.querySelector(".calculator__result");
-
-      // if (input.scrollWidth > 348) {
-      //   this.inputTextFont =
-      //     this.inputTextFont <= 1.2 ? 1 : this.inputTextFont - 0.3;
-      // }
-      // if (calculatorResult.scrollWidth > 348) {
-      //   this.resultFont = this.resultFont <= 1.4 ? 1.4 : this.resultFont - 0.5;
-      // }
 
       this.evaluate(this.inputText.join(""));
     },
@@ -349,9 +318,7 @@ export default {
   border: 0;
   line-height: 2;
   color: #000;
-  /* overflow-x: scroll; */
   overflow-wrap: break-word;
-  /* scrollbar-width: none; */
 }
 
 .input::-webkit-scrollbar {
