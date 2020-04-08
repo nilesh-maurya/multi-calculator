@@ -35,8 +35,9 @@ export default {
     return {
       previousInputText: [],
       inputText: ["0"],
-      result: "",
       inputTextFont: 2,
+      mutatedText: "",
+      result: "",
       resultFont: 1.4,
       changeFontPoint: 84,
       isBasic: true,
@@ -53,8 +54,10 @@ export default {
   },
   methods: {
     calculate(event) {
-      // console.log(event);
-      if (this.wasEqualPressed) {
+      if (
+        this.wasEqualPressed &&
+        !(event.type === "Evaluate" || event.type === "Exchange")
+      ) {
         this.previousInputText = this.inputText.splice(0);
         if (event.type === "operator") {
           this.inputText.push(this.result.slice(1));
@@ -198,6 +201,13 @@ export default {
           }
           break;
         }
+        case "Special": {
+          // TODO: make sure everything works after inserting "!"
+          if (event.action === "factorial") {
+            this.inputText.push(event.value);
+          }
+          break;
+        }
         case "Evaluate": {
           this.evaluate(this.inputText.join(""));
           this.wasEqualPressed = true;
@@ -225,7 +235,7 @@ export default {
         this.changeFontPoint *= 2;
       }
 
-      this.evaluate(this.inputText.join(""));
+      this.evaluate(this.inputText.join(""), event);
     },
     balanceParentheses(text) {
       let opening = 0;
@@ -259,7 +269,7 @@ export default {
       // e => e => Math.E
       // pi => &#x213C; => Math.PI
       const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)|(sin)|(cos)|(tan)|(arcsin)|(arccos)|(arctan)|(log<sub>10<\/sub>)|(log<sub>e<\/sub>)/g;
-      let mutatedText = text.replace(regex, function(...arr) {
+      this.mutatedText = text.replace(regex, function(...arr) {
         const match = arr[0];
         if (match === "&#x2b;") {
           return "+";
@@ -294,11 +304,24 @@ export default {
         }
       });
 
-      mutatedText = this.balanceParentheses(mutatedText);
-      console.log(mutatedText);
+      this.mutatedText = this.balanceParentheses(this.mutatedText);
+
+      // TODO: should do something which result in factorial of number
+      if (this.mutatedText.includes("!")) {
+        console.log(this.mutatedText.split("!"));
+      }
+
+      console.log(this.mutatedText);
 
       try {
-        this.result = "=" + eval(mutatedText);
+        const answer = eval(this.mutatedText);
+        const errorRegex = /(NaN)|(undefined)|(function)/g;
+        if (errorRegex.test(answer)) {
+          this.result = "=Error";
+        } else {
+          this.result = "=" + answer;
+          this.mutatedText = "";
+        }
       } catch (error) {
         this.result = "=Error";
       }

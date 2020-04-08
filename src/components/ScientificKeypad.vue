@@ -198,7 +198,12 @@
       >
     </div>
     <div class="keypad__row">
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="Special"
+        action="factorial"
+        value="!"
+        @click-keypad-btn="clickKeypad"
         >x!</keypad-button
       >
       <keypad-button
