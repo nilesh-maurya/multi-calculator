@@ -9,13 +9,28 @@
         class="keypad__btn"
         @click-keypad-btn="clickKeypad"
       ></keypad-button>
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="sine-inverse"
+        value="arcsin"
+        @click-keypad-btn="clickKeypad"
         >sin<sup>-1</sup></keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="cosine-inverse"
+        value="arccos"
+        @click-keypad-btn="clickKeypad"
         >cos<sup>-1</sup></keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="tangent-inverse"
+        value="arctan"
+        @click-keypad-btn="clickKeypad"
         >tan<sup>-1</sup></keypad-button
       >
     </div>
@@ -51,22 +66,37 @@
         @click-keypad-btn="clickKeypad"
         >sin</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="cosine"
+        value="cos"
+        @click-keypad-btn="clickKeypad"
         >cos</keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="tangent"
+        value="tan"
+        @click-keypad-btn="clickKeypad"
         >tan</keypad-button
       >
     </div>
     <div class="keypad__row">
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <!-- <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
         >log<sub>&#x2610;</sub></keypad-button
+      > -->
+      <keypad-button
+        class="keypad__btn"
+        @click-keypad-btn="clickKeypad"
+      ></keypad-button>
+
+      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+        >log<sub>10</sub></keypad-button
       >
       <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >lg</keypad-button
-      >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
-        >ln</keypad-button
+        >log<sub>e</sub></keypad-button
       >
       <keypad-button
         class="keypad__btn"
@@ -286,7 +316,7 @@ import KeypadButton from "./KeypadButton.vue";
 export default {
   data() {
     return {
-      isRadian: false
+      isRadian: true
     };
   },
   components: {

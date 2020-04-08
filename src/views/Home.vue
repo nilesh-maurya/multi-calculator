@@ -116,7 +116,12 @@ export default {
         }
         case "operator": {
           if (this.inputText[this.inputText.length - 1] === "") {
+            // if it function eg. sine, cos, arcsin, arccos etc. then allow minus
             if (functionRegex.test(this.inputText[this.inputText.length - 2])) {
+              if (event.value === "&#x2212;") {
+                this.inputText.push(event.value);
+                this.inputText.push("");
+              }
               break;
             }
           }
@@ -248,7 +253,7 @@ export default {
       // modulus => mod => %
       // e => e => Math.E
       // pi => &#x213C; => Math.PI
-      const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)/g;
+      const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)|(sin)|(cos)|(tan)|(arcsin)|(arccos)|(arctan)/g;
       let mutatedText = text.replace(regex, function(...arr) {
         const match = arr[0];
         if (match === "&#x2b;") {
@@ -265,6 +270,18 @@ export default {
           return "Math.E";
         } else if (match === "&#x213C;") {
           return "Math.PI";
+        } else if (match === "sin") {
+          return "Math.sin";
+        } else if (match === "cos") {
+          return "Math.cos";
+        } else if (match === "tan") {
+          return "Math.tan";
+        } else if (match === "arcsin") {
+          return "Math.asin";
+        } else if (match === "arccos") {
+          return "Math.acos";
+        } else if (match === "tan") {
+          return "Math.atan";
         }
       });
 
