@@ -144,7 +144,12 @@ export default {
         }
         case "function": {
           console.log(event);
-
+          if (event.value === "log10") {
+            event.value = "log<sub>10</sub>";
+          }
+          if (event.value === "loge") {
+            event.value = "log<sub>e</sub>";
+          }
           if (this.inputText[this.inputText.length - 1] === "0") {
             this.inputText.pop();
           } else if (
@@ -253,7 +258,7 @@ export default {
       // modulus => mod => %
       // e => e => Math.E
       // pi => &#x213C; => Math.PI
-      const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)|(sin)|(cos)|(tan)|(arcsin)|(arccos)|(arctan)/g;
+      const regex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)|(&#x213C;)|(e)|(sin)|(cos)|(tan)|(arcsin)|(arccos)|(arctan)|(log<sub>10<\/sub>)|(log<sub>e<\/sub>)/g;
       let mutatedText = text.replace(regex, function(...arr) {
         const match = arr[0];
         if (match === "&#x2b;") {
@@ -282,6 +287,10 @@ export default {
           return "Math.acos";
         } else if (match === "tan") {
           return "Math.atan";
+        } else if (match === "log<sub>10</sub>") {
+          return "Math.log10";
+        } else if (match === "log<sub>e</sub>") {
+          return "Math.log";
         }
       });
 

@@ -92,10 +92,20 @@
         @click-keypad-btn="clickKeypad"
       ></keypad-button>
 
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="log-to-the-base-10"
+        value="log10"
+        @click-keypad-btn="clickKeypad"
         >log<sub>10</sub></keypad-button
       >
-      <keypad-button class="keypad__btn" @click-keypad-btn="clickKeypad"
+      <keypad-button
+        class="keypad__btn"
+        type="function"
+        action="log-to-the-e"
+        value="loge"
+        @click-keypad-btn="clickKeypad"
         >log<sub>e</sub></keypad-button
       >
       <keypad-button
