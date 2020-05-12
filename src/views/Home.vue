@@ -73,11 +73,27 @@ export default {
       // check for type "operator"
       const operatorRegex = /(&#x2b;)|(&#x2212;)|(&#10005;)|(&#xf7;)|(mod)/g;
       // check for type "function"
-      const functionRegex = /[a-zA-Z]\($/g;
+      const functionRegex = /[a-zA-Z<>\\]\($/g;
       switch (event.type) {
         case "clear": {
           if (event.action === "backspace") {
-            break;
+            let temp = this.inputText.pop();
+
+            if (temp == "") {
+              temp = this.inputText.pop();
+            }
+
+            const check =
+              operatorRegex.test(this.inputText[this.inputText.length - 1]) ||
+              functionRegex.test(this.inputText[this.inputText.length - 1]) ||
+              this.inputText[this.inputText.length - 1] === ")";
+            if (check) {
+              this.inputText.push("");
+            }
+
+            if (this.inputText.length === 0) {
+              this.inputText.push("0");
+            }
           } else {
             this.inputText = ["0"];
             this.result = "";
@@ -146,7 +162,6 @@ export default {
           break;
         }
         case "function": {
-          console.log(event);
           if (event.value === "log10") {
             event.value = "log<sub>10</sub>";
           }
@@ -218,7 +233,6 @@ export default {
           break;
         }
         default:
-          console.log("default", event);
           break;
       }
 
@@ -306,12 +320,7 @@ export default {
 
       this.mutatedText = this.balanceParentheses(this.mutatedText);
 
-      // TODO: should do something which result in factorial of number
-      if (this.mutatedText.includes("!")) {
-        console.log(this.mutatedText.split("!"));
-      }
-
-      console.log(this.mutatedText);
+      // console.log(this.mutatedText);
 
       try {
         const answer = eval(this.mutatedText);
