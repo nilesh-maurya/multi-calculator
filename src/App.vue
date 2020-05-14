@@ -1,10 +1,13 @@
 <template>
-  <div id="app">
+  <v-app>
+    <!-- <div id="app"> -->
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link :to="{ name: 'home' }">Home</router-link>
+      <router-link :to="{ name: 'convert' }">Convert</router-link>
     </div>
     <router-view />
-  </div>
+    <!-- </div> -->
+  </v-app>
 </template>
 
 <style>
@@ -26,6 +29,8 @@ body {
 }
 
 #app {
+  width: 404px;
+  min-height: 620px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -35,18 +40,23 @@ body {
 }
 
 #nav {
-  padding: 15px 0 0 0;
+  padding: 10px 0 10px 0;
   text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 #nav a {
   font-weight: bold;
   color: #2c3e50;
   text-decoration: none;
+  padding-left: 10px;
 }
 
-#nav a.router-link-exact-active {
+#nav a.router-link-exact-active,
+#nav a:focus {
   color: #42b983;
+  border: none;
+  outline: none;
 }
 
 @media screen and (max-width: 400px) {
