@@ -14,6 +14,8 @@
               <v-text-field
                 v-model="dob"
                 label="Date of birth"
+                hint="YYYY/MM/DD"
+                persistent-hint
                 :prepend-icon="event"
                 readonly
                 v-on="on"
@@ -23,6 +25,7 @@
               color="green accent-4"
               header-color="green"
               v-model="dob"
+              :max="today"
               scrollable
             >
               <v-spacer></v-spacer>
@@ -48,6 +51,8 @@
                 v-model="today"
                 label="Today"
                 :prepend-icon="event"
+                hint="YYYY/MM/DD"
+                persistent-hint
                 readonly
                 v-on="on"
               ></v-text-field>
@@ -56,6 +61,7 @@
               color="green accent-4"
               header-color="green"
               v-model="today"
+              :min="dob"
               scrollable
             >
               <v-spacer></v-spacer>
@@ -98,7 +104,7 @@
         <div class="next__icon">
           <img class="cake" src="../../assets/cake.svg" alt="cake" />
         </div>
-        <div class="next__weekday">age.next.weekday</div>
+        <div class="next__weekday">{{ age.next.weekday }}</div>
         <span class="diff__month">
           <span class="accent-small accent-bold"
             >{{ age.next.month || 0 }}
@@ -147,7 +153,7 @@
 
 <script>
 import { mdiCalendar } from "@mdi/js";
-import moment from "moment";
+import { getSummary, findDay, getNextBirthday } from "../../utils/date_util";
 
 export default {
   name: "Age",
@@ -166,6 +172,7 @@ export default {
       date.push(this.dob);
       date.push(this.today);
 
+      // parse the date string
       date = date.map(d => {
         d = d.split("-");
         d[0] = parseInt(d[0], 10);
@@ -176,39 +183,27 @@ export default {
         return d;
       });
 
-      // get bottom bar(summary )
-      const summary = this.getSummary(date[0], date[1]);
+      // get bottom bar(summary)
+      const summary = getSummary(date[0], date[1]);
 
+      // get left sidebar (age difference)
       const diff = {};
 
       diff.year = summary.year;
       diff.month = summary.month - summary.year * 12;
-      // find day and next birthday
+      diff.day = findDay(date[0], date[1]);
 
-      console.log(date, summary, diff);
+      // get right side bar(next birthday)
+      const next = getNextBirthday(date[0], date[1]);
+
       return {
         diff,
+        next,
         summary
       };
     }
   },
-  methods: {
-    getSummary(start, end) {
-      const startMoment = moment(start);
-      const endMoment = moment(end);
-
-      const summary = {};
-
-      summary.year = endMoment.diff(startMoment, "year");
-      summary.month = endMoment.diff(startMoment, "month");
-      summary.week = endMoment.diff(startMoment, "week");
-      summary.day = endMoment.diff(startMoment, "day");
-      summary.hour = endMoment.diff(startMoment, "hour");
-      summary.minute = endMoment.diff(startMoment, "minute");
-
-      return summary;
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -243,7 +238,7 @@ export default {
 }
 
 .age__diff h1 {
-  font-weight: 100;
+  font-weight: 400;
   font-size: 45px;
 }
 
@@ -259,7 +254,7 @@ export default {
 .age__next {
   display: inline-block;
   width: 49.5%;
-  padding-left: 15px;
+  padding: 0 10px;
   align-self: flex-end;
 }
 

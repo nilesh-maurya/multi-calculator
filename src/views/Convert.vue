@@ -6,7 +6,7 @@
         v-for="(item, index) in items"
         :key="index"
         :data-item="item.title"
-        @click="changeComponent"
+        @click="showComponent"
       >
         <img :data-item="item.title" src="" alt="" />
         <p :data-item="item.title">{{ item.title }}</p>
@@ -55,15 +55,14 @@ export default {
           ret = "convert-age";
           break;
         case "Date":
-          ret = "Date";
+          ret = "convert-date";
           break;
       }
       return ret;
     }
   },
   methods: {
-    changeComponent(ev) {
-      console.log(ev);
+    showComponent(ev) {
       this.showConvertItems = false;
       this.currentItem = ev.target.dataset.item;
     }
@@ -72,6 +71,10 @@ export default {
     "convert-age": () =>
       import(
         /* webpackPrefetch: true, webpackChunkname: "Age" */ "../components/convert/Age.vue"
+      ),
+    "convert-date": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Date" */ "../components/convert/Date.vue"
       )
   }
 };

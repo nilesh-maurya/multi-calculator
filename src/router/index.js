@@ -14,7 +14,9 @@ const routes = [
     path: "/convert/",
     name: "convert",
     component: () =>
-      import(/* webpackChunkName: "convert" */ "../views/Convert.vue")
+      import(
+        /* webpackPrefetch: true, webpackChunkName: "convert" */ "../views/Convert.vue"
+      )
   }
 ];
 
