@@ -7,15 +7,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home
+  },
+  {
+    path: "/convert/",
+    name: "convert",
+    component: () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkName: "convert" */ "../views/Convert.vue"
+      )
   }
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({

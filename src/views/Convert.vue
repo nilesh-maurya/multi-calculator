@@ -1,0 +1,133 @@
+<template>
+  <div class="convert">
+    <div class="convert__items" v-if="showConvertItems">
+      <div
+        class="convert__item"
+        v-for="(item, index) in items"
+        :key="index"
+        :data-item="item.title"
+        @click="showComponent"
+      >
+        <img :data-item="item.title" src="" alt="" />
+        <p :data-item="item.title">{{ item.title }}</p>
+      </div>
+    </div>
+    <div class="" v-else>
+      <div class="titlebar">
+        <button class="titlebar__back" @click="showConvertItems = true">
+          <img src="../assets/back.svg" />
+        </button>
+        <h3 class="titlebar__title">{{ currentItem }}</h3>
+      </div>
+      <component :is="currentItemComponent"></component>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Convert",
+  data() {
+    return {
+      showConvertItems: true,
+      currentItem: "",
+      items: [
+        { title: "Age" },
+        { title: "Date" },
+        { title: "Discount" },
+        { title: "Percentage" },
+        { title: "Length" },
+        { title: "Area" },
+        { title: "Volume" },
+        { title: "Temperature" },
+        { title: "Speed" },
+        { title: "Time" },
+        { title: "Mass" },
+        { title: "Numeral System" }
+      ]
+    };
+  },
+  computed: {
+    currentItemComponent() {
+      let ret = "";
+      switch (this.currentItem) {
+        case "Age":
+          ret = "convert-age";
+          break;
+        case "Date":
+          ret = "convert-date";
+          break;
+        case "Discount":
+          ret = "convert-discount";
+          break;
+      }
+      return ret;
+    }
+  },
+  methods: {
+    showComponent(ev) {
+      this.showConvertItems = false;
+      this.currentItem = ev.target.dataset.item;
+    }
+  },
+  components: {
+    "convert-age": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Age" */ "../components/convert/Age.vue"
+      ),
+    "convert-date": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Date" */ "../components/convert/Date.vue"
+      ),
+    "convert-discount": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Discount" */ "../components/convert/Discount.vue"
+      )
+  }
+};
+</script>
+
+<style scoped>
+.convert {
+  margin: 1rem;
+}
+
+.convert__items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.convert__item {
+  width: 100px;
+  font-size: 14px;
+  border: 1px solid #000;
+  padding: 2em 0.5em;
+  /* margin: 10px; */
+  cursor: pointer;
+}
+
+.titlebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.titlebar__back {
+  width: 18px;
+  height: 18px;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.titlebar__title {
+  flex: 2;
+  font-size: 20px;
+}
+</style>
