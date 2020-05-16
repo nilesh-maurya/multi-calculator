@@ -57,6 +57,9 @@ export default {
         case "Date":
           ret = "convert-date";
           break;
+        case "Discount":
+          ret = "convert-discount";
+          break;
       }
       return ret;
     }
@@ -75,6 +78,10 @@ export default {
     "convert-date": () =>
       import(
         /* webpackPrefetch: true, webpackChunkname: "Date" */ "../components/convert/Date.vue"
+      ),
+    "convert-discount": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Discount" */ "../components/convert/Discount.vue"
       )
   }
 };
@@ -121,5 +128,6 @@ export default {
 
 .titlebar__title {
   flex: 2;
+  font-size: 20px;
 }
 </style>
