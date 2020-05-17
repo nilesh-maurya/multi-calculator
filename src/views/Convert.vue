@@ -8,7 +8,7 @@
         :data-item="item.title"
         @click="showComponent"
       >
-        <img :data-item="item.title" src="" alt="" />
+        <img :data-item="item.title" :src="item.src" alt="" />
         <p :data-item="item.title">{{ item.title }}</p>
       </div>
     </div>
@@ -32,18 +32,19 @@ export default {
       showConvertItems: true,
       currentItem: "",
       items: [
-        { title: "Age" },
-        { title: "Date" },
-        { title: "Discount" },
-        { title: "Percentage" },
-        { title: "Length" },
-        { title: "Area" },
-        { title: "Volume" },
-        { title: "Temperature" },
-        { title: "Speed" },
-        { title: "Time" },
-        { title: "Mass" },
-        { title: "Numeral System" }
+        { title: "BMI", src: "../assets/" },
+        { title: "Age", src: "../assets/" },
+        { title: "Date", src: "../assets/" },
+        { title: "Discount", src: "../assets/" },
+        { title: "Percentage", src: "../assets/" },
+        { title: "Length", src: "../assets/" },
+        { title: "Area", src: "../assets/" },
+        { title: "Volume", src: "../assets/" },
+        { title: "Temperature", src: "../assets/" },
+        { title: "Speed", src: "../assets/" },
+        { title: "Time", src: "../assets/" },
+        { title: "Mass", src: "../assets/" },
+        { title: "Numeral System", src: "../assets/" }
       ]
     };
   },
@@ -105,7 +106,6 @@ export default {
   font-size: 14px;
   border: 1px solid #000;
   padding: 2em 0.5em;
-  /* margin: 10px; */
   cursor: pointer;
 }
 

@@ -6,7 +6,7 @@
         <span
           :class="{ focus: toggleFocus }"
           class="g-1 discount__price--result"
-          id="original_price"
+          data-id="1"
           @click="toggleFocus = true"
         >
           {{ original_price }}
@@ -17,7 +17,7 @@
         <span
           :class="{ focus: !toggleFocus }"
           class="g-1 discount__off--result"
-          id="discount_off"
+          data-id="2"
           @click="toggleFocus = false"
         >
           {{ discount }}
@@ -39,92 +39,63 @@
 <script>
 import { roundNumber } from "../../utils/math_util.js";
 import NumericKeypad from "../NumericKeypad.vue";
+import { getters, actions } from "../../utils/numeric-keypad-store.js";
 
 export default {
+  created() {
+    actions.reset();
+  },
   data() {
     return {
       toggleFocus: true,
-      original_price: "100",
-      discount: "10",
       final_price: 0,
       save: 0
     };
+  },
+  computed: {
+    original_price() {
+      return getters.getFirstInput();
+    },
+    discount() {
+      return getters.getSecondInput();
+    }
   },
   methods: {
     calculateDiscount() {
       const original_price = parseFloat(this.original_price);
       const discount = parseFloat(this.discount);
 
-      this.save = +(roundNumber((original_price * discount) / 100, 4));
-      this.final_price = +(roundNumber(original_price - this.save, 4));
+      this.save = +roundNumber((original_price * discount) / 100, 4);
+      this.final_price = +roundNumber(original_price - this.save, 4);
     },
-    handleInput(value) {
-      const focusElement = document.querySelector(".focus");
-      switch (value) {
-        case "AC": {
-          if (focusElement.id === "original_price") {
-            this.original_price = "0";
-          } else {
-            this.discount = "0";
-          }
+    handleInput(key) {
+      const focusElement = document.querySelector("span.focus");
 
+      switch (key) {
+        case "AC": {
+          actions.reset(focusElement);
           break;
         }
         case "BACKSPACE": {
-          if (
-            this.original_price !== "0" &&
-            focusElement.id === "original_price"
-          ) {
-            this.original_price =
-              this.original_price.length === 1
-                ? "0"
-                : this.original_price.slice(0, -1);
-          } else if (
-            this.discount !== "0" &&
-            focusElement.id === "discount_off"
-          ) {
-            this.discount =
-              this.discount.length === 1 ? "0" : this.discount.slice(0, -1);
-          }
+          actions.backspace(focusElement);
           break;
         }
         case ".": {
-          if (
-            focusElement.id === "original_price" &&
-            this.original_price.indexOf(".") === -1
-          ) {
-            this.original_price += ".";
-          } else if (
-            focusElement.id === "discount_off" &&
-            this.discount.indexOf(".") === -1
-          ) {
-            this.discount += ".";
-          }
+          actions.decimal(focusElement);
           break;
         }
         default: {
-          if (focusElement.id === "original_price") {
-            if (this.original_price.length > 18) {
-              return;
-            }
-            if (this.original_price === "0") {
-              this.original_price = value;
-            } else {
-              this.original_price = this.original_price + value;
-            }
-          } else if (focusElement.id === "discount_off") {
-            if (this.discount.length > 6) {
-              return;
-            }
-            if (this.discount === "0") {
-              this.discount = value;
-            } else {
-              const check = parseFloat(this.discount + value) <= 100.0;
-              if (check) {
-                this.discount = this.discount + value;
-              }
+          if (focusElement.dataset.id === "2") {
+            const check = parseFloat(this.discount + key) <= 100.0;
+            if (!check) break;
+
+            if (this.discount.length > 6) break;
+          } else if (focusElement.dataset.id === "1") {
+            if (this.original_price.indexOf(".") !== -1) {
+              if (this.original_price.split(".")[1].length > 3) break;
             }
           }
+          actions.number(focusElement, key);
         }
       }
       this.calculateDiscount();

@@ -138,7 +138,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   margin: 10px;
-  padding: 30px 10px;
+  padding: 35px 10px;
   border-radius: 50px;
   background-color: #eee;
 }
