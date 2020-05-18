@@ -52,6 +52,9 @@ export default {
     currentItemComponent() {
       let ret = "";
       switch (this.currentItem) {
+        case "BMI":
+          ret = "convert-bmi";
+          break;
         case "Age":
           ret = "convert-age";
           break;
@@ -61,6 +64,32 @@ export default {
         case "Discount":
           ret = "convert-discount";
           break;
+        case "Percentage":
+          ret = "convert-percentage";
+          break;
+        case "Length":
+          ret = "convert-length";
+          break;
+        case "Area":
+          ret = "convert-area";
+          break;
+        case "Volume":
+          ret = "convert-volume";
+          break;
+        case "Temperature":
+          ret = "convert-temperature";
+          break;
+        case "Speed":
+          ret = "convert-speed";
+          break;
+        case "Time":
+          ret = "convert-time";
+          break;
+        case "Mass":
+          ret = "convert-mass";
+          break;
+        case "Numeral System":
+          ret = "convert-numeral-system";
       }
       return ret;
     }
@@ -83,6 +112,10 @@ export default {
     "convert-discount": () =>
       import(
         /* webpackPrefetch: true, webpackChunkname: "Discount" */ "../components/convert/Discount.vue"
+      ),
+    "convert-percentage": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Percentage" */ "../components/convert/Percentage.vue"
       )
   }
 };

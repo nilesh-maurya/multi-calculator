@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-divider></v-divider>
-    <div class="numeric-keypad">
+    <div class="numeric-keypad unselectable">
       <div class="left">
         <div class="left__btnrow">
           <button class="left__btn" @click="clickHandler" data-value="7">
@@ -95,10 +95,19 @@ button::-moz-focus-inner {
   outline: none !important;
 }
 
+button {
+  transform: scale(1);
+  transition: transform ease-in-out 0.15s 0s;
+}
+
 button:hover {
+  transform: scale(0.8);
   background-color: #eee;
 }
 
+button:focus {
+  transform: scale(1);
+}
 .numeric-keypad {
   width: 100%;
   display: flex;

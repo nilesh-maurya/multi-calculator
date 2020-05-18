@@ -1,37 +1,37 @@
 <template>
   <div>
-    <div class="discount">
-      <div class="discount__item discount__price unselectable">
-        <span class="discount__price--text">Original price</span>
+    <div class="percentage">
+      <div class="percentage__item percentage__total unselectable">
+        <span class="percentage__total--text">Total</span>
         <span
           :class="{ focus: toggleFocus }"
-          class="g-1 discount__price--result"
+          class="g-1 percentage__total--result"
           data-id="1"
           @click="toggleFocus = true"
         >
-          {{ this.formatWithCommas(original_price) }}
+          {{ this.formatWithCommas(total) }}
         </span>
       </div>
-      <div class="discount__item discount__off unselectable">
-        <span class="discount__off--text">Discount (% off)</span>
+      <div class="percentage__item percentage__per unselectable">
+        <span class="percentage__per--text">
+          Percentage
+        </span>
         <span
           :class="{ focus: !toggleFocus }"
-          class="g-1 discount__off--result"
+          class="g-1 percentage__per--result"
           data-id="2"
           @click="toggleFocus = false"
         >
-          {{ discount }}
+          {{ percentage }}
         </span>
       </div>
-      <div class="discount__item discount__total">
-        <span class="discount__total--text unselectable">Final price</span>
-        <span class="discount__total--result">
-          {{ this.formatWithCommas(final_price) }}
+      <div class="percentage__item percentage__result">
+        <span class="percentage__result--text unselectable">
+          Result
         </span>
-      </div>
-
-      <div class="discount__item discount__save">
-        <span>You save {{ this.formatWithCommas(save) }}</span>
+        <span class="percentage__result--result">
+          {{ this.formatWithCommas(result) }}
+        </span>
       </div>
     </div>
     <numeric-keypad @click-numeric-key="handleInput"></numeric-keypad>
@@ -50,25 +50,23 @@ export default {
   data() {
     return {
       toggleFocus: true,
-      final_price: 0,
-      save: 0
+      result: 0
     };
   },
   computed: {
-    original_price() {
+    total() {
       return getters.getFirstInput();
     },
-    discount() {
+    percentage() {
       return getters.getSecondInput();
     }
   },
   methods: {
-    calculateDiscount() {
-      const original_price = parseFloat(this.original_price);
-      const discount = parseFloat(this.discount);
+    calculatePercentage() {
+      const total = parseFloat(this.total);
+      const percentage = parseFloat(this.percentage);
 
-      this.save = +roundNumber((original_price * discount) / 100, 4);
-      this.final_price = +roundNumber(original_price - this.save, 4);
+      this.result = +roundNumber((total * percentage) / 100, 4);
     },
     handleInput(key) {
       const focusElement = document.querySelector("span.focus");
@@ -88,19 +86,19 @@ export default {
         }
         default: {
           if (focusElement.dataset.id === "2") {
-            const check = parseFloat(this.discount + key) <= 100.0;
+            const check = parseFloat(this.percentage + key) <= 100.0;
             if (!check) break;
 
-            if (this.discount.length > 6) break;
+            if (this.percentage.length > 6) break;
           } else if (focusElement.dataset.id === "1") {
-            if (this.original_price.indexOf(".") !== -1) {
-              if (this.original_price.split(".")[1].length > 3) break;
+            if (this.total.indexOf(".") !== -1) {
+              if (this.total.split(".")[1].length > 3) break;
             }
           }
           actions.number(focusElement, key);
         }
       }
-      this.calculateDiscount();
+      this.calculatePercentage();
     },
     formatWithCommas(number) {
       return formatNumber(number);
@@ -113,27 +111,21 @@ export default {
 </script>
 
 <style scoped>
-.discount .focus {
+.percentage .focus {
   background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-.discount {
+.percentage {
   margin-top: 30px;
 }
 
-.discount__item {
+.percentage__item {
   display: flex;
   justify-content: space-between;
   margin: 10px 0 20px 0;
   font-size: 18px;
-}
-
-.discount__save {
-  display: block;
-  text-align: center;
-  color: #bbb;
 }
 </style>
