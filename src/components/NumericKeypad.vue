@@ -101,13 +101,9 @@ button {
 }
 
 button:hover {
-  transform: scale(0.8);
   background-color: #eee;
 }
 
-button:focus {
-  transform: scale(1);
-}
 .numeric-keypad {
   width: 100%;
   display: flex;

@@ -67,8 +67,8 @@ export const actions = {
   number(focusElement, key) {
     if (focusElement.dataset.id === "1") {
       let value = getters.getFirstInput();
-
-      if (value.length > 15) return;
+      const len = value.indexOf(".") === -1 ? 15 : 17;
+      if (value.length >= len) return;
 
       if (value === "0") {
         value = key;
@@ -79,8 +79,9 @@ export const actions = {
       mutations.setFirstInput(value);
     } else if (focusElement.dataset.id === "2") {
       let value = getters.getSecondInput();
+      const len = value.indexOf(".") === -1 ? 15 : 17;
 
-      if (value.length > 15) return;
+      if (value.length >= len) return;
 
       if (value === "0") {
         value = key;

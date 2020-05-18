@@ -29,8 +29,15 @@ function getLang() {
 }
 
 export function formatNumber(number) {
+  const n = number.toString().split(".")[1];
+
   if (window.Intl && typeof window.Intl === "object") {
-    return new Intl.NumberFormat(getLang()).format(number);
+    number = new Intl.NumberFormat(getLang()).format(number);
   }
+
+  if (n === "") {
+    number += ".";
+  }
+
   return number;
 }

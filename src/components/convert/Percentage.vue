@@ -85,15 +85,17 @@ export default {
           break;
         }
         default: {
-          if (focusElement.dataset.id === "2") {
-            const check = parseFloat(this.percentage + key) <= 100.0;
-            if (!check) break;
+          if (focusElement.dataset.id === "1") {
+            const check = this.total.split(".")[1];
 
-            if (this.percentage.length > 6) break;
-          } else if (focusElement.dataset.id === "1") {
-            if (this.total.indexOf(".") !== -1) {
-              if (this.total.split(".")[1].length > 3) break;
-            }
+            if (check !== undefined && check.length >= 3) return;
+          } else if (focusElement.dataset.id === "2") {
+            let check = parseFloat(this.percentage + key) <= 100.0;
+            if (!check) return;
+
+            check = this.percentage.split(".")[1];
+
+            if (check !== undefined && check.length >= 3) return;
           }
           actions.number(focusElement, key);
         }
