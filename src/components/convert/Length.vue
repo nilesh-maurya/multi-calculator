@@ -70,7 +70,6 @@ export default {
           break;
         }
         case ".": {
-          console.log(focusElement);
           actions.decimal(focusElement);
           break;
         }
