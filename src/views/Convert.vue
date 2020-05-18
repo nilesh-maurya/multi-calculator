@@ -116,6 +116,10 @@ export default {
     "convert-percentage": () =>
       import(
         /* webpackPrefetch: true, webpackChunkname: "Percentage" */ "../components/convert/Percentage.vue"
+      ),
+    "convert-length": () =>
+      import(
+        /* webpackPrefetch: true, webpackChunkname: "Length" */ "../components/convert/Length.vue"
       )
   }
 };
@@ -162,5 +166,11 @@ export default {
 .titlebar__title {
   flex: 2;
   font-size: 20px;
+}
+
+button:focus,
+button::-moz-focus-inner {
+  border: none;
+  outline: none !important;
 }
 </style>
