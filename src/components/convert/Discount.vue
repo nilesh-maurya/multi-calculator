@@ -34,7 +34,7 @@
         <span>You save {{ this.formatWithCommas(save) }}</span>
       </div>
     </div>
-    <numeric-keypad @click-numeric-key="handleInput"></numeric-keypad>
+    <numeric-keypad @numeric-key-event="handleInput"></numeric-keypad>
   </div>
 </template>
 
@@ -78,7 +78,7 @@ export default {
           actions.reset(focusElement);
           break;
         }
-        case "BACKSPACE": {
+        case "Backspace": {
           actions.backspace(focusElement);
           break;
         }
@@ -87,17 +87,9 @@ export default {
           break;
         }
         default: {
-          if (focusElement.dataset.id === "1") {
-            const check = this.original_price.split(".")[1];
-            if (check !== undefined && check.length >= 3) {
-              return;
-            }
-          } else if (focusElement.dataset.id === "2") {
+          if (focusElement.dataset.id === "2") {
             let check = parseFloat(this.discount + key) <= 100.0;
             if (!check) return;
-
-            check = this.discount.split(".")[1];
-            if (check !== undefined && check.length >= 3) return;
           }
           actions.number(focusElement, key);
         }

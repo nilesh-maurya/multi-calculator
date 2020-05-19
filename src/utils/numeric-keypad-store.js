@@ -67,6 +67,10 @@ export const actions = {
   number(focusElement, key) {
     if (focusElement.dataset.id === "1") {
       let value = getters.getFirstInput();
+
+      const check = value.split(".")[1];
+      if (check !== undefined && check.length >= 3) return;
+
       const len = value.indexOf(".") === -1 ? 15 : 17;
       if (value.length >= len) return;
 
@@ -79,8 +83,11 @@ export const actions = {
       mutations.setFirstInput(value);
     } else if (focusElement.dataset.id === "2") {
       let value = getters.getSecondInput();
-      const len = value.indexOf(".") === -1 ? 15 : 17;
 
+      const check = value.split(".")[1];
+      if (check !== undefined && check.length >= 3) return;
+
+      const len = value.indexOf(".") === -1 ? 15 : 17;
       if (value.length >= len) return;
 
       if (value === "0") {

@@ -50,7 +50,7 @@
         <button
           class="numeric-btn"
           @click="clickHandler"
-          data-value="BACKSPACE"
+          data-value="Backspace"
         >
           <v-icon color="#09b464">{{ backspace }}</v-icon>
         </button>
@@ -65,17 +65,42 @@
 <script>
 import { mdiBackspaceOutline } from "@mdi/js";
 export default {
+  created() {
+    window.addEventListener("keyup", this.keyupHandler);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keyup", this.keyupHandler);
+  },
   data() {
     return {
-      backspace: mdiBackspaceOutline
+      backspace: mdiBackspaceOutline,
+      allowedKeys: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "0",
+        ".",
+        "Backspace"
+      ]
     };
   },
   methods: {
+    keyupHandler(ev) {
+      if (this.allowedKeys.includes(ev.key)) {
+        this.$emit("numeric-key-event", ev.key);
+      }
+    },
     clickHandler(ev) {
       if (ev.currentTarget) {
-        this.$emit("click-numeric-key", ev.currentTarget.dataset.value);
+        this.$emit("numeric-key-event", ev.currentTarget.dataset.value);
       } else {
-        this.$emit("click-numeric-key", ev.target.dataset.value);
+        this.$emit("numeric-key-event", ev.target.dataset.value);
       }
     }
   }

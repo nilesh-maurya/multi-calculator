@@ -26,7 +26,7 @@
         {{ this.formatWithCommas(second_input) }}
       </span>
     </v-row>
-    <numeric-keypad @click-numeric-key="handleInput"></numeric-keypad>
+    <numeric-keypad @numeric-key-event="handleInput"></numeric-keypad>
   </div>
 </template>
 
@@ -65,7 +65,7 @@ export default {
           actions.reset(focusElement);
           break;
         }
-        case "BACKSPACE": {
+        case "Backspace": {
           actions.backspace(focusElement);
           break;
         }
