@@ -64,12 +64,12 @@ export const actions = {
       mutations.setSecondInput(getters.getSecondInput() + ".");
     }
   },
-  number(focusElement, key) {
+  number(focusElement, key, decimalDigit) {
     if (focusElement.dataset.id === "1") {
       let value = getters.getFirstInput();
 
       const check = value.split(".")[1];
-      if (check !== undefined && check.length >= 3) return;
+      if (check !== undefined && check.length >= decimalDigit) return;
 
       const len = value.indexOf(".") === -1 ? 15 : 17;
       if (value.length >= len) return;
@@ -85,7 +85,7 @@ export const actions = {
       let value = getters.getSecondInput();
 
       const check = value.split(".")[1];
-      if (check !== undefined && check.length >= 3) return;
+      if (check !== undefined && check.length >= decimalDigit) return;
 
       const len = value.indexOf(".") === -1 ? 15 : 17;
       if (value.length >= len) return;

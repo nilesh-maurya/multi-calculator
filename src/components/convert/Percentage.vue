@@ -89,7 +89,7 @@ export default {
             let check = parseFloat(this.percentage + key) <= 100.0;
             if (!check) return;
           }
-          actions.number(focusElement, key);
+          actions.number(focusElement, key, 3);
         }
       }
       this.calculatePercentage();

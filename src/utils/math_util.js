@@ -32,7 +32,9 @@ export function formatNumber(number) {
   const n = number.toString().split(".")[1];
 
   if (window.Intl && typeof window.Intl === "object") {
-    number = new Intl.NumberFormat(getLang()).format(number);
+    number = new Intl.NumberFormat(getLang(), {
+      maximumFractionDigits: 12
+    }).format(number);
   }
 
   if (n === "") {
