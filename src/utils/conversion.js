@@ -14,15 +14,10 @@ const convert = function(value, measure) {
 Converter.prototype.getUnit = function(abbr) {
   let found;
 
-  // console.log(abbr);
-
   const currentMeasure = measures[this.measure];
 
   for (let [system, units] of Object.entries(currentMeasure)) {
-    // console.log(system, units);
-
     for (let [unitAbbr, unit] of Object.entries(units)) {
-      // console.log(unitAbbr, unit);
       if (unitAbbr === abbr) {
         found = {
           abbr: abbr,
@@ -82,7 +77,6 @@ Converter.prototype.to = function(to) {
   /**  convert from its anchor to another unit
    * eg.Imperial anchor is ft => to convert to destination(like inch) divide by its anchor
    */
-  console.log(result / this.destination.unit.to_anchor);
   return result / this.destination.unit.to_anchor;
 };
 
