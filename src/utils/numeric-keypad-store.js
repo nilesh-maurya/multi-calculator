@@ -17,19 +17,19 @@ export const mutations = {
 };
 
 export const actions = {
-  reset(focusElement) {
-    if (focusElement === undefined) {
+  reset(id) {
+    if (id === undefined) {
       // when component is first loaded
       mutations.setFirstInput("0");
       mutations.setSecondInput("0");
-    } else if (focusElement.dataset.id === "1") {
+    } else if (id === "1") {
       mutations.setFirstInput("0");
-    } else if (focusElement.dataset.id === "2") {
+    } else if (id === "2") {
       mutations.setSecondInput("0");
     }
   },
-  backspace(focusElement) {
-    if (focusElement.dataset.id === "1") {
+  backspace(id) {
+    if (id === "1") {
       // focus on first element
       const value = getters.getFirstInput();
       if (value !== "0") {
@@ -39,7 +39,7 @@ export const actions = {
           mutations.setFirstInput(value.slice(0, -1));
         }
       }
-    } else if (focusElement.dataset.id === "2") {
+    } else if (id === "2") {
       // focus on second element
       const value = getters.getSecondInput();
       if (value !== "0") {
@@ -51,21 +51,15 @@ export const actions = {
       }
     }
   },
-  decimal(focusElement) {
-    if (
-      focusElement.dataset.id === "1" &&
-      getters.getFirstInput().indexOf(".") === -1
-    ) {
+  decimal(id) {
+    if (id === "1" && getters.getFirstInput().indexOf(".") === -1) {
       mutations.setFirstInput(getters.getFirstInput() + ".");
-    } else if (
-      focusElement.dataset.id === "2" &&
-      getters.getSecondInput().indexOf(".") === -1
-    ) {
+    } else if (id === "2" && getters.getSecondInput().indexOf(".") === -1) {
       mutations.setSecondInput(getters.getSecondInput() + ".");
     }
   },
-  number(focusElement, key, decimalDigit) {
-    if (focusElement.dataset.id === "1") {
+  number(id, key, decimalDigit) {
+    if (id === "1") {
       let value = getters.getFirstInput();
 
       const check = value.split(".")[1];
@@ -81,7 +75,7 @@ export const actions = {
       }
 
       mutations.setFirstInput(value);
-    } else if (focusElement.dataset.id === "2") {
+    } else if (id === "2") {
       let value = getters.getSecondInput();
 
       const check = value.split(".")[1];
