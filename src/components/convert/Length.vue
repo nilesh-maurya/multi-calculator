@@ -11,6 +11,7 @@
           persistent-hint
           return-object
           color="#09b464"
+          @change="handleChange('1')"
         ></v-select>
       </v-col>
       <span
@@ -33,6 +34,7 @@
           persistent-hint
           return-object
           color="#09b464"
+          @change="handleChange('2')"
         ></v-select>
       </v-col>
       <span
@@ -44,17 +46,12 @@
         {{ second_input }}
       </span>
     </v-row>
-    <!-- <div class="formula">
-      <strong>Formula: </strong>
-      <p class="formula__text">{{ formula }}</p>
-    </div> -->
     <numeric-keypad @numeric-key-event="handleInput"></numeric-keypad>
   </div>
 </template>
 
 <script>
 import NumericKeypad from "../NumericKeypad";
-import { formatNumber } from "../../utils/math_util";
 import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
 import { convert } from "../../utils/conversion";
 
@@ -96,50 +93,51 @@ export default {
   },
   methods: {
     handleInput(key) {
-      const focusElement = document.querySelector("span.focus");
+      const id = document.querySelector("span.focus").dataset.id;
 
       switch (key) {
         case "AC": {
-          actions.reset(focusElement);
+          actions.reset(id);
           break;
         }
         case "Backspace": {
-          actions.backspace(focusElement);
+          actions.backspace(id);
           break;
         }
         case ".": {
-          actions.decimal(focusElement);
+          actions.decimal(id);
           break;
         }
         default: {
-          if (focusElement.dataset.id === "1") {
-            //
-          } else if (focusElement.dataset.id === "2") {
-            //
-          }
-          actions.number(focusElement, key, 10);
+          actions.number(id, key, 10);
         }
       }
-      this.calculateLength(focusElement);
+      this.calculateLength(id);
     },
-    calculateLength(focusElement) {
+    handleChange(id) {
+      if (this.toggleFocus === true) {
+        id = "1";
+      } else {
+        id = "2";
+      }
+
+      this.calculateLength(id);
+    },
+    calculateLength(id) {
       // find conversion here
       let convertedValue;
-      if (focusElement.dataset.id === "1") {
+      if (id === "1") {
         convertedValue = convert(this.first_input, "length")
           .from(this.select1.abbr)
           .to(this.select2.abbr);
 
         mutations.setSecondInput(convertedValue.toString(10));
-      } else if (focusElement.dataset.id === "2") {
+      } else if (id === "2") {
         convertedValue = convert(this.second_input, "length")
           .from(this.select2.abbr)
           .to(this.select1.abbr);
         mutations.setFirstInput(convertedValue.toString(10));
       }
-    },
-    formatWithCommas(number) {
-      return formatNumber(number);
     }
   },
   components: {
@@ -162,10 +160,4 @@ export default {
   margin: 0 10px 0 0;
   font-size: 18px;
 }
-
-/* .formula {
-  margin: 10px 0 0 0;
-  font-size: 14px;
-  color: gray;
-} */
 </style>

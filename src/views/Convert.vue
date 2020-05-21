@@ -14,7 +14,10 @@
     </div>
     <div class="" v-else>
       <div class="titlebar">
-        <button class="titlebar__back" @click="showConvertItems = true">
+        <button
+          class="titlebar__back btn-back"
+          @click="showConvertItems = true"
+        >
           <img src="../assets/back.svg" />
         </button>
         <h3 class="titlebar__title">{{ currentItem }}</h3>
@@ -131,19 +134,18 @@ export default {
 }
 
 .convert__items {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
   text-align: center;
 }
 
 .convert__item {
-  width: 100px;
+  display: inline-block;
   font-size: 14px;
-  border: 1px solid #000;
+  width: 100px;
+  margin: 2px;
   padding: 2em 0.5em;
+  border: 1px solid #000;
   cursor: pointer;
+  text-align: center;
 }
 
 .titlebar {

@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <!-- <div id="app"> -->
     <div id="nav">
-      <router-link :to="{ name: 'home' }">Home</router-link>
-      <router-link :to="{ name: 'convert' }">Convert</router-link>
+      <router-link class="btn-back" :to="{ name: 'home' }">Home</router-link>
+      <router-link class="btn-back" :to="{ name: 'convert' }">
+        Convert
+      </router-link>
     </div>
     <router-view />
-    <!-- </div> -->
   </v-app>
 </template>
 
@@ -57,6 +57,11 @@ body {
   color: #42b983;
   border: none;
   outline: none;
+}
+
+button.btn-back:focus,
+a.btn-focus:focus {
+  outline: 2px dotted #09b464;
 }
 
 .unselectable {
