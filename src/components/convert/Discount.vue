@@ -71,27 +71,27 @@ export default {
       this.final_price = +roundNumber(original_price - this.save, 4);
     },
     handleInput(key) {
-      const focusElement = document.querySelector("span.focus");
+      const id = document.querySelector("span.focus").dataset.id;
 
       switch (key) {
         case "AC": {
-          actions.reset(focusElement);
+          actions.reset(id);
           break;
         }
         case "Backspace": {
-          actions.backspace(focusElement);
+          actions.backspace(id);
           break;
         }
         case ".": {
-          actions.decimal(focusElement);
+          actions.decimal(id);
           break;
         }
         default: {
-          if (focusElement.dataset.id === "2") {
+          if (id === "2") {
             let check = parseFloat(this.discount + key) <= 100.0;
             if (!check) return;
           }
-          actions.number(focusElement, key, 3);
+          actions.number(id, key, 3);
         }
       }
       this.calculateDiscount();
