@@ -7,6 +7,7 @@
           :items="items"
           item-text="unit"
           item-value="abbr"
+          item-color="green"
           :hint="select1.abbr"
           persistent-hint
           return-object
@@ -30,6 +31,7 @@
           :items="items"
           item-text="unit"
           item-value="abbr"
+          item-color="green"
           :hint="select2.abbr"
           persistent-hint
           return-object
@@ -147,6 +149,10 @@ export default {
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+  opacity: 1;
+}
+
 .length .focus {
   background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
   color: transparent;
