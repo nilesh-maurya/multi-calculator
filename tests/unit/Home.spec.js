@@ -32,8 +32,6 @@ describe("testing Home.vue", () => {
 
         const emittedValue = button.emitted()["click-keypad-btn"][0][0].value;
 
-        // console.log(inputDiv.text(), resultDiv.text(), emittedValue);
-
         if (emittedValue !== ".") {
           expect(inputDiv.text()).toBe(emittedValue);
           expect(resultDiv.text()).toBe("= " + emittedValue);
@@ -43,32 +41,5 @@ describe("testing Home.vue", () => {
         }
       }
     });
-
-    // it("testing operator key", async () => {
-    //   const wrapper = mount(Home, { localVue });
-    //   const inputDiv = wrapper.find(".input");
-    //   const resultDiv = wrapper.find(".calculator__result");
-
-    //   const operatorBtnWrapper = wrapper.findAll(
-    //     "button[data-type='operator']"
-    //   );
-
-    //   for (let i = 0; i < operatorBtnWrapper.length; i++) {
-    //     const operatorBtn = operatorBtnWrapper.at(i);
-    //     operatorBtn.trigger("click");
-
-    //     await wrapper.vm.$nextTick();
-
-    //     const emittedValue = operatorBtn.emitted()["click-keypad-btn"][0][0]
-    //       .value;
-
-    //     console.log(
-    //       inputDiv.text(),
-    //       resultDiv.text(),
-    //       emittedValue,
-    //       inputDiv.text() == "0" + emittedValue
-    //     );
-    //   }
-    // });
   });
 });
