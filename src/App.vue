@@ -73,6 +73,23 @@ a.btn-focus:focus {
   user-select: none;
 }
 
+/* Scroll bar color and width styling */
+.v-menu__content::-webkit-scrollbar {
+  width: 6px;
+}
+.v-menu__content::-webkit-scrollbar-track {
+  background: white;
+}
+.v-menu__content::-webkit-scrollbar-thumb {
+  background-color: rgb(18, 193, 111);
+  border-radius: 3px;
+}
+
+.v-menu__content {
+  scrollbar-color: rgb(18, 193, 111) white;
+  scrollbar-width: thin;
+}
+
 @media screen and (max-width: 400px) {
   body {
     max-width: 400px;

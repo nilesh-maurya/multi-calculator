@@ -149,10 +149,6 @@ export default {
 </script>
 
 <style scoped>
-::-webkit-scrollbar {
-  opacity: 1;
-}
-
 .length .focus {
   background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
   color: transparent;
