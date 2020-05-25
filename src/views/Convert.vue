@@ -36,6 +36,7 @@ export default {
       currentItem: "",
       items: [
         { title: "BMI", src: "../assets/" },
+        { title: "Angle", src: "../assets/" },
         { title: "Age", src: "../assets/" },
         { title: "Date", src: "../assets/" },
         { title: "Discount", src: "../assets/" },
@@ -57,6 +58,9 @@ export default {
       switch (this.currentItem) {
         case "BMI":
           ret = "convert-bmi";
+          break;
+        case "Angle":
+          ret = "convert-angle";
           break;
         case "Age":
           ret = "convert-age";
@@ -104,6 +108,12 @@ export default {
     }
   },
   components: {
+    "convert-angle": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Angle" */
+        "../components/convert/Angle.vue"
+      ),
     "convert-age": () =>
       import(
         /* webpackPrefetch: true */
@@ -144,7 +154,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .convert {
   margin: 1rem;
 }
@@ -184,6 +194,20 @@ export default {
 .titlebar__title {
   flex: 2;
   font-size: 20px;
+}
+
+.wrapper-convert-element .focus {
+  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.wrapper__item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px 0 0;
+  font-size: 18px;
 }
 
 button:focus,

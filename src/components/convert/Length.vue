@@ -1,6 +1,6 @@
 <template>
-  <div class="length">
-    <v-row align="center" class="length__item">
+  <div class="length wrapper-convert-element">
+    <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
           v-model="select1"
@@ -24,7 +24,7 @@
         {{ first_input }}
       </span>
     </v-row>
-    <v-row align="center" class="length__item">
+    <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
           v-model="select2"
@@ -147,19 +147,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.length .focus {
-  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-.length__item {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 10px 0 0;
-  font-size: 18px;
-}
-</style>

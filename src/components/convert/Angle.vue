@@ -1,5 +1,5 @@
 <template>
-  <div class="area wrapper-convert-element">
+  <div class="angle wrapper-convert-element">
     <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
@@ -17,7 +17,7 @@
       </v-col>
       <span
         :class="{ focus: toggleFocus }"
-        class="g-1 area__input-1"
+        class="g-1 angle__input-1"
         data-id="1"
         @click="toggleFocus = true"
       >
@@ -41,7 +41,7 @@
       </v-col>
       <span
         :class="{ focus: !toggleFocus }"
-        class="g-2 area__input-2"
+        class="g-2 angle__input-2"
         data-id="2"
         @click="toggleFocus = false"
       >
@@ -58,28 +58,21 @@ import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
 import { convert } from "../../utils/conversion";
 
 export default {
-  name: "Area",
+  name: "Angle",
   created() {
     actions.reset();
   },
   data() {
     return {
       toggleFocus: true,
-      select1: { unit: "Square kilometer", abbr: "km2" },
-      select2: { unit: "Sqaure meter", abbr: "m2" },
+      select1: { unit: "Degree", abbr: "deg" },
+      select2: { unit: "Radian", abbr: "rad" },
       items: [
-        { unit: "Square kilometer", abbr: "km2" },
-        { unit: "Hectare", abbr: "ha" },
-        { unit: "Square meter", abbr: "m2" },
-        { unit: "Square decimeter", abbr: "dm2" },
-        { unit: "Square centimeter", abbr: "cm2" },
-        { unit: "Square millimeter", abbr: "mm2" },
-        { unit: "Square Micron", abbr: "um2" },
-        { unit: "Square inch", abbr: "in2" },
-        { unit: "Square foot", abbr: "ft2" },
-        { unit: "Acre", abbr: "ac" },
-        { unit: "Square yard", abbr: "yd2" },
-        { unit: "Square mile", abbr: "mi2" }
+        { unit: "Degree", abbr: "deg" },
+        { unit: "Radian", abbr: "rad" },
+        { unit: "Gradian", abbr: "grad" },
+        { unit: "Minute of arc", abbr: "arcmin" },
+        { unit: "Second of arc", abbr: "arcsec" }
       ]
     };
   },
@@ -112,7 +105,7 @@ export default {
           actions.number(id, key, 10);
         }
       }
-      this.calculateArea(id);
+      this.calculateAngle(id);
     },
     handleChange(id) {
       if (this.toggleFocus === true) {
@@ -121,19 +114,19 @@ export default {
         id = "2";
       }
 
-      this.calculateArea(id);
+      this.calculateAngle(id);
     },
-    calculateArea(id) {
+    calculateAngle(id) {
       // find conversion here
       let convertedValue;
       if (id === "1") {
-        convertedValue = convert(this.first_input, "area")
+        convertedValue = convert(this.first_input, "angle")
           .from(this.select1.abbr)
           .to(this.select2.abbr);
 
         mutations.setSecondInput(convertedValue.toString(10));
       } else if (id === "2") {
-        convertedValue = convert(this.second_input, "area")
+        convertedValue = convert(this.second_input, "angle")
           .from(this.select2.abbr)
           .to(this.select1.abbr);
         mutations.setFirstInput(convertedValue.toString(10));

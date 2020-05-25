@@ -1,7 +1,8 @@
 import length from "./definitions/length";
 import area from "./definitions/area";
+import angle from "./definitions/angle";
 
-const measures = { length, area };
+const measures = { length, area, angle };
 
 const Converter = function(value, measure) {
   this.value = parseFloat(value);
