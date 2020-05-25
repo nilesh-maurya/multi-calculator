@@ -106,23 +106,39 @@ export default {
   components: {
     "convert-age": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Age" */ "../components/convert/Age.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Age" */
+        "../components/convert/Age.vue"
       ),
     "convert-date": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Date" */ "../components/convert/Date.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Date" */
+        "../components/convert/Date.vue"
       ),
     "convert-discount": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Discount" */ "../components/convert/Discount.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Discount" */
+        "../components/convert/Discount.vue"
       ),
     "convert-percentage": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Percentage" */ "../components/convert/Percentage.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Percentage" */
+        "../components/convert/Percentage.vue"
       ),
     "convert-length": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Length" */ "../components/convert/Length.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Length" */
+        "../components/convert/Length.vue"
+      ),
+    "convert-area": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Area" */
+        "../components/convert/Area.vue"
       )
   }
 };
