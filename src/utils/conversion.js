@@ -1,8 +1,9 @@
 import length from "./definitions/length";
 import area from "./definitions/area";
 import angle from "./definitions/angle";
+import volume from "./definitions/volume";
 
-const measures = { length, area, angle };
+const measures = { length, area, angle, volume };
 
 const Converter = function(value, measure) {
   this.value = parseFloat(value);
@@ -19,6 +20,9 @@ Converter.prototype.getUnit = function(abbr) {
   const currentMeasure = measures[this.measure];
 
   for (let [system, units] of Object.entries(currentMeasure)) {
+    if (system === "_anchors") {
+      break;
+    }
     for (let [unitAbbr, unit] of Object.entries(units)) {
       if (unitAbbr === abbr) {
         found = {

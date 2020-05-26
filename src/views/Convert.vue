@@ -149,6 +149,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Area" */
         "../components/convert/Area.vue"
+      ),
+    "convert-volume": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Volume" */
+        "../components/convert/Volume.vue"
       )
   }
 };
@@ -160,18 +166,16 @@ export default {
 }
 
 .convert__items {
-  width: 85%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 0 auto;
 }
 
 .convert__item {
   display: inline-block;
   font-size: 14px;
   width: 100px;
-  margin: 2px;
+  margin: 3px;
   padding: 2em 0.5em;
   border: 1px solid #000;
   cursor: pointer;
