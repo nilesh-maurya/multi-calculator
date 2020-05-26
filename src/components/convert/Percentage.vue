@@ -18,7 +18,7 @@
         </span>
         <span
           :class="{ focus: !toggleFocus }"
-          class="g-1 percentage__per--result"
+          class="g-2 percentage__per--result"
           data-id="2"
           @click="toggleFocus = false"
         >

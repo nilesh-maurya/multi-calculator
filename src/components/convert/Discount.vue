@@ -16,7 +16,7 @@
         <span class="discount__off--text">Discount (% off)</span>
         <span
           :class="{ focus: !toggleFocus }"
-          class="g-1 discount__off--result"
+          class="g-2 discount__off--result"
           data-id="2"
           @click="toggleFocus = false"
         >

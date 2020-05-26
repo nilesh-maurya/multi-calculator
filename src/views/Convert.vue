@@ -160,7 +160,11 @@ export default {
 }
 
 .convert__items {
-  text-align: center;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
 }
 
 .convert__item {
@@ -208,6 +212,13 @@ export default {
   justify-content: space-between;
   margin: 0 10px 0 0;
   font-size: 18px;
+}
+
+.g-1,
+.g-2 {
+  flex: 0.3;
+  text-align: right;
+  cursor: pointer;
 }
 
 button:focus,
