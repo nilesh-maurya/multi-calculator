@@ -117,7 +117,6 @@ export default {
       }
     },
     clickHandler(ev) {
-      console.log(ev);
       if (ev.currentTarget) {
         this.$emit("numeric-key-event", ev.currentTarget.dataset.value);
       } else {
