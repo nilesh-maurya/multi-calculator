@@ -6,9 +6,8 @@
         v-for="(item, index) in items"
         :key="index"
         :data-item="item.title"
-        @click="showComponent"
+        @click="showComponent(item)"
       >
-        <!-- <img :data-item="item.title" :src="item.src" alt="" /> -->
         <v-icon>{{ item.src }} </v-icon>
         <p :data-item="item.title">{{ item.title }}</p>
       </div>
@@ -119,9 +118,9 @@ export default {
     }
   },
   methods: {
-    showComponent(ev) {
+    showComponent(item) {
       this.showConvertItems = false;
-      this.currentItem = ev.target.dataset.item;
+      this.currentItem = item.title;
     }
   },
   components: {
@@ -195,9 +194,10 @@ export default {
 }
 
 .convert__item {
+  flex: 1;
   display: inline-block;
   font-size: 14px;
-  width: 100px;
+  min-width: 100px;
   margin: 3px;
   padding: 2em 0.5em;
   border: 1px solid #000;

@@ -20,12 +20,17 @@ export const actions = {
   sign(id) {
     if (id === "1") {
       const value = getters.getFirstInput();
-      if (value === "-" || value === "0") {
-        mutations.setFirstInput("0");
-      } else if (Math.sign() === 1) {
-        mutations.setFirstInput((-value).toString());
-      } else if (Math.sign() === -1) {
-        mutations.setSecondInput(Math.abs(value).toString());
+      if (value[0] === "-") {
+        mutations.setFirstInput(value.slice(1));
+      } else if (value !== "0") {
+        mutations.setFirstInput("-" + value);
+      }
+    } else if (id === "2") {
+      const value = getters.getSecondInput();
+      if (value[0] === "-") {
+        mutations.setSecondInput(value.slice(1));
+      } else if (value !== "0") {
+        mutations.setSecondInput("-" + value);
       }
     }
   },
@@ -45,7 +50,7 @@ export const actions = {
       // focus on first element
       const value = getters.getFirstInput();
       if (value !== "0") {
-        if (value.length === 1) {
+        if (value.length === 1 || (value.length === 2 && value[0] === "-")) {
           mutations.setFirstInput("0");
         } else {
           mutations.setFirstInput(value.slice(0, -1));
@@ -55,7 +60,7 @@ export const actions = {
       // focus on second element
       const value = getters.getSecondInput();
       if (value !== "0") {
-        if (value.length === 1) {
+        if (value.length === 1 || (value.length === 2 && value[0] === "-")) {
           mutations.setSecondInput("0");
         } else {
           mutations.setSecondInput(value.slice(0, -1));
