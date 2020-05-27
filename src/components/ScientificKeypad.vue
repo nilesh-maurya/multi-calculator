@@ -153,7 +153,7 @@
         value="backspace"
         @click-keypad-btn="clickKeypad"
       >
-        <img src="../assets/backspace.png" />
+        <img src="../assets/num_back.svg" />
       </keypad-button>
       <keypad-button
         class="keypad__btn"

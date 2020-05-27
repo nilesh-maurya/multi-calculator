@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <!-- <div id="app"> -->
     <div id="nav">
-      <router-link :to="{ name: 'home' }">Home</router-link>
-      <router-link :to="{ name: 'convert' }">Convert</router-link>
+      <router-link class="btn-back" :to="{ name: 'home' }">Home</router-link>
+      <router-link class="btn-back" :to="{ name: 'convert' }">
+        Convert
+      </router-link>
     </div>
     <router-view />
-    <!-- </div> -->
   </v-app>
 </template>
 
@@ -31,7 +31,7 @@ body {
 #app {
   width: 404px;
   min-height: 620px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -57,6 +57,37 @@ body {
   color: #42b983;
   border: none;
   outline: none;
+}
+
+button.btn-back:focus,
+a.btn-focus:focus {
+  outline: 2px dotted #09b464;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Scroll bar color and width styling */
+.v-menu__content::-webkit-scrollbar {
+  width: 6px;
+}
+.v-menu__content::-webkit-scrollbar-track {
+  background: white;
+}
+.v-menu__content::-webkit-scrollbar-thumb {
+  background-color: rgb(18, 193, 111);
+  border-radius: 3px;
+}
+
+.v-menu__content {
+  scrollbar-color: rgb(18, 193, 111) white;
+  scrollbar-width: thin;
 }
 
 @media screen and (max-width: 400px) {

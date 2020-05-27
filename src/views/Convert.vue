@@ -6,15 +6,18 @@
         v-for="(item, index) in items"
         :key="index"
         :data-item="item.title"
-        @click="showComponent"
+        @click="showComponent(item)"
       >
-        <img :data-item="item.title" src="" alt="" />
+        <v-icon>{{ item.src }} </v-icon>
         <p :data-item="item.title">{{ item.title }}</p>
       </div>
     </div>
     <div class="" v-else>
       <div class="titlebar">
-        <button class="titlebar__back" @click="showConvertItems = true">
+        <button
+          class="titlebar__back btn-back"
+          @click="showConvertItems = true"
+        >
           <img src="../assets/back.svg" />
         </button>
         <h3 class="titlebar__title">{{ currentItem }}</h3>
@@ -25,6 +28,22 @@
 </template>
 
 <script>
+import {
+  mdiClockTimeThreeOutline,
+  mdiSpeedometerSlow,
+  mdiTagMultipleOutline,
+  mdiCalendarRange,
+  mdiPercentOutline,
+  mdiWeight,
+  mdiAngleAcute,
+  mdiCakeVariant,
+  mdiCubeOutline,
+  mdiThermometerLow,
+  mdiRuler,
+  mdiTextureBox,
+  mdiDiceD10Outline,
+  mdiHumanMaleHeightVariant
+} from "@mdi/js";
 export default {
   name: "Convert",
   data() {
@@ -32,18 +51,20 @@ export default {
       showConvertItems: true,
       currentItem: "",
       items: [
-        { title: "Age" },
-        { title: "Date" },
-        { title: "Discount" },
-        { title: "Percentage" },
-        { title: "Length" },
-        { title: "Area" },
-        { title: "Volume" },
-        { title: "Temperature" },
-        { title: "Speed" },
-        { title: "Time" },
-        { title: "Mass" },
-        { title: "Numeral System" }
+        { title: "BMI", src: mdiHumanMaleHeightVariant },
+        { title: "Angle", src: mdiAngleAcute },
+        { title: "Age", src: mdiCakeVariant },
+        { title: "Date", src: mdiCalendarRange },
+        { title: "Discount", src: mdiTagMultipleOutline },
+        { title: "Percentage", src: mdiPercentOutline },
+        { title: "Length", src: mdiRuler },
+        { title: "Area", src: mdiTextureBox },
+        { title: "Volume", src: mdiCubeOutline },
+        { title: "Temperature", src: mdiThermometerLow },
+        { title: "Speed", src: mdiSpeedometerSlow },
+        { title: "Time", src: mdiClockTimeThreeOutline },
+        { title: "Mass", src: mdiWeight },
+        { title: "Numeral System", src: mdiDiceD10Outline }
       ]
     };
   },
@@ -51,6 +72,12 @@ export default {
     currentItemComponent() {
       let ret = "";
       switch (this.currentItem) {
+        case "BMI":
+          ret = "convert-bmi";
+          break;
+        case "Angle":
+          ret = "convert-angle";
+          break;
         case "Age":
           ret = "convert-age";
           break;
@@ -60,34 +87,102 @@ export default {
         case "Discount":
           ret = "convert-discount";
           break;
+        case "Percentage":
+          ret = "convert-percentage";
+          break;
+        case "Length":
+          ret = "convert-length";
+          break;
+        case "Area":
+          ret = "convert-area";
+          break;
+        case "Volume":
+          ret = "convert-volume";
+          break;
+        case "Temperature":
+          ret = "convert-temperature";
+          break;
+        case "Speed":
+          ret = "convert-speed";
+          break;
+        case "Time":
+          ret = "convert-time";
+          break;
+        case "Mass":
+          ret = "convert-mass";
+          break;
+        case "Numeral System":
+          ret = "convert-numeral-system";
       }
       return ret;
     }
   },
   methods: {
-    showComponent(ev) {
+    showComponent(item) {
       this.showConvertItems = false;
-      this.currentItem = ev.target.dataset.item;
+      this.currentItem = item.title;
     }
   },
   components: {
+    "convert-angle": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Angle" */
+        "../components/convert/Angle.vue"
+      ),
     "convert-age": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Age" */ "../components/convert/Age.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Age" */
+        "../components/convert/Age.vue"
       ),
     "convert-date": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Date" */ "../components/convert/Date.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Date" */
+        "../components/convert/Date.vue"
       ),
     "convert-discount": () =>
       import(
-        /* webpackPrefetch: true, webpackChunkname: "Discount" */ "../components/convert/Discount.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Discount" */
+        "../components/convert/Discount.vue"
+      ),
+    "convert-percentage": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Percentage" */
+        "../components/convert/Percentage.vue"
+      ),
+    "convert-length": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Length" */
+        "../components/convert/Length.vue"
+      ),
+    "convert-area": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Area" */
+        "../components/convert/Area.vue"
+      ),
+    "convert-volume": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Volume" */
+        "../components/convert/Volume.vue"
+      ),
+    "convert-temperature": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Temperature" */
+        "../components/convert/Temperature.vue"
       )
   }
 };
 </script>
 
-<style scoped>
+<style>
 .convert {
   margin: 1rem;
 }
@@ -96,17 +191,18 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
 }
 
 .convert__item {
-  width: 100px;
+  flex: 1;
+  display: inline-block;
   font-size: 14px;
-  border: 1px solid #000;
+  min-width: 100px;
+  margin: 3px;
   padding: 2em 0.5em;
-  /* margin: 10px; */
+  border: 1px solid #000;
   cursor: pointer;
+  text-align: center;
 }
 
 .titlebar {
@@ -129,5 +225,32 @@ export default {
 .titlebar__title {
   flex: 2;
   font-size: 20px;
+}
+
+.wrapper-convert-element .focus {
+  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.wrapper__item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px 0 0;
+  font-size: 18px;
+}
+
+.g-1,
+.g-2 {
+  flex: 0.3;
+  text-align: right;
+  cursor: pointer;
+}
+
+button:focus,
+button::-moz-focus-inner {
+  border: none;
+  outline: none !important;
 }
 </style>

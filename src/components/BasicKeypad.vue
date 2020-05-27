@@ -15,8 +15,9 @@
         action="backspace"
         value="backspace"
         @click-keypad-btn="clickKeypad"
-        ><img src="../assets/backspace.png"
-      /></keypad-button>
+      >
+        <img src="../assets/num_back.svg" />
+      </keypad-button>
       <keypad-button
         class="keypad__btn"
         type="operator"

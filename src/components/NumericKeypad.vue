@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-divider></v-divider>
-    <div class="numeric-keypad">
+    <div class="numeric-keypad unselectable">
       <div class="left">
         <div class="left__btnrow">
           <button class="left__btn" @click="clickHandler" data-value="7">
@@ -37,7 +37,14 @@
           </button>
         </div>
         <div class="left__btnrow">
-          <button class="left__btn left__btn--empty" data-value=""></button>
+          <button
+            class="left__btn"
+            :class="{ 'left__btn--empty': sign }"
+            @click="clickHandler"
+            data-value="Sign"
+          >
+            <v-icon color="#09b464" v-if="!sign">{{ plusMinus }}</v-icon>
+          </button>
           <button class="left__btn" @click="clickHandler" data-value="0">
             0
           </button>
@@ -50,7 +57,7 @@
         <button
           class="numeric-btn"
           @click="clickHandler"
-          data-value="BACKSPACE"
+          data-value="Backspace"
         >
           <v-icon color="#09b464">{{ backspace }}</v-icon>
         </button>
@@ -63,19 +70,58 @@
 </template>
 
 <script>
-import { mdiBackspaceOutline } from "@mdi/js";
+import { mdiBackspaceOutline, mdiPlusMinusVariant } from "@mdi/js";
 export default {
+  created() {
+    window.addEventListener("keyup", this.keyupHandler);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keyup", this.keyupHandler);
+  },
+  props: {
+    sign: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
-      backspace: mdiBackspaceOutline
+      plusMinus: mdiPlusMinusVariant,
+      backspace: mdiBackspaceOutline,
+      allowedKeys: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "0",
+        ".",
+        "Backspace",
+        "+",
+        "-"
+      ]
     };
   },
   methods: {
+    keyupHandler(ev) {
+      if (this.allowedKeys.includes(ev.key)) {
+        if ((ev.key == "+") | (ev.key == "-")) {
+          this.$emit("numeric-key-event", "Sign");
+        } else {
+          this.$emit("numeric-key-event", ev.key);
+        }
+      }
+    },
     clickHandler(ev) {
+      console.log(ev);
       if (ev.currentTarget) {
-        this.$emit("click-numeric-key", ev.currentTarget.dataset.value);
+        this.$emit("numeric-key-event", ev.currentTarget.dataset.value);
       } else {
-        this.$emit("click-numeric-key", ev.target.dataset.value);
+        this.$emit("numeric-key-event", ev.target.dataset.value);
       }
     }
   }
@@ -93,6 +139,11 @@ button:focus,
 button::-moz-focus-inner {
   border: none;
   outline: none !important;
+}
+
+button {
+  transform: scale(1);
+  transition: transform ease-in-out 0.15s 0s;
 }
 
 button:hover {
@@ -138,7 +189,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   margin: 10px;
-  padding: 30px 10px;
+  padding: 35px 10px;
   border-radius: 50px;
   background-color: #eee;
 }
