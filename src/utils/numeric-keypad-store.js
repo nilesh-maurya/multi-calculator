@@ -17,6 +17,18 @@ export const mutations = {
 };
 
 export const actions = {
+  sign(id) {
+    if (id === "1") {
+      const value = getters.getFirstInput();
+      if (value === "-" || value === "0") {
+        mutations.setFirstInput("0");
+      } else if (Math.sign() === 1) {
+        mutations.setFirstInput((-value).toString());
+      } else if (Math.sign() === -1) {
+        mutations.setSecondInput(Math.abs(value).toString());
+      }
+    }
+  },
   reset(id) {
     if (id === undefined) {
       // when component is first loaded

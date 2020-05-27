@@ -37,7 +37,14 @@
           </button>
         </div>
         <div class="left__btnrow">
-          <button class="left__btn left__btn--empty" data-value=""></button>
+          <button
+            class="left__btn"
+            :class="{ 'left__btn--empty': sign }"
+            @click="clickHandler"
+            data-value="Sign"
+          >
+            <v-icon color="#09b464" v-if="!sign">{{ plusMinus }}</v-icon>
+          </button>
           <button class="left__btn" @click="clickHandler" data-value="0">
             0
           </button>
@@ -63,7 +70,7 @@
 </template>
 
 <script>
-import { mdiBackspaceOutline } from "@mdi/js";
+import { mdiBackspaceOutline, mdiPlusMinusVariant } from "@mdi/js";
 export default {
   created() {
     window.addEventListener("keyup", this.keyupHandler);
@@ -71,8 +78,15 @@ export default {
   beforeDestroy() {
     window.removeEventListener("keyup", this.keyupHandler);
   },
+  props: {
+    sign: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
+      plusMinus: mdiPlusMinusVariant,
       backspace: mdiBackspaceOutline,
       allowedKeys: [
         "1",
@@ -86,17 +100,24 @@ export default {
         "9",
         "0",
         ".",
-        "Backspace"
+        "Backspace",
+        "+",
+        "-"
       ]
     };
   },
   methods: {
     keyupHandler(ev) {
       if (this.allowedKeys.includes(ev.key)) {
-        this.$emit("numeric-key-event", ev.key);
+        if ((ev.key == "+") | (ev.key == "-")) {
+          this.$emit("numeric-key-event", "Sign");
+        } else {
+          this.$emit("numeric-key-event", ev.key);
+        }
       }
     },
     clickHandler(ev) {
+      console.log(ev);
       if (ev.currentTarget) {
         this.$emit("numeric-key-event", ev.currentTarget.dataset.value);
       } else {
