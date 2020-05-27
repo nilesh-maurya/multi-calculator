@@ -8,7 +8,8 @@
         :data-item="item.title"
         @click="showComponent"
       >
-        <img :data-item="item.title" :src="item.src" alt="" />
+        <!-- <img :data-item="item.title" :src="item.src" alt="" /> -->
+        <v-icon>{{ item.src }} </v-icon>
         <p :data-item="item.title">{{ item.title }}</p>
       </div>
     </div>
@@ -28,6 +29,22 @@
 </template>
 
 <script>
+import {
+  mdiClockTimeThreeOutline,
+  mdiSpeedometerSlow,
+  mdiTagMultipleOutline,
+  mdiCalendarRange,
+  mdiPercentOutline,
+  mdiWeight,
+  mdiAngleAcute,
+  mdiCakeVariant,
+  mdiCubeOutline,
+  mdiThermometerLow,
+  mdiRuler,
+  mdiTextureBox,
+  mdiDiceD10Outline,
+  mdiHumanMaleHeightVariant
+} from "@mdi/js";
 export default {
   name: "Convert",
   data() {
@@ -35,20 +52,20 @@ export default {
       showConvertItems: true,
       currentItem: "",
       items: [
-        { title: "BMI", src: "../assets/" },
-        { title: "Angle", src: "../assets/" },
-        { title: "Age", src: "../assets/" },
-        { title: "Date", src: "../assets/" },
-        { title: "Discount", src: "../assets/" },
-        { title: "Percentage", src: "../assets/" },
-        { title: "Length", src: "../assets/" },
-        { title: "Area", src: "../assets/" },
-        { title: "Volume", src: "../assets/" },
-        { title: "Temperature", src: "../assets/" },
-        { title: "Speed", src: "../assets/" },
-        { title: "Time", src: "../assets/" },
-        { title: "Mass", src: "../assets/" },
-        { title: "Numeral System", src: "../assets/" }
+        { title: "BMI", src: mdiHumanMaleHeightVariant },
+        { title: "Angle", src: mdiAngleAcute },
+        { title: "Age", src: mdiCakeVariant },
+        { title: "Date", src: mdiCalendarRange },
+        { title: "Discount", src: mdiTagMultipleOutline },
+        { title: "Percentage", src: mdiPercentOutline },
+        { title: "Length", src: mdiRuler },
+        { title: "Area", src: mdiTextureBox },
+        { title: "Volume", src: mdiCubeOutline },
+        { title: "Temperature", src: mdiThermometerLow },
+        { title: "Speed", src: mdiSpeedometerSlow },
+        { title: "Time", src: mdiClockTimeThreeOutline },
+        { title: "Mass", src: mdiWeight },
+        { title: "Numeral System", src: mdiDiceD10Outline }
       ]
     };
   },
@@ -155,6 +172,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Volume" */
         "../components/convert/Volume.vue"
+      ),
+    "convert-temperature": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Temperature" */
+        "../components/convert/Temperature.vue"
       )
   }
 };
