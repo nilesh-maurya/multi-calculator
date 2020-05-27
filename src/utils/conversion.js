@@ -2,8 +2,9 @@ import length from "./definitions/length";
 import area from "./definitions/area";
 import angle from "./definitions/angle";
 import volume from "./definitions/volume";
+import temperature from "./definitions/temperature";
 
-const measures = { length, area, angle, volume };
+const measures = { length, area, angle, volume, temperature };
 
 const Converter = function(value, measure) {
   this.value = parseFloat(value);
@@ -75,9 +76,33 @@ Converter.prototype.to = function(to) {
   // convert from the source value to its anchor inside the system
   result = this.value * this.source.unit.to_anchor;
 
+  /**
+   * For some changes it's a simple shift (C to K)
+   * So we'll add it when converting into the unit (later)
+   * and subtract it when converting from the unit
+   */
+  if (this.source.unit.anchor_shift) {
+    result -= this.source.unit.anchor_shift;
+  }
+
   // convert from one system to another through anchor ratio eg. metric (km) to imperial (yd)
+  // some conversions aren't ratio based or require more than simple shift
+  // so we can provide custom transform function
   if (this.source.system !== this.destination.system) {
-    result *= measures[this.source.measure]._anchors[this.source.system].ratio;
+    const transform =
+      measures[this.source.measure]._anchors[this.source.system].transform;
+
+    if (typeof transform === "function") {
+      result = transform(result);
+    } else {
+      result *=
+        measures[this.source.measure]._anchors[this.source.system].ratio;
+    }
+  }
+
+  // This shift has to be done after the system conversion logic
+  if (this.destination.unit.anchor_shift) {
+    result += this.destination.unit.anchor_shift;
   }
 
   /**  convert from its anchor to another unit
@@ -87,12 +112,3 @@ Converter.prototype.to = function(to) {
 };
 
 export { convert };
-
-// console.log(convert("56", "length").from("mm").to("in")); // 2.20472441
-// console.log(convert("8.62", "length").from("m").to("mi")); // 0.00535621968
-// console.log(convert("4.58", "length").from("km").to("nmi")); // 2.47300216
-// console.log(convert("86", "length").from("yd").to("nm")); // 7.86384e+10
-// console.log(convert("7.69", "length").from("mm").to("ft")); // 0.0252296588
-// console.log(convert("7.695869", "length").from("ft").to("in")); // 92.350428
-// console.log(convert("84.23", "length").from("cm").to("mi")); // 0.000523380955
-// console.log(convert("84.23", "length").from("ftm").to("km")); // 0.000523380955
