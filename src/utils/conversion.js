@@ -3,8 +3,10 @@ import area from "./definitions/area";
 import angle from "./definitions/angle";
 import volume from "./definitions/volume";
 import temperature from "./definitions/temperature";
+import speed from "./definitions/speed";
+import time from "./definitions/time";
 
-const measures = { length, area, angle, volume, temperature };
+const measures = { length, area, angle, volume, temperature, speed, time };
 
 const Converter = function(value, measure) {
   this.value = parseFloat(value);
