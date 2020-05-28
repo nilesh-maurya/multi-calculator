@@ -76,6 +76,9 @@ export const actions = {
     }
   },
   number(id, key, decimalDigit) {
+    if (key === "Sign") {
+      return;
+    }
     if (id === "1") {
       let value = getters.getFirstInput();
 
