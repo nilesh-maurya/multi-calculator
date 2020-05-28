@@ -189,6 +189,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Time" */
         "../components/convert/Time.vue"
+      ),
+    "convert-mass": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Mass" */
+        "../components/convert/Mass.vue"
       )
   }
 };
