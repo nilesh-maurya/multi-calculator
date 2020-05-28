@@ -177,6 +177,18 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Temperature" */
         "../components/convert/Temperature.vue"
+      ),
+    "convert-speed": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Speed" */
+        "../components/convert/Speed.vue"
+      ),
+    "convert-time": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Time" */
+        "../components/convert/Time.vue"
       )
   }
 };
@@ -200,9 +212,13 @@ export default {
   min-width: 100px;
   margin: 3px;
   padding: 2em 0.5em;
-  border: 1px solid #000;
   cursor: pointer;
   text-align: center;
+  transition: 100ms ease;
+}
+
+.convert__item:hover {
+  background-color: #eeeeee;
 }
 
 .titlebar {
