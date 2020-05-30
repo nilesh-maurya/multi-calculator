@@ -5,8 +5,22 @@ import volume from "./definitions/volume";
 import temperature from "./definitions/temperature";
 import speed from "./definitions/speed";
 import time from "./definitions/time";
+import mass from "./definitions/mass";
+import frequency from "./definitions/frequency";
+import digital from "./definitions/digital";
 
-const measures = { length, area, angle, volume, temperature, speed, time };
+const measures = {
+  length,
+  area,
+  angle,
+  volume,
+  temperature,
+  speed,
+  time,
+  mass,
+  frequency,
+  digital
+};
 
 const Converter = function(value, measure) {
   this.value = parseFloat(value);

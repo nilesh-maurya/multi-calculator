@@ -16,7 +16,7 @@
         value="backspace"
         @click-keypad-btn="clickKeypad"
       >
-        <img src="../assets/num_back.svg" />
+        <v-icon color="#2c3e50">{{ backspace }}</v-icon>
       </keypad-button>
       <keypad-button
         class="keypad__btn"
@@ -176,7 +176,14 @@
 
 <script>
 import KeypadButton from "./KeypadButton.vue";
+import { mdiBackspaceOutline } from "@mdi/js";
+
 export default {
+  data() {
+    return {
+      backspace: mdiBackspaceOutline
+    };
+  },
   components: {
     KeypadButton
   },
