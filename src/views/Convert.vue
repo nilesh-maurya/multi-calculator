@@ -44,7 +44,8 @@ import {
   mdiDiceD10Outline,
   mdiHumanMaleHeightVariant,
   mdiAccessPoint,
-  mdiArrowLeft
+  mdiArrowLeft,
+  mdiSd
 } from "@mdi/js";
 export default {
   name: "Convert",
@@ -68,6 +69,7 @@ export default {
         { title: "Time", src: mdiClockTimeThreeOutline },
         { title: "Mass", src: mdiWeight },
         { title: "Frequency", src: mdiAccessPoint },
+        { title: "Digital Storage", src: mdiSd },
         { title: "Numeral System", src: mdiDiceD10Outline }
       ]
     };
@@ -117,6 +119,9 @@ export default {
           break;
         case "Frequency":
           ret = "convert-frequency";
+          break;
+        case "Digital Storage":
+          ret = "convert-digital-storage";
           break;
         case "Numeral System":
           ret = "convert-numeral-system";
@@ -208,6 +213,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Frequency" */
         "../components/convert/Frequency.vue"
+      ),
+    "convert-digital-storage": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "DigitalStorage" */
+        "../components/convert/DigitalStorage.vue"
       )
   }
 };

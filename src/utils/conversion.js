@@ -7,6 +7,7 @@ import speed from "./definitions/speed";
 import time from "./definitions/time";
 import mass from "./definitions/mass";
 import frequency from "./definitions/frequency";
+import digital from "./definitions/digital";
 
 const measures = {
   length,
@@ -17,7 +18,8 @@ const measures = {
   speed,
   time,
   mass,
-  frequency
+  frequency,
+  digital
 };
 
 const Converter = function(value, measure) {
