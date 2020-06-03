@@ -219,6 +219,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "DigitalStorage" */
         "../components/convert/DigitalStorage.vue"
+      ),
+    "convert-numeral-system": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "NumeralSystem" */
+        "../components/convert/NumeralSystem.vue"
       )
   }
 };
@@ -289,7 +295,7 @@ export default {
 
 .g-1,
 .g-2 {
-  flex: 0.3;
+  flex: 1;
   text-align: right;
   cursor: pointer;
 }
