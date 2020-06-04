@@ -45,7 +45,8 @@ import {
   mdiHumanMaleHeightVariant,
   mdiAccessPoint,
   mdiArrowLeft,
-  mdiSd
+  mdiSd,
+  mdiLightningBoltOutline
 } from "@mdi/js";
 export default {
   name: "Convert",
@@ -68,6 +69,7 @@ export default {
         { title: "Speed", src: mdiSpeedometerSlow },
         { title: "Time", src: mdiClockTimeThreeOutline },
         { title: "Mass", src: mdiWeight },
+        { title: "Energy", src: mdiLightningBoltOutline },
         { title: "Frequency", src: mdiAccessPoint },
         { title: "Digital Storage", src: mdiSd },
         { title: "Numeral System", src: mdiDiceD10Outline }
@@ -116,6 +118,9 @@ export default {
           break;
         case "Mass":
           ret = "convert-mass";
+          break;
+        case "Energy":
+          ret = "convert-energy";
           break;
         case "Frequency":
           ret = "convert-frequency";
@@ -208,6 +213,12 @@ export default {
         /* webpackChunkName: "Mass" */
         "../components/convert/Mass.vue"
       ),
+    "convert-energy": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Energy" */
+        "../components/convert/Energy.vue"
+      ),
     "convert-frequency": () =>
       import(
         /* webpackPrefetch: true */
@@ -219,6 +230,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "DigitalStorage" */
         "../components/convert/DigitalStorage.vue"
+      ),
+    "convert-numeral-system": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "NumeralSystem" */
+        "../components/convert/NumeralSystem.vue"
       )
   }
 };
@@ -289,7 +306,7 @@ export default {
 
 .g-1,
 .g-2 {
-  flex: 0.3;
+  flex: 1;
   text-align: right;
   cursor: pointer;
 }

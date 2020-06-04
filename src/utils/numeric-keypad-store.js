@@ -75,7 +75,7 @@ export const actions = {
       mutations.setSecondInput(getters.getSecondInput() + ".");
     }
   },
-  number(id, key, decimalDigit) {
+  number(id, key, decimalDigit, maxDigit = 15) {
     if (key === "Sign") {
       return;
     }
@@ -85,8 +85,11 @@ export const actions = {
       const check = value.split(".")[1];
       if (check !== undefined && check.length >= decimalDigit) return;
 
-      const len = value.indexOf(".") === -1 ? 15 : 17;
-      if (value.length >= len) return;
+      if (maxDigit !== -1) {
+        // restrict the number length if parameter maxDigit !== -1
+        const len = value.indexOf(".") === -1 ? maxDigit : maxDigit + 2;
+        if (value.length >= len) return;
+      }
 
       if (value === "0") {
         value = key;
@@ -101,8 +104,11 @@ export const actions = {
       const check = value.split(".")[1];
       if (check !== undefined && check.length >= decimalDigit) return;
 
-      const len = value.indexOf(".") === -1 ? 15 : 17;
-      if (value.length >= len) return;
+      if (maxDigit !== -1) {
+        // restrict the number length if parameter maxDigit !== -1
+        const len = value.indexOf(".") === -1 ? maxDigit : maxDigit + 2;
+        if (value.length >= len) return;
+      }
 
       if (value === "0") {
         value = key;

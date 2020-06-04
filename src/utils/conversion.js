@@ -6,6 +6,7 @@ import temperature from "./definitions/temperature";
 import speed from "./definitions/speed";
 import time from "./definitions/time";
 import mass from "./definitions/mass";
+import energy from "./definitions/energy";
 import frequency from "./definitions/frequency";
 import digital from "./definitions/digital";
 
@@ -18,6 +19,7 @@ const measures = {
   speed,
   time,
   mass,
+  energy,
   frequency,
   digital
 };
