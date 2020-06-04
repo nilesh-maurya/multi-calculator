@@ -69,6 +69,7 @@ export default {
         { title: "Speed", src: mdiSpeedometerSlow },
         { title: "Time", src: mdiClockTimeThreeOutline },
         { title: "Mass", src: mdiWeight },
+        { title: "Pressure", src: mdiWeight },
         { title: "Energy", src: mdiLightningBoltOutline },
         { title: "Frequency", src: mdiAccessPoint },
         { title: "Digital Storage", src: mdiSd },
@@ -118,6 +119,9 @@ export default {
           break;
         case "Mass":
           ret = "convert-mass";
+          break;
+        case "Pressure":
+          ret = "convert-pressure";
           break;
         case "Energy":
           ret = "convert-energy";
@@ -212,6 +216,12 @@ export default {
         /* webpackPrefetch: true */
         /* webpackChunkName: "Mass" */
         "../components/convert/Mass.vue"
+      ),
+    "convert-pressure": () =>
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "Pressure" */
+        "../components/convert/Pressure.vue"
       ),
     "convert-energy": () =>
       import(
