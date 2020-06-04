@@ -66,7 +66,7 @@ export default {
   name: "NumeralSystem",
   created() {
     actions.reset();
-    this.handleChange(true);
+    this.handleChange();
   },
   data() {
     return {
@@ -94,7 +94,7 @@ export default {
   },
   watch: {
     toggleFocus: function() {
-      this.handleChange(false);
+      this.handleChange();
     }
   },
   methods: {
@@ -120,14 +120,19 @@ export default {
       }
       this.calculateNumeralSystem(id);
     },
-    handleChange(clear) {
+    handleChange(id) {
       if (this.toggleFocus === true) {
         this.disableButtons(this.select1.abbr);
+        this.calculateNumeralSystem("1");
       } else {
         this.disableButtons(this.select2.abbr);
+        this.calculateNumeralSystem("2");
       }
 
-      if (clear) {
+      if (
+        (this.toggleFocus === true && id === "1") ||
+        (this.toggleFocus === false && id === "2")
+      ) {
         actions.reset();
       }
     },
