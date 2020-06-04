@@ -121,19 +121,19 @@ export default {
       this.calculateNumeralSystem(id);
     },
     handleChange(id) {
+      if (
+        (this.toggleFocus === true && id === "1") ||
+        (this.toggleFocus === false && id === "2")
+      ) {
+        actions.reset();
+      }
+
       if (this.toggleFocus === true) {
         this.disableButtons(this.select1.abbr);
         this.calculateNumeralSystem("1");
       } else {
         this.disableButtons(this.select2.abbr);
         this.calculateNumeralSystem("2");
-      }
-
-      if (
-        (this.toggleFocus === true && id === "1") ||
-        (this.toggleFocus === false && id === "2")
-      ) {
-        actions.reset();
       }
     },
     disableButtons(abbr) {
