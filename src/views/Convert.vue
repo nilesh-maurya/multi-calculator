@@ -28,6 +28,24 @@
 </template>
 
 <script>
+import Angle from "../components/convert/Angle.vue";
+import Age from "../components/convert/Age.vue";
+import Date from "../components/convert/Date.vue";
+import Discount from "../components/convert/Discount.vue";
+import Percentage from "../components/convert/Percentage.vue";
+import Length from "../components/convert/Length.vue";
+import Area from "../components/convert/Area.vue";
+import Volume from "../components/convert/Volume.vue";
+import Temperature from "../components/convert/Temperature.vue";
+import Speed from "../components/convert/Speed.vue";
+import Time from "../components/convert/Time.vue";
+import Mass from "../components/convert/Mass.vue";
+import Pressure from "../components/convert/Pressure.vue";
+import Energy from "../components/convert/Energy.vue";
+import Frequency from "../components/convert/Frequency.vue";
+import DigitalStorage from "../components/convert/DigitalStorage.vue";
+import NumeralSystem from "../components/convert/NumeralSystem.vue";
+
 import {
   mdiClockTimeThreeOutline,
   mdiSpeedometerSlow,
@@ -46,7 +64,8 @@ import {
   mdiAccessPoint,
   mdiArrowLeft,
   mdiSd,
-  mdiLightningBoltOutline
+  mdiLightningBoltOutline,
+  mdiGauge
 } from "@mdi/js";
 export default {
   name: "Convert",
@@ -69,8 +88,8 @@ export default {
         { title: "Speed", src: mdiSpeedometerSlow },
         { title: "Time", src: mdiClockTimeThreeOutline },
         { title: "Mass", src: mdiWeight },
-        { title: "Pressure", src: mdiWeight },
         { title: "Energy", src: mdiLightningBoltOutline },
+        { title: "Pressure", src: mdiGauge },
         { title: "Frequency", src: mdiAccessPoint },
         { title: "Digital Storage", src: mdiSd },
         { title: "Numeral System", src: mdiDiceD10Outline }
@@ -120,11 +139,11 @@ export default {
         case "Mass":
           ret = "convert-mass";
           break;
-        case "Pressure":
-          ret = "convert-pressure";
-          break;
         case "Energy":
           ret = "convert-energy";
+          break;
+        case "Pressure":
+          ret = "convert-pressure";
           break;
         case "Frequency":
           ret = "convert-frequency";
@@ -145,108 +164,23 @@ export default {
     }
   },
   components: {
-    "convert-angle": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Angle" */
-        "../components/convert/Angle.vue"
-      ),
-    "convert-age": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Age" */
-        "../components/convert/Age.vue"
-      ),
-    "convert-date": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Date" */
-        "../components/convert/Date.vue"
-      ),
-    "convert-discount": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Discount" */
-        "../components/convert/Discount.vue"
-      ),
-    "convert-percentage": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Percentage" */
-        "../components/convert/Percentage.vue"
-      ),
-    "convert-length": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Length" */
-        "../components/convert/Length.vue"
-      ),
-    "convert-area": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Area" */
-        "../components/convert/Area.vue"
-      ),
-    "convert-volume": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Volume" */
-        "../components/convert/Volume.vue"
-      ),
-    "convert-temperature": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Temperature" */
-        "../components/convert/Temperature.vue"
-      ),
-    "convert-speed": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Speed" */
-        "../components/convert/Speed.vue"
-      ),
-    "convert-time": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Time" */
-        "../components/convert/Time.vue"
-      ),
-    "convert-mass": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Mass" */
-        "../components/convert/Mass.vue"
-      ),
-    "convert-pressure": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Pressure" */
-        "../components/convert/Pressure.vue"
-      ),
-    "convert-energy": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Energy" */
-        "../components/convert/Energy.vue"
-      ),
-    "convert-frequency": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Frequency" */
-        "../components/convert/Frequency.vue"
-      ),
-    "convert-digital-storage": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "DigitalStorage" */
-        "../components/convert/DigitalStorage.vue"
-      ),
-    "convert-numeral-system": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "NumeralSystem" */
-        "../components/convert/NumeralSystem.vue"
-      )
+    "convert-angle": Angle,
+    "convert-age": Age,
+    "convert-date": Date,
+    "convert-discount": Discount,
+    "convert-percentage": Percentage,
+    "convert-length": Length,
+    "convert-area": Area,
+    "convert-volume": Volume,
+    "convert-temperature": Temperature,
+    "convert-speed": Speed,
+    "convert-time": Time,
+    "convert-mass": Mass,
+    "convert-pressure": Pressure,
+    "convert-energy": Energy,
+    "convert-frequency": Frequency,
+    "convert-digital-storage": DigitalStorage,
+    "convert-numeral-system": NumeralSystem
   }
 };
 </script>
