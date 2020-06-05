@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import BMI from "../components/convert/BMI.vue";
 import Angle from "../components/convert/Angle.vue";
 import Age from "../components/convert/Age.vue";
 import Date from "../components/convert/Date.vue";
@@ -164,6 +165,7 @@ export default {
     }
   },
   components: {
+    "convert-bmi": BMI,
     "convert-angle": Angle,
     "convert-age": Age,
     "convert-date": Date,
