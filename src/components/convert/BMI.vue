@@ -93,6 +93,8 @@ export default {
       return getters.getSecondInput();
     },
     result() {
+      const result = {};
+
       const weight = convert(this.first_input, "mass")
         .from(this.select1.abbr)
         .to("kg");
@@ -101,9 +103,11 @@ export default {
         .from(this.select2.abbr)
         .to("m");
 
-      const bmi = weight / (height * height);
+      if (weight == 0 || height == 0) {
+        return { bmi: 0, category: "Underweight" };
+      }
 
-      const result = {};
+      const bmi = weight / (height * height);
 
       result.bmi = roundNumber(bmi, 2);
 
