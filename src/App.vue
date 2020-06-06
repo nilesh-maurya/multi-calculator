@@ -1,14 +1,28 @@
 <template>
   <v-app>
     <div id="nav">
-      <router-link class="btn-back" :to="{ name: 'home' }">Home</router-link>
-      <router-link class="btn-back" :to="{ name: 'convert' }">
-        Convert
+      <router-link :to="{ name: 'calculator' }" title="Calculator">
+        <v-icon>{{ mdiCalculatorVariant }}</v-icon>
+      </router-link>
+      <router-link :to="{ name: 'convert' }" title="Convert">
+        <v-icon>{{ mdiEqualBox }}</v-icon>
       </router-link>
     </div>
     <router-view />
   </v-app>
 </template>
+
+<script>
+import { mdiCalculatorVariant, mdiEqualBox } from "@mdi/js";
+export default {
+  data() {
+    return {
+      mdiCalculatorVariant,
+      mdiEqualBox
+    };
+  }
+};
+</script>
 
 <style>
 *,
@@ -40,28 +54,31 @@ body {
 }
 
 #nav {
-  padding: 10px 0 10px 0;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 #nav a {
-  font-weight: bold;
+  display: inline-block;
+  padding: 10px;
   color: #2c3e50;
+  font-weight: bold;
   text-decoration: none;
-  padding-left: 10px;
+}
+
+#nav a + a {
+  margin-left: 20px;
 }
 
 #nav a.router-link-exact-active,
 #nav a:focus {
-  color: #42b983;
   border: none;
   outline: none;
 }
 
-button.btn-back:focus,
-a.btn-focus:focus {
-  outline: 2px dotted #09b464;
+#nav a.router-link-exact-active svg,
+#nav a:focus svg {
+  color: #42b983;
 }
 
 .unselectable {
@@ -81,12 +98,12 @@ a.btn-focus:focus {
   background: white;
 }
 .v-menu__content::-webkit-scrollbar-thumb {
-  background-color: rgb(18, 193, 111);
+  background-color: #12c16f;
   border-radius: 3px;
 }
 
 .v-menu__content {
-  scrollbar-color: rgb(18, 193, 111) white;
+  scrollbar-color: #12c16f white;
   scrollbar-width: thin;
 }
 
