@@ -77,11 +77,11 @@ export default {
       currentItem: "",
       items: [
         { title: "BMI", src: mdiHumanMaleHeightVariant },
-        { title: "Angle", src: mdiAngleAcute },
         { title: "Age", src: mdiCakeVariant },
         { title: "Date", src: mdiCalendarRange },
         { title: "Discount", src: mdiTagMultipleOutline },
         { title: "Percentage", src: mdiPercentOutline },
+        { title: "Angle", src: mdiAngleAcute },
         { title: "Length", src: mdiRuler },
         { title: "Area", src: mdiTextureBox },
         { title: "Volume", src: mdiCubeOutline },
