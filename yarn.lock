@@ -3526,11 +3526,6 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
-dompurify@^2.0.0:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.8.tgz#6ef89d2d227d041af139c7b01d9f67ed59c2eb3c"
-  integrity sha512-vIOSyOXkMx81ghEalh4MLBtDHMx1bhKlaqHDMqM2yeitJ996SLOk5mGdDpI9ifJAgokred8Rmu219fX4OltqXw==
-
 domutils@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.5.1.tgz#dcd8488a26f563d61079e48c9f7b7e32373682cf"
@@ -9608,13 +9603,6 @@ vue-cli-plugin-vuetify@~2.0.5:
   dependencies:
     semver "^7.1.2"
     shelljs "^0.8.3"
-
-vue-dompurify-html@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/vue-dompurify-html/-/vue-dompurify-html-2.1.1.tgz#2c20ee2ab361064c9ea70b1f1295e0ad84311234"
-  integrity sha512-wAf83H+/YLK3ekJTGpoyUkEnDw1Csn8vQ1kyz75lqapRDeJ64kCcCsp9vw0026hBVVbthLezUIVKQvaZSNECUQ==
-  dependencies:
-    dompurify "^2.0.0"
 
 vue-eslint-parser@^7.0.0:
   version "7.0.0"

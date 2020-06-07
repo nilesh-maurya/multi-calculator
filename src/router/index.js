@@ -1,26 +1,29 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Calculator from "../views/Calculator.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home
+    name: "calculator",
+    component: Calculator
   },
   {
     path: "/convert/",
     name: "convert",
     component: () =>
       import(
-        /* webpackPrefetch: true, webpackChunkName: "convert" */ "../views/Convert.vue"
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "convert" */
+        "../views/Convert.vue"
       )
   }
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes
 });
 
