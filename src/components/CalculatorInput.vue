@@ -6,7 +6,11 @@ export default {
   render: function(createElement) {
     const childElements = this.input.map(item => {
       if (item.type === "number") {
-        return item.html;
+        if (item.value === "Math.PI") {
+          return createElement("v-icon", item.html);
+        } else {
+          return item.html;
+        }
       } else if (item.type === "operator") {
         if (item.value === "%") {
           return item.html;

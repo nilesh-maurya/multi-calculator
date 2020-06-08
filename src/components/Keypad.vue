@@ -135,7 +135,13 @@
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" v-if="isAdvanced">
+      <button
+        class="keypad__btn"
+        v-if="isAdvanced"
+        @click="
+          clickHandler({ type: 'number', value: 'Math.PI', html: icon.mdiPi })
+        "
+      >
         <v-icon color="#2c3e50">{{ icon.mdiPi }}</v-icon>
       </button>
       <button
@@ -175,7 +181,13 @@
           {{ isAdvanced ? icon.mdiArrowCollapse : icon.mdiArrowExpand }}
         </v-icon>
       </button>
-      <button class="keypad__btn" v-if="isAdvanced">e</button>
+      <button
+        class="keypad__btn"
+        v-if="isAdvanced"
+        @click="clickHandler({ type: 'number', value: 'Math.E', html: 'e' })"
+      >
+        e
+      </button>
       <button
         class="keypad__btn"
         @click="clickHandler({ type: 'number', value: '0', html: '0' })"
@@ -306,6 +318,12 @@ export default {
           type: "Evaluate",
           value: "Enter",
           html: ""
+        });
+      } else if (ev.key === "e") {
+        this.$emit("keypad-input", {
+          type: "number",
+          value: "Math.E",
+          html: "e"
         });
       }
     }
