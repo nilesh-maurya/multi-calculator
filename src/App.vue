@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap");
-
 *,
 *::before,
 *::after {
@@ -51,7 +49,7 @@ body {
 #app {
   width: 404px;
   min-height: 620px;
-  font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--blackish-blue);
