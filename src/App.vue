@@ -48,10 +48,6 @@ body {
   background-color: var(--grey-lighten-3);
 }
 
-*::-moz-focus-inner {
-  outline: 2px solid #101010;
-}
-
 #app {
   width: 404px;
   min-height: 620px;
