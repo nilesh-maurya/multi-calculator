@@ -30,8 +30,18 @@
       <button class="keypad__btn">X<sup>y</sup></button>
       <button class="keypad__btn">log</button>
       <button class="keypad__btn">ln</button>
-      <button class="keypad__btn">(</button>
-      <button class="keypad__btn">)</button>
+      <button
+        class="keypad__btn"
+        @click="clickHandler({ type: 'paren', value: '(', html: '(' })"
+      >
+        (
+      </button>
+      <button
+        class="keypad__btn"
+        @click="clickHandler({ type: 'paren', value: ')', html: ')' })"
+      >
+        )
+      </button>
     </div>
     <div class="keypad__row">
       <button class="keypad__btn" v-if="isAdvanced">
@@ -324,6 +334,12 @@ export default {
           type: "number",
           value: "Math.E",
           html: "e"
+        });
+      } else if (ev.key === "(" || ev.key === ")") {
+        this.$emit("keypad-input", {
+          type: "paren",
+          value: ev.key,
+          html: ev.key
         });
       }
     }

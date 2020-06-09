@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mdiClose } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
 import Keypad from "../components/Keypad.vue";
 export default {
@@ -19,6 +20,7 @@ export default {
   data() {
     return {
       input: [{ type: "number", value: "0", html: "0" }],
+
       result: "",
       wasEnterPressed: false
     };
@@ -51,6 +53,12 @@ export default {
     },
     number(event) {
       const last = this.input[this.input.length - 1];
+      // if last elem is ) eg. (9+8)7 => (9+8)*7
+      // add multiply operator
+      if (last.value === ")") {
+        this.operator({ type: "operator", value: "*", html: mdiClose });
+      }
+
       if (last.type === "number") {
         if (last.value === "0") {
           if (event.value === ".") {
@@ -67,6 +75,32 @@ export default {
           this.input[this.input.length - 1].html += event.html;
         }
       } else {
+        this.input.push(event);
+      }
+    },
+    operator(event) {
+      const last = this.input[this.input.length - 1];
+      if (last.value === "(") {
+        return;
+      }
+      if (last.type === "operator") {
+        this.input[this.input.length - 1].value = event.value;
+        this.input[this.input.length - 1].html = event.html;
+      } else {
+        this.input.push(event);
+      }
+    },
+    paren(event) {
+      const last = this.input[this.input.length - 1];
+      if (event.value === "(") {
+        if (this.input.length === 1 && last.value === "0") {
+          // remove "0" and then continue to add "("
+          this.input.pop();
+        } else if (last.value === ")" || last.type === "number") {
+          this.operator({ type: "operator", value: "*", html: mdiClose });
+        }
+        this.input.push(event);
+      } else if (event.value === ")" && !(last.type === "operator")) {
         this.input.push(event);
       }
     },
@@ -89,7 +123,9 @@ export default {
 
         this.result = "";
       }
+
       this.wasEnterPressed = false;
+
       switch (event.type) {
         case "clear": {
           if (event.value === "AC") {
@@ -105,14 +141,12 @@ export default {
           break;
         }
         case "operator": {
-          // const operatorKeys = ["+", "-", "*", "/", "%"];
-          const last = this.input[this.input.length - 1];
-          if (last.type === "operator") {
-            this.input[this.input.length - 1].value = event.value;
-            this.input[this.input.length - 1].html = event.html;
-          } else {
-            this.input.push(event);
-          }
+          this.operator(event);
+          break;
+        }
+
+        case "paren": {
+          this.paren(event);
           break;
         }
       }
@@ -123,6 +157,26 @@ export default {
       }
       this.evaluateResult(this.input);
     },
+    balanceParenthesis(text) {
+      let opening = 0;
+      let closing = 0;
+
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === "(") opening++;
+        if (text[i] === ")") closing++;
+      }
+
+      if (opening > closing) {
+        for (let i = 0; i < opening - closing; i++) {
+          text += ")";
+        }
+      } else if (closing > opening) {
+        for (let i = 0; i < closing - opening; i++) {
+          text = "(" + text;
+        }
+      }
+      return text;
+    },
     evaluateResult(arr) {
       // build expression from array
       let exp = "";
@@ -131,6 +185,7 @@ export default {
       });
 
       try {
+        exp = this.balanceParenthesis(exp);
         const answer = eval(exp);
         const errorRegex = /(NaN)|(undefined)|(function)/g;
         if (errorRegex.test(answer)) {

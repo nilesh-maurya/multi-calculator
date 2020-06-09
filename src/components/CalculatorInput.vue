@@ -17,8 +17,12 @@ export default {
         } else {
           return createElement("v-icon", item.html);
         }
+      } else if (item.type === "paren") {
+        // return createElement("span", item.html);
+        return item.html;
       }
     });
+
     return createElement(
       "div",
       { class: ["calculator__input"] },
