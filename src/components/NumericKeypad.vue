@@ -128,25 +128,8 @@ export default {
 </script>
 
 <style scoped>
-* {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
-  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
-  outline: none !important;
-}
-
-button:focus,
-button::-moz-focus-inner {
-  border: none;
-  outline: none !important;
-}
-
-button {
-  transform: scale(1);
-  transition: transform ease-in-out 0.15s 0s;
-}
-
 button:hover {
-  background-color: #eee;
+  background-color: var(--grey-lighten-3);
 }
 
 .numeric-keypad {
@@ -168,11 +151,13 @@ button:hover {
 
 .left__btn {
   flex: 1;
+  margin: 2px;
   padding: 20px 10px;
   border-radius: 10px;
 }
 
 .left__btn--empty:hover {
+  cursor: unset;
   background-color: transparent;
 }
 
@@ -190,7 +175,7 @@ button:hover {
   margin: 10px;
   padding: 35px 10px;
   border-radius: 50px;
-  background-color: #eee;
+  background-color: var(--grey-lighten-3);
 }
 
 .numeric-btn + .numeric-btn {

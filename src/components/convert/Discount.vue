@@ -7,7 +7,9 @@
           :class="{ focus: toggleFocus }"
           class="g-1 discount__price--result"
           data-id="1"
+          @keydown.enter="toggleFocus = true"
           @click="toggleFocus = true"
+          tabindex="0"
         >
           {{ this.formatWithCommas(original_price) }}
         </span>
@@ -18,7 +20,9 @@
           :class="{ focus: !toggleFocus }"
           class="g-2 discount__off--result"
           data-id="2"
+          @keydown.enter="toggleFocus = false"
           @click="toggleFocus = false"
+          tabindex="0"
         >
           {{ discount }}
         </span>
@@ -108,10 +112,7 @@ export default {
 
 <style scoped>
 .discount .focus {
-  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #09b464;
 }
 
 .discount {

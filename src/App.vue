@@ -2,10 +2,10 @@
   <v-app>
     <div id="nav">
       <router-link :to="{ name: 'calculator' }" title="Calculator">
-        <v-icon>{{ mdiCalculatorVariant }}</v-icon>
+        Calculator
       </router-link>
       <router-link :to="{ name: 'convert' }" title="Convert">
-        <v-icon>{{ mdiEqualBox }}</v-icon>
+        Convert
       </router-link>
     </div>
     <router-view />
@@ -13,18 +13,16 @@
 </template>
 
 <script>
-import { mdiCalculatorVariant, mdiEqualBox } from "@mdi/js";
 export default {
   data() {
-    return {
-      mdiCalculatorVariant,
-      mdiEqualBox
-    };
+    return {};
   }
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -33,13 +31,25 @@ export default {
   box-sizing: border-box;
 }
 
+:root {
+  --blackish-blue: #2c3e50;
+  --white: #ffffff;
+  --grey-lighten-1: #bdbdbd;
+  --grey-lighten-3: #eee;
+  --primary-color: ;
+}
+
 body {
   max-width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eef;
+  background-color: var(--grey-lighten-3);
+}
+
+*::-moz-focus-inner {
+  outline: 2px solid #101010;
 }
 
 #app {
@@ -48,9 +58,9 @@ body {
   font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  background-color: #fff;
-  border: 1px solid #eee;
+  color: var(--blackish-blue);
+  background-color: var(--white);
+  border: 1px solid var(--grey-lighten-3);
 }
 
 #nav {
@@ -60,8 +70,8 @@ body {
 
 #nav a {
   display: inline-block;
-  padding: 10px;
-  color: #2c3e50;
+  margin: 10px 20px;
+  color: #bdbdbd;
   font-weight: bold;
   text-decoration: none;
 }
@@ -71,14 +81,8 @@ body {
 }
 
 #nav a.router-link-exact-active,
-#nav a:focus {
-  border: none;
-  outline: none;
-}
-
-#nav a.router-link-exact-active svg,
-#nav a:focus svg {
-  color: #42b983;
+#nav a:active {
+  color: var(--blackish-blue);
 }
 
 .unselectable {

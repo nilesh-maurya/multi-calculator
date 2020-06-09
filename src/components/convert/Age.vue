@@ -268,11 +268,9 @@ export default {
 }
 
 .diff-year {
-  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #09b464;
 }
+
 .next__icon {
   background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
   display: inline-block;

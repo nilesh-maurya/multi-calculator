@@ -19,8 +19,10 @@
         :class="{ focus: toggleFocus }"
         class="g-1 bmi__input-1"
         data-id="1"
+        @keydown.enter="toggleFocus = true"
         ref="input1"
         @click="toggleFocus = true"
+        tabindex="0"
       >
         {{ first_input }}
       </span>
@@ -44,8 +46,10 @@
         :class="{ focus: !toggleFocus }"
         class="g-2 bmi__input-2"
         data-id="2"
+        @keydown.enter="toggleFocus = false"
         ref="input2"
         @click="toggleFocus = false"
+        tabindex="0"
       >
         {{ second_input }}
       </span>

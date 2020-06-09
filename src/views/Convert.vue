@@ -6,7 +6,9 @@
         v-for="(item, index) in items"
         :key="index"
         :data-item="item.title"
+        @keydown.enter="showComponent(item)"
         @click="showComponent(item)"
+        tabindex="0"
       >
         <v-icon>{{ item.src }} </v-icon>
         <p :data-item="item.title">{{ item.title }}</p>
@@ -16,6 +18,8 @@
       <div class="titlebar">
         <button
           class="titlebar__back btn-back"
+          tabindex="0"
+          @keydown.enter="showConvertItems = true"
           @click="showConvertItems = true"
         >
           <v-icon>{{ mdiArrowLeft }} </v-icon>
@@ -211,7 +215,13 @@ export default {
 }
 
 .convert__item:hover {
-  background-color: #eeeeee;
+  background-color: var(--grey-lighten-3);
+}
+
+.convert__item:focus {
+  background-color: var(--grey-lighten-3);
+  border: none;
+  outline: none;
 }
 
 .titlebar {
@@ -223,11 +233,9 @@ export default {
 }
 
 .titlebar__back {
-  width: 18px;
-  height: 18px;
   border: none;
   outline: none;
-  background-color: #fff;
+  background-color: var(--white);
   cursor: pointer;
 }
 
@@ -237,10 +245,7 @@ export default {
 }
 
 .wrapper-convert-element .focus {
-  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #09b464;
 }
 
 .wrapper__item {
@@ -257,9 +262,9 @@ export default {
   cursor: pointer;
 }
 
-button:focus,
+/* button:focus,
 button::-moz-focus-inner {
   border: none;
   outline: none !important;
-}
+} */
 </style>

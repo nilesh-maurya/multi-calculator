@@ -7,7 +7,9 @@
           :class="{ focus: toggleFocus }"
           class="g-1 percentage__total--result"
           data-id="1"
+          @keydown.enter="toggleFocus = true"
           @click="toggleFocus = true"
+          tabindex="0"
         >
           {{ this.formatWithCommas(total) }}
         </span>
@@ -20,7 +22,9 @@
           :class="{ focus: !toggleFocus }"
           class="g-2 percentage__per--result"
           data-id="2"
+          @keydown.enter="toggleFocus = true"
           @click="toggleFocus = false"
+          tabindex="0"
         >
           {{ percentage }}
         </span>
@@ -106,10 +110,7 @@ export default {
 
 <style scoped>
 .percentage .focus {
-  background: linear-gradient(210deg, #21dd85 0%, #09b464 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #09b464;
 }
 
 .percentage {

@@ -348,20 +348,8 @@ export default {
 </script>
 
 <style scoped>
-* {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
-  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
-  outline: none !important;
-}
-
-button:focus,
-button::-moz-focus-inner {
-  border: none;
-  outline: none !important;
-}
-
 button:hover {
-  background-color: #eee;
+  background-color: var(--grey-lighten-3);
 }
 
 .keypad {
