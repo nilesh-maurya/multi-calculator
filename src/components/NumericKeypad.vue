@@ -153,7 +153,7 @@ button:hover {
   flex: 1;
   margin: 2px;
   padding: 20px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .left__btn--empty:hover {

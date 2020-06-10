@@ -66,9 +66,45 @@
       </button>
     </div>
     <div class="keypad__row" v-if="isAdvanced">
-      <button class="keypad__btn">X<sup>y</sup></button>
-      <button class="keypad__btn">log</button>
-      <button class="keypad__btn">ln</button>
+      <button
+        class="keypad__btn"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'logarithm',
+            value: 'Math.log2',
+            html: 'log2'
+          })
+        "
+      >
+        log<sub>2</sub>
+      </button>
+      <button
+        class="keypad__btn"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'logarithm',
+            value: 'Math.log10',
+            html: 'log10'
+          })
+        "
+      >
+        log<sub>10</sub>
+      </button>
+      <button
+        class="keypad__btn"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'logarithm',
+            value: 'Math.log',
+            html: 'ln'
+          })
+        "
+      >
+        ln
+      </button>
       <button
         class="keypad__btn"
         @click="clickHandler({ type: 'paren', value: '(', html: '(' })"
@@ -118,7 +154,7 @@
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" v-if="isAdvanced">X!</button>
+      <button class="keypad__btn" v-if="isAdvanced">X<sup>y</sup></button>
       <button
         class="keypad__btn"
         @click="clickHandler({ type: 'number', value: '7', html: '7' })"
@@ -151,7 +187,7 @@
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" v-if="isAdvanced"></button>
+      <button class="keypad__btn" v-if="isAdvanced">X!</button>
       <button
         class="keypad__btn"
         @click="clickHandler({ type: 'number', value: '4', html: '4' })"
@@ -299,7 +335,7 @@ export default {
         mdiBackspaceOutline,
         mdiSquareRoot
       },
-      isAdvanced: false,
+      isAdvanced: true,
       isInverse: false,
       isRadian: false,
       isDisabled: false
@@ -383,11 +419,24 @@ export default {
           value: "Math.E",
           html: "e"
         });
+      } else if (ev.key === "p") {
+        this.$emit("keypad-input", {
+          type: "number",
+          value: "Math.PI",
+          html: this.icon.mdiPi
+        });
       } else if (ev.key === "(" || ev.key === ")") {
         this.$emit("keypad-input", {
           type: "paren",
           value: ev.key,
           html: ev.key
+        });
+      } else if (ev.key === "l") {
+        this.$emit("keypad-input", {
+          type: "function",
+          category: "logarithm",
+          value: "Math.log",
+          html: "ln"
         });
       } else if (Object.keys(functionKeys).includes(ev.key)) {
         this.$emit("keypad-input", {
@@ -420,7 +469,7 @@ button:hover {
   font-size: 18px;
   margin: 2px;
   padding: 12px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .equal {

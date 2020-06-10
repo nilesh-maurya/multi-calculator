@@ -37,6 +37,12 @@ export default {
       }
 
       const last = arr[arr.length - 1];
+
+      // check for function
+      if (last.type === "function") {
+        return this.backspace(arr[arr.length - 1].value, event);
+      }
+
       if (
         last.type === "number" &&
         last.value.length > 1 &&
@@ -55,12 +61,18 @@ export default {
     number(arr, event) {
       if (arr.length !== 0) {
         const last = arr[arr.length - 1];
+
+        if (last.type === "function") {
+          if (!this.isParenBalance(last.value)) {
+            this.number(arr[arr.length - 1].value, event);
+            return;
+          }
+        }
         // if last elem is ) eg. (9+8)7 => (9+8)*7
         // add multiply operator
         if (last.value === ")") {
           this.operator(arr, { type: "operator", value: "*", html: mdiClose });
         }
-
         if (last.type === "number") {
           if (event.value === "." && last.value.indexOf(".") !== -1) {
             return;
@@ -85,6 +97,13 @@ export default {
         arr.push(event);
       } else {
         const last = arr[arr.length - 1];
+
+        // check for function
+        if (last.type === "function") {
+          if (!this.isParenBalance(last.value))
+            return this.operator(arr[arr.length - 1].value, event);
+        }
+
         if (last.value === "(") {
           return;
         }
@@ -104,6 +123,13 @@ export default {
       }
 
       const last = arr[arr.length - 1];
+
+      // check for function
+      if (last.type === "function") {
+        if (!this.isParenBalance(last.value))
+          return this.operator(arr[arr.length - 1].value, event);
+      }
+
       if (event.value === "(") {
         if (last.value === ")" || last.type === "number") {
           this.operator(arr, {
@@ -180,15 +206,47 @@ export default {
         }
 
         case "function": {
+          if (event.category === "logarithm") {
+            this.input.push({
+              type: "function",
+              value: [
+                { type: "logarithm", value: event.value, html: event.html },
+                { type: "paren", value: "(", html: "(" }
+              ]
+            });
+          }
           break;
         }
       }
+
+      // HACK: to change the nested data
+      // set the last element to last element
+      this.$set(
+        this.input,
+        this.input.length - 1,
+        Object.assign({}, this.input[this.input.length - 1])
+      );
 
       if (event.type === "Evaluate") {
         // make font bigger
         this.wasEnterPressed = true;
       }
       this.evaluateResult(this.input);
+    },
+    isParenBalance(arr) {
+      let opening = 0;
+      let closing = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].type === "paren" && arr[i].value === "(") opening++;
+        if (arr[i].type === "paren" && arr[i].value === ")") closing++;
+      }
+
+      if (opening !== closing) {
+        return false;
+      } else {
+        return true;
+      }
     },
     balanceParenthesis(text) {
       let opening = 0;
@@ -210,17 +268,26 @@ export default {
       }
       return text;
     },
+    createExpression(arr) {
+      let exp = "";
+      arr.forEach(item => {
+        if (item.type !== "function") {
+          exp += item.value;
+        } else {
+          exp += this.createExpression(item.value);
+        }
+      });
+
+      return exp;
+    },
     evaluateResult(arr) {
       if (arr.length === 0) {
+        this.result = "";
         return;
       }
 
       // build expression from array
-      let exp = "";
-      arr.forEach(item => {
-        exp += item.value;
-      });
-
+      let exp = this.createExpression(arr);
       try {
         exp = this.balanceParenthesis(exp);
         const answer = eval(exp);

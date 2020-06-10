@@ -57,6 +57,10 @@ body {
   border: 1px solid var(--grey-lighten-3);
 }
 
+#app .v-application--wrap {
+  min-height: 100%;
+}
+
 #nav {
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);

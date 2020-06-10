@@ -243,7 +243,7 @@ export default {
   flex: 1;
   margin: 1px;
   padding: 16px 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 20px;
   font-weight: bolder;
 }
