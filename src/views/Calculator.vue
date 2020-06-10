@@ -12,15 +12,14 @@
 </template>
 
 <script>
-import { mdiClose } from "@mdi/js";
+import { mdiClose, mdiMinus } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
 import Keypad from "../components/Keypad.vue";
 export default {
   name: "Calculator",
   data() {
     return {
-      input: [{ type: "number", value: "0", html: "0" }],
-
+      input: [],
       result: "",
       wasEnterPressed: false
     };
@@ -29,9 +28,14 @@ export default {
     // eslint-disable-next-line
     reset(arr) {
       arr.splice(0, arr.length);
-      arr.push({ type: "number", value: "0", html: "0" });
     },
     backspace(arr) {
+      if (arr.length === 0) {
+        // if everything is backspaced then reset to default
+        this.reset(arr);
+        return;
+      }
+
       const last = arr[arr.length - 1];
       if (
         last.type === "number" &&
@@ -47,59 +51,66 @@ export default {
       } else {
         arr.pop();
       }
-
-      if (arr.length === 0) {
-        // if everything is backspaced then reset to default
-        this.reset(arr);
-      }
     },
     number(arr, event) {
-      const last = arr[arr.length - 1];
-      // if last elem is ) eg. (9+8)7 => (9+8)*7
-      // add multiply operator
-      if (last.value === ")") {
-        this.operator(arr, { type: "operator", value: "*", html: mdiClose });
-      }
+      if (arr.length !== 0) {
+        const last = arr[arr.length - 1];
+        // if last elem is ) eg. (9+8)7 => (9+8)*7
+        // add multiply operator
+        if (last.value === ")") {
+          this.operator(arr, { type: "operator", value: "*", html: mdiClose });
+        }
 
-      if (last.type === "number") {
-        if (last.value === "0") {
-          if (event.value === ".") {
-            event.value = "0.";
-            event.html = "0.";
-          }
-          arr[arr.length - 1].value = event.value;
-          arr[arr.length - 1].html = event.html;
-        } else {
+        if (last.type === "number") {
           if (event.value === "." && last.value.indexOf(".") !== -1) {
             return;
           }
           arr[arr.length - 1].value += event.value;
           arr[arr.length - 1].html += event.html;
+        } else {
+          arr.push(event);
         }
       } else {
         arr.push(event);
       }
     },
     operator(arr, event) {
-      const last = arr[arr.length - 1];
-      if (last.value === "(") {
+      if (arr.length === 0 && event.value !== "-") {
         return;
       }
-      if (last.type === "operator") {
-        arr[arr.length - 1].value = event.value;
-        arr[arr.length - 1].html = event.html;
-      } else {
+
+      if (arr.length === 0) {
+        // accept only minus operator if no operands are present
+        // eg. -3 but won't accept *3 or /3 or %3
         arr.push(event);
+      } else {
+        const last = arr[arr.length - 1];
+        if (last.value === "(") {
+          return;
+        }
+        if (last.type === "operator") {
+          if (arr.length <= 1) return;
+          arr[arr.length - 1].value = event.value;
+          arr[arr.length - 1].html = event.html;
+        } else {
+          arr.push(event);
+        }
       }
     },
     paren(arr, event) {
+      if (arr.length === 0) {
+        arr.push(event);
+        return;
+      }
+
       const last = arr[arr.length - 1];
       if (event.value === "(") {
-        if (arr.length === 1 && last.value === "0") {
-          // remove "0" and then continue to add "("
-          arr.pop();
-        } else if (last.value === ")" || last.type === "number") {
-          this.operator(arr, { type: "operator", value: "*", html: mdiClose });
+        if (last.value === ")" || last.type === "number") {
+          this.operator(arr, {
+            type: "operator",
+            value: "*",
+            html: mdiClose
+          });
         }
         arr.push(event);
       } else if (event.value === ")" && !(last.type === "operator")) {
@@ -118,9 +129,25 @@ export default {
         if (event.type === "operator") {
           // add answer as first input
           // eg. Ans: = 12 (space after equal), we have to remove that to when adding that as input
-          const temp = this.result.slice(2);
-          this.number(this.input, { type: "number", value: temp, html: temp });
-          // then continue to switch to add entered operator
+          let temp = this.result.slice(2);
+          // if ans = "Error"
+          if (temp != "Error") {
+            if (temp[0] == "-") {
+              this.operator(this.input, {
+                type: "operator",
+                value: "-",
+                html: mdiMinus
+              });
+
+              temp = temp.slice(1);
+            }
+            this.number(this.input, {
+              type: "number",
+              value: temp,
+              html: temp
+            });
+            // then continue to switch to add entered operator
+          }
         }
 
         this.result = "";
@@ -184,6 +211,10 @@ export default {
       return text;
     },
     evaluateResult(arr) {
+      if (arr.length === 0) {
+        return;
+      }
+
       // build expression from array
       let exp = "";
       arr.forEach(item => {

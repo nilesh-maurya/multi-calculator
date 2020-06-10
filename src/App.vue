@@ -65,7 +65,7 @@ body {
 #nav a {
   display: inline-block;
   margin: 10px 20px;
-  color: #bdbdbd;
+  color: #757575;
   font-weight: bold;
   text-decoration: none;
 }
@@ -77,6 +77,7 @@ body {
 #nav a.router-link-exact-active,
 #nav a:active {
   color: var(--blackish-blue);
+  border-bottom: 2px solid #09b464;
 }
 
 .unselectable {
