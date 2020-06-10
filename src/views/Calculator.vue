@@ -26,37 +26,39 @@ export default {
     };
   },
   methods: {
-    reset() {
-      this.input = [{ type: "number", value: "0", html: "0" }];
+    // eslint-disable-next-line
+    reset(arr) {
+      arr.splice(0, arr.length);
+      arr.push({ type: "number", value: "0", html: "0" });
     },
-    backspace() {
-      const last = this.input[this.input.length - 1];
+    backspace(arr) {
+      const last = arr[arr.length - 1];
       if (
         last.type === "number" &&
         last.value.length > 1 &&
         !(last.value === "Math.PI" || last.value === "Math.E")
       ) {
         // Array caveats: assigning its last element to modified object
-        this.$set(this.input, this.input.length - 1, {
+        this.$set(arr, arr.length - 1, {
           type: last.type,
           value: last.value.slice(0, -1),
           html: last.html.slice(0, -1)
         });
       } else {
-        this.input.pop();
+        arr.pop();
       }
 
-      if (this.input.length === 0) {
+      if (arr.length === 0) {
         // if everything is backspaced then reset to default
-        this.reset();
+        this.reset(arr);
       }
     },
-    number(event) {
-      const last = this.input[this.input.length - 1];
+    number(arr, event) {
+      const last = arr[arr.length - 1];
       // if last elem is ) eg. (9+8)7 => (9+8)*7
       // add multiply operator
       if (last.value === ")") {
-        this.operator({ type: "operator", value: "*", html: mdiClose });
+        this.operator(arr, { type: "operator", value: "*", html: mdiClose });
       }
 
       if (last.type === "number") {
@@ -65,43 +67,43 @@ export default {
             event.value = "0.";
             event.html = "0.";
           }
-          this.input[this.input.length - 1].value = event.value;
-          this.input[this.input.length - 1].html = event.html;
+          arr[arr.length - 1].value = event.value;
+          arr[arr.length - 1].html = event.html;
         } else {
           if (event.value === "." && last.value.indexOf(".") !== -1) {
             return;
           }
-          this.input[this.input.length - 1].value += event.value;
-          this.input[this.input.length - 1].html += event.html;
+          arr[arr.length - 1].value += event.value;
+          arr[arr.length - 1].html += event.html;
         }
       } else {
-        this.input.push(event);
+        arr.push(event);
       }
     },
-    operator(event) {
-      const last = this.input[this.input.length - 1];
+    operator(arr, event) {
+      const last = arr[arr.length - 1];
       if (last.value === "(") {
         return;
       }
       if (last.type === "operator") {
-        this.input[this.input.length - 1].value = event.value;
-        this.input[this.input.length - 1].html = event.html;
+        arr[arr.length - 1].value = event.value;
+        arr[arr.length - 1].html = event.html;
       } else {
-        this.input.push(event);
+        arr.push(event);
       }
     },
-    paren(event) {
-      const last = this.input[this.input.length - 1];
+    paren(arr, event) {
+      const last = arr[arr.length - 1];
       if (event.value === "(") {
-        if (this.input.length === 1 && last.value === "0") {
+        if (arr.length === 1 && last.value === "0") {
           // remove "0" and then continue to add "("
-          this.input.pop();
+          arr.pop();
         } else if (last.value === ")" || last.type === "number") {
-          this.operator({ type: "operator", value: "*", html: mdiClose });
+          this.operator(arr, { type: "operator", value: "*", html: mdiClose });
         }
-        this.input.push(event);
+        arr.push(event);
       } else if (event.value === ")" && !(last.type === "operator")) {
-        this.input.push(event);
+        arr.push(event);
       }
     },
     inputHandler(event) {
@@ -111,13 +113,13 @@ export default {
         !(event.type === "Evaluate" || event.type === "clear")
       ) {
         // reset to default;
-        this.reset();
+        this.reset(this.input);
         // if event.type is `operator` then answer will be added as input
         if (event.type === "operator") {
           // add answer as first input
           // eg. Ans: = 12 (space after equal), we have to remove that to when adding that as input
           const temp = this.result.slice(2);
-          this.number({ type: "number", value: temp, html: temp });
+          this.number(this.input, { type: "number", value: temp, html: temp });
           // then continue to switch to add entered operator
         }
 
@@ -130,23 +132,27 @@ export default {
         case "clear": {
           if (event.value === "AC") {
             // if all clear then reset to default
-            this.reset();
+            this.reset(this.input);
           } else if (event.value === "Backspace") {
-            this.backspace(event);
+            this.backspace(this.input, event);
           }
           break;
         }
         case "number": {
-          this.number(event);
+          this.number(this.input, event);
           break;
         }
         case "operator": {
-          this.operator(event);
+          this.operator(this.input, event);
           break;
         }
 
         case "paren": {
-          this.paren(event);
+          this.paren(this.input, event);
+          break;
+        }
+
+        case "function": {
           break;
         }
       }

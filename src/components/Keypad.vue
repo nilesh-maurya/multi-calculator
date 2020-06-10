@@ -20,11 +20,50 @@
         deg
       </button>
       <button class="keypad__btn" v-if="isInverse">sin<sup>-1</sup></button>
-      <button class="keypad__btn" v-else>sin</button>
+      <button
+        class="keypad__btn"
+        v-else
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.sin',
+            html: 'sin'
+          })
+        "
+      >
+        sin
+      </button>
       <button class="keypad__btn" v-if="isInverse">cos<sup>-1</sup></button>
-      <button class="keypad__btn" v-else>cos</button>
+      <button
+        class="keypad__btn"
+        v-else
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.cos',
+            html: 'cos'
+          })
+        "
+      >
+        cos
+      </button>
       <button class="keypad__btn" v-if="isInverse">tan<sup>-1</sup></button>
-      <button class="keypad__btn" v-else>tan</button>
+      <button
+        class="keypad__btn"
+        v-else
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.tan',
+            html: 'tan'
+          })
+        "
+      >
+        tan
+      </button>
     </div>
     <div class="keypad__row" v-if="isAdvanced">
       <button class="keypad__btn">X<sup>y</sup></button>
@@ -304,6 +343,15 @@ export default {
         "%": "mod"
       };
 
+      const functionKeys = {
+        s: { value: "Math.sin", html: "sin" },
+        c: { value: "Math.cos", html: "cos" },
+        t: { value: "Math.tan", html: "tan" },
+        S: { value: "Math.asin", html: "sin" },
+        C: { value: "Math.acos", html: "arccos" },
+        T: { value: "Math.atan", html: "arctan" }
+      };
+
       if (numberkeys.includes(ev.key)) {
         this.$emit("keypad-input", {
           type: "number",
@@ -340,6 +388,13 @@ export default {
           type: "paren",
           value: ev.key,
           html: ev.key
+        });
+      } else if (Object.keys(functionKeys).includes(ev.key)) {
+        this.$emit("keypad-input", {
+          type: "function",
+          category: "trigonometry",
+          value: functionKeys[ev.key].value,
+          html: functionKeys[ev.key].html
         });
       }
     }
