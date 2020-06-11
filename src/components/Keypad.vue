@@ -8,6 +8,7 @@
         class="keypad__btn"
         v-if="isRadian"
         @click="clickHandler({ value: 'rad' })"
+        :disabled="isDisabled"
       >
         rad
       </button>
@@ -15,11 +16,23 @@
         class="keypad__btn"
         v-else
         @click="clickHandler({ value: 'deg' })"
-        :disabled="isDisabled"
       >
         deg
       </button>
-      <button class="keypad__btn" v-if="isInverse">sin<sup>-1</sup></button>
+      <button
+        class="keypad__btn"
+        v-if="isInverse"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.asin',
+            html: 'arcsin'
+          })
+        "
+      >
+        sin<sup>-1</sup>
+      </button>
       <button
         class="keypad__btn"
         v-else
@@ -34,7 +47,20 @@
       >
         sin
       </button>
-      <button class="keypad__btn" v-if="isInverse">cos<sup>-1</sup></button>
+      <button
+        class="keypad__btn"
+        v-if="isInverse"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.acos',
+            html: 'arccos'
+          })
+        "
+      >
+        cos<sup>-1</sup>
+      </button>
       <button
         class="keypad__btn"
         v-else
@@ -49,7 +75,20 @@
       >
         cos
       </button>
-      <button class="keypad__btn" v-if="isInverse">tan<sup>-1</sup></button>
+      <button
+        class="keypad__btn"
+        v-if="isInverse"
+        @click="
+          clickHandler({
+            type: 'function',
+            category: 'trigonometry',
+            value: 'Math.atan',
+            html: 'arctan'
+          })
+        "
+      >
+        tan<sup>-1</sup>
+      </button>
       <button
         class="keypad__btn"
         v-else
@@ -335,9 +374,9 @@ export default {
         mdiBackspaceOutline,
         mdiSquareRoot
       },
-      isAdvanced: true,
+      isAdvanced: false,
       isInverse: false,
-      isRadian: false,
+      isRadian: true,
       isDisabled: false
     };
   },
@@ -348,12 +387,16 @@ export default {
       } else if (event.value === "inv") {
         this.isInverse = !this.isInverse;
         this.isDisabled = !this.isDisabled;
-        this.isRadian = false;
+        this.isRadian = true;
       } else if (event.value === "rad") {
         this.isRadian = false;
       } else if (event.value === "deg") {
         this.isRadian = true;
       } else {
+        if (event.type === "number") {
+          event.isRadian = this.isRadian;
+          event.isInverse = this.isInverse;
+        }
         this.$emit("keypad-input", event);
       }
     },
@@ -392,7 +435,9 @@ export default {
         this.$emit("keypad-input", {
           type: "number",
           value: ev.key,
-          html: ev.key
+          html: ev.key,
+          isRadian: this.isRadian,
+          isInverse: this.isInverse
         });
       } else if (Object.keys(operatorKeys).includes(ev.key)) {
         const event = {
@@ -454,6 +499,10 @@ export default {
 <style scoped>
 button:hover {
   background-color: var(--grey-lighten-3);
+}
+
+button[disabled] {
+  color: #bdbdbd;
 }
 
 .keypad {

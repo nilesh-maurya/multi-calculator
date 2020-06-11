@@ -15,6 +15,8 @@
 import { mdiClose, mdiMinus } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
 import Keypad from "../components/Keypad.vue";
+import { roundNumber } from "../utils/math_util.js";
+
 export default {
   name: "Calculator",
   data() {
@@ -40,7 +42,11 @@ export default {
 
       // check for function
       if (last.type === "function") {
-        return this.backspace(arr[arr.length - 1].value, event);
+        if (last.value.length === 2) {
+          return arr.pop();
+        } else {
+          return this.backspace(arr[arr.length - 1].value, event);
+        }
       }
 
       if (
@@ -206,11 +212,11 @@ export default {
         }
 
         case "function": {
-          if (event.category === "logarithm") {
+          if (event.category) {
             this.input.push({
               type: "function",
               value: [
-                { type: "logarithm", value: event.value, html: event.html },
+                { type: event.category, value: event.value, html: event.html },
                 { type: "paren", value: "(", html: "(" }
               ]
             });
@@ -268,13 +274,25 @@ export default {
       }
       return text;
     },
-    createExpression(arr) {
+    createExpression(arr, isTypeofFunction, category) {
+      console.log(category);
       let exp = "";
       arr.forEach(item => {
         if (item.type !== "function") {
-          exp += item.value;
+          if (
+            item.type === "number" &&
+            isTypeofFunction === true &&
+            category === "trigonometry" &&
+            item.isRadian === false &&
+            item.isInverse === false
+          ) {
+            const temp = item.value + "*(Math.PI/180)";
+            exp += temp;
+          } else {
+            exp += item.value;
+          }
         } else {
-          exp += this.createExpression(item.value);
+          exp += this.createExpression(item.value, true, item.value[0].type);
         }
       });
 
@@ -290,7 +308,9 @@ export default {
       let exp = this.createExpression(arr);
       try {
         exp = this.balanceParenthesis(exp);
-        const answer = eval(exp);
+        console.log(exp);
+        let answer = eval(exp);
+        answer = roundNumber(answer, 15);
         const errorRegex = /(NaN)|(undefined)|(function)/g;
         if (errorRegex.test(answer)) {
           this.result = "= Error";
