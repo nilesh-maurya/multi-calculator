@@ -15,7 +15,6 @@
 import { mdiClose, mdiMinus } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
 import Keypad from "../components/Keypad.vue";
-import { roundNumber } from "../utils/math_util.js";
 
 export default {
   name: "Calculator",
@@ -80,6 +79,9 @@ export default {
           this.operator(arr, { type: "operator", value: "*", html: mdiClose });
         }
         if (last.type === "number") {
+          if (last.value === "0" && event.value === "0") {
+            return;
+          }
           if (event.value === "." && last.value.indexOf(".") !== -1) {
             return;
           }
@@ -315,7 +317,11 @@ export default {
       try {
         exp = this.balanceParenthesis(exp);
         let answer = eval(exp);
-        answer = roundNumber(answer, 15);
+
+        const temp = answer.toString();
+        if (temp.length > 10) {
+          answer = parseFloat(answer.toFixed(15));
+        }
         const errorRegex = /(NaN)|(undefined)|(function)/g;
         if (errorRegex.test(answer)) {
           this.result = "= Error";
