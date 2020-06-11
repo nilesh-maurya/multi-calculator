@@ -236,6 +236,13 @@ export default {
       if (event.type === "Evaluate") {
         // make font bigger
         this.wasEnterPressed = true;
+        // store in localstorage
+        let items = JSON.parse(window.localStorage.getItem("calculator"));
+        if (!items) {
+          items = [];
+        }
+        items.push({ input: this.input, result: this.result });
+        window.localStorage.setItem("calculator", JSON.stringify(items));
       }
       this.evaluateResult(this.input);
     },

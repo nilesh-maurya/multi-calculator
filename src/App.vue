@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <div id="nav">
+      <router-link :to="{ name: 'history' }" title="History">
+        History
+      </router-link>
       <router-link :to="{ name: 'calculator' }" title="Calculator">
         Calculator
       </router-link>
@@ -8,7 +11,9 @@
         Convert
       </router-link>
     </div>
-    <router-view />
+    <keep-alive :include="['Calculator']">
+      <router-view />
+    </keep-alive>
   </v-app>
 </template>
 

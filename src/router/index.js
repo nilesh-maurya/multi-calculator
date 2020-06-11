@@ -18,6 +18,15 @@ const routes = [
         /* webpackPrefetch: true */
         "../views/Convert.vue"
       )
+  },
+  {
+    path: "/history/",
+    name: "history",
+    component: () =>
+      import(
+        /* webpackPrefetch: true */
+        "../views/History.vue"
+      )
   }
 ];
 
