@@ -282,7 +282,6 @@ export default {
       return text;
     },
     createExpression(arr, isTypeofFunction, category) {
-      console.log(category);
       let exp = "";
       arr.forEach(item => {
         if (item.type !== "function") {
@@ -315,7 +314,6 @@ export default {
       let exp = this.createExpression(arr);
       try {
         exp = this.balanceParenthesis(exp);
-        console.log(exp);
         let answer = eval(exp);
         answer = roundNumber(answer, 15);
         const errorRegex = /(NaN)|(undefined)|(function)/g;
