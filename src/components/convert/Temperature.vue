@@ -12,7 +12,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('1')"
+          @change="handleChange('1', 'temperature')"
         ></v-select>
       </v-col>
       <span
@@ -38,7 +38,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('2')"
+          @change="handleChange('2', 'temperature')"
         ></v-select>
       </v-col>
       <span
@@ -48,25 +48,27 @@
         @keydown.enter="toggleFocus = false"
         @click="toggleFocus = false"
         tabindex="0"
+        role="input"
+        :aria-label="'Enter value for ' + select2.unit"
       >
         {{ second_input }}
       </span>
     </v-row>
-    <numeric-keypad @numeric-key-event="handleInput" :sign="false">
+    <numeric-keypad
+      @numeric-key-event="handleInput($event, 'temperature')"
+      :sign="false"
+    >
     </numeric-keypad>
   </div>
 </template>
 
 <script>
 import NumericKeypad from "../NumericKeypad";
-import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
-import { convert } from "../../utils/conversion";
+import convertMixin from "../../mixins/convertMixin";
 
 export default {
   name: "Temperature",
-  created() {
-    actions.reset();
-  },
+  mixins: [convertMixin],
   data() {
     return {
       toggleFocus: true,
@@ -79,67 +81,6 @@ export default {
         { unit: "Rankine", abbr: "R" }
       ]
     };
-  },
-  computed: {
-    first_input() {
-      return getters.getFirstInput();
-    },
-    second_input() {
-      return getters.getSecondInput();
-    }
-  },
-  methods: {
-    handleInput(key) {
-      const id = document.querySelector("span.focus").dataset.id;
-
-      switch (key) {
-        case "Sign": {
-          actions.sign(id);
-          break;
-        }
-        case "AC": {
-          actions.reset(id);
-          break;
-        }
-        case "Backspace": {
-          actions.backspace(id);
-          break;
-        }
-        case ".": {
-          actions.decimal(id);
-          break;
-        }
-        default: {
-          actions.number(id, key, 10);
-        }
-      }
-      this.calculateTemperature(id);
-    },
-    handleChange(id) {
-      if (this.toggleFocus === true) {
-        id = "1";
-      } else {
-        id = "2";
-      }
-
-      this.calculateTemperature(id);
-    },
-    calculateTemperature(id) {
-      // find conversion here
-      let convertedValue;
-      if (id === "1") {
-        convertedValue = convert(this.first_input, "temperature")
-          .from(this.select1.abbr)
-          .to(this.select2.abbr);
-
-        mutations.setSecondInput(convertedValue.toString(10));
-      } else if (id === "2") {
-        convertedValue = convert(this.second_input, "temperature")
-          .from(this.select2.abbr)
-          .to(this.select1.abbr);
-        mutations.setFirstInput(convertedValue.toString(10));
-      }
-    }
   },
   components: {
     NumericKeypad
