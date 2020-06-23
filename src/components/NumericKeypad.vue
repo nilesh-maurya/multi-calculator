@@ -41,7 +41,7 @@
             class="left__btn"
             :class="{ 'left__btn--empty': sign }"
             @click="clickHandler"
-            data-value="Sign"
+            data-value="Minus"
           >
             <v-icon color="#09b464" v-if="!sign">{{ plusMinus }}</v-icon>
           </button>
@@ -109,8 +109,10 @@ export default {
   methods: {
     keyupHandler(ev) {
       if (this.allowedKeys.includes(ev.key)) {
-        if ((ev.key == "+") | (ev.key == "-")) {
-          this.$emit("numeric-key-event", "Sign");
+        if (ev.key == "-") {
+          this.$emit("numeric-key-event", "Minus");
+        } else if (ev.key == "+") {
+          this.$emit("numeric-key-event", "Plus");
         } else {
           this.$emit("numeric-key-event", ev.key);
         }

@@ -17,7 +17,20 @@ export const mutations = {
 };
 
 export const actions = {
-  sign(id) {
+  plus(id) {
+    if (id === "1") {
+      const value = getters.getFirstInput();
+      if (value[0] === "-") {
+        mutations.setFirstInput(value.slice(1));
+      }
+    } else if (id === "2") {
+      const value = getters.getSecondInput();
+      if (value[0] === "-") {
+        mutations.setSecondInput(value.slice(1));
+      }
+    }
+  },
+  minus(id) {
     if (id === "1") {
       const value = getters.getFirstInput();
       if (value[0] === "-") {
@@ -76,7 +89,7 @@ export const actions = {
     }
   },
   number(id, key, decimalDigit, maxDigit = 15) {
-    if (key === "Sign") {
+    if (key === "Minus" || key === "Plus") {
       return;
     }
     if (id === "1") {

@@ -22,8 +22,12 @@ const mixin = {
       const id = document.querySelector("span.focus").dataset.id;
 
       switch (key) {
-        case "Sign": {
-          actions.sign(id);
+        case "Minus": {
+          actions.minus(id);
+          break;
+        }
+        case "Plus": {
+          actions.plus(id);
           break;
         }
         case "AC": {
