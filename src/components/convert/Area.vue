@@ -12,7 +12,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('1', 'area')"
+          @change="handleChange('1', measure)"
         ></v-select>
       </v-col>
       <span
@@ -38,7 +38,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('2', 'area')"
+          @change="handleChange('2', measure)"
         ></v-select>
       </v-col>
       <span
@@ -53,7 +53,7 @@
       </span>
     </v-row>
     <numeric-keypad
-      @numeric-key-event="handleInput($event, 'area')"
+      @numeric-key-event="handleInput($event, measure)"
     ></numeric-keypad>
   </div>
 </template>
@@ -67,6 +67,7 @@ export default {
   mixins: [convertMixin],
   data() {
     return {
+      measure: "area",
       toggleFocus: true,
       select1: { unit: "Square kilometer", abbr: "km2" },
       select2: { unit: "Sqaure meter", abbr: "m2" },

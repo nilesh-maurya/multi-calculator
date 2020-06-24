@@ -12,7 +12,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('1', 'mass')"
+          @change="handleChange('1', measure)"
         ></v-select>
       </v-col>
       <span
@@ -38,7 +38,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('2', 'mass')"
+          @change="handleChange('2', measure)"
         ></v-select>
       </v-col>
       <span
@@ -53,7 +53,7 @@
       </span>
     </v-row>
     <numeric-keypad
-      @numeric-key-event="handleInput($event, 'mass')"
+      @numeric-key-event="handleInput($event, measure)"
     ></numeric-keypad>
   </div>
 </template>
@@ -67,6 +67,7 @@ export default {
   mixins: [convertMixin],
   data() {
     return {
+      measure: "mass",
       toggleFocus: true,
       select1: { unit: "Gram", abbr: "g" },
       select2: { unit: "Kilogram", abbr: "kg" },

@@ -62,15 +62,15 @@
 
 <script>
 import NumericKeypad from "../NumericKeypad";
-import { getters, actions, mutations } from "../../utils/numeric-keypad-store";
+import { getters, actions } from "../../utils/numeric-keypad-store";
 import { convert } from "../../utils/conversion";
 import { roundNumber } from "../../utils/math_util";
+import { store_data, apply_data } from "../../utils/local_storage";
 
 export default {
   name: "BMI",
   created() {
-    mutations.setFirstInput("60");
-    mutations.setSecondInput("170");
+    apply_data(this, "BMI");
   },
   data() {
     return {
@@ -122,6 +122,15 @@ export default {
       } else if (bmi >= 25) {
         result.category = "Overweight";
       }
+
+      // save into localstorage
+      store_data({
+        select1: this.select1,
+        select2: this.select2,
+        firstInput: this.first_input,
+        secondInput: this.second_input,
+        measure: "BMI"
+      });
 
       return result;
     }

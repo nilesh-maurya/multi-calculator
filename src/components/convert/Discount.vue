@@ -30,12 +30,12 @@
       <div class="discount__item discount__total">
         <span class="discount__total--text unselectable">Final price</span>
         <span class="discount__total--result">
-          {{ this.formatWithCommas(final_price) }}
+          {{ this.formatWithCommas(result.final_price) }}
         </span>
       </div>
 
       <div class="discount__item discount__save">
-        <span>You save {{ this.formatWithCommas(save) }}</span>
+        <span>You save {{ this.formatWithCommas(result.save) }}</span>
       </div>
     </div>
     <numeric-keypad @numeric-key-event="handleInput"></numeric-keypad>
@@ -46,16 +46,15 @@
 import { roundNumber, formatNumber } from "../../utils/math_util.js";
 import NumericKeypad from "../NumericKeypad.vue";
 import { getters, actions } from "../../utils/numeric-keypad-store.js";
+import { store_data, apply_data } from "../../utils/local_storage";
 
 export default {
   created() {
-    actions.reset();
+    apply_data(this, "discount");
   },
   data() {
     return {
-      toggleFocus: true,
-      final_price: 0,
-      save: 0
+      toggleFocus: true
     };
   },
   computed: {
@@ -64,16 +63,25 @@ export default {
     },
     discount() {
       return getters.getSecondInput();
-    }
-  },
-  methods: {
-    calculateDiscount() {
+    },
+    result() {
       const original_price = parseFloat(this.original_price);
       const discount = parseFloat(this.discount);
 
-      this.save = +roundNumber((original_price * discount) / 100, 4);
-      this.final_price = +roundNumber(original_price - this.save, 4);
-    },
+      const save = +roundNumber((original_price * discount) / 100, 4);
+      const final_price = +roundNumber(original_price - save, 4);
+
+      // save to localstorage
+      store_data({
+        firstInput: this.original_price,
+        secondInput: this.discount,
+        measure: "discount"
+      });
+
+      return { save, final_price };
+    }
+  },
+  methods: {
     handleInput(key) {
       const id = document.querySelector("span.focus").dataset.id;
 
@@ -98,7 +106,6 @@ export default {
           actions.number(id, key, 3);
         }
       }
-      this.calculateDiscount();
     },
     formatWithCommas(number) {
       return formatNumber(number);

@@ -12,7 +12,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('1', 'temperature')"
+          @change="handleChange('1', measure)"
         ></v-select>
       </v-col>
       <span
@@ -38,7 +38,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('2', 'temperature')"
+          @change="handleChange('2', measure)"
         ></v-select>
       </v-col>
       <span
@@ -55,7 +55,7 @@
       </span>
     </v-row>
     <numeric-keypad
-      @numeric-key-event="handleInput($event, 'temperature')"
+      @numeric-key-event="handleInput($event, measure)"
       :sign="true"
     >
     </numeric-keypad>
@@ -71,6 +71,7 @@ export default {
   mixins: [convertMixin],
   data() {
     return {
+      measure: "temperature",
       toggleFocus: true,
       select1: { unit: "Celcius", abbr: "C" },
       select2: { unit: "Fahrenheit", abbr: "F" },

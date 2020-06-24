@@ -12,7 +12,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('1', 'digital')"
+          @change="handleChange('1', measure)"
         ></v-select>
       </v-col>
       <span
@@ -38,7 +38,7 @@
           persistent-hint
           return-object
           color="#09b464"
-          @change="handleChange('2', 'digital')"
+          @change="handleChange('2', measure)"
         ></v-select>
       </v-col>
       <span
@@ -53,7 +53,7 @@
       </span>
     </v-row>
     <numeric-keypad
-      @numeric-key-event="handleInput($event, 'digital')"
+      @numeric-key-event="handleInput($event, measure)"
     ></numeric-keypad>
   </div>
 </template>
@@ -67,6 +67,7 @@ export default {
   mixins: [convertMixin],
   data() {
     return {
+      measure: "digital",
       toggleFocus: true,
       select1: { unit: "Bits", abbr: "b" },
       select2: { unit: "Bytes", abbr: "B" },

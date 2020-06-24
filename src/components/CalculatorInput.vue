@@ -22,7 +22,7 @@ export default {
           if (item.value === "Math.PI") {
             return createElement("v-icon", item.html);
           } else {
-            return item.html;
+            return createElement("span", item.html);
           }
         } else if (item.type === "operator") {
           if (item.value === "%") {

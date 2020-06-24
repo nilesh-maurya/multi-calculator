@@ -46,15 +46,15 @@
 import { roundNumber, formatNumber } from "../../utils/math_util.js";
 import NumericKeypad from "../NumericKeypad.vue";
 import { getters, actions } from "../../utils/numeric-keypad-store.js";
+import { store_data, apply_data } from "../../utils/local_storage";
 
 export default {
   created() {
-    actions.reset();
+    apply_data(this, "percentage");
   },
   data() {
     return {
-      toggleFocus: true,
-      result: 0
+      toggleFocus: true
     };
   },
   computed: {
@@ -63,15 +63,23 @@ export default {
     },
     percentage() {
       return getters.getSecondInput();
-    }
-  },
-  methods: {
-    calculatePercentage() {
+    },
+    result() {
       const total = parseFloat(this.total);
       const percentage = parseFloat(this.percentage);
 
-      this.result = +roundNumber((total * percentage) / 100, 4);
-    },
+      const result = +roundNumber((total * percentage) / 100, 4);
+
+      store_data({
+        firstInput: this.total,
+        secondInput: this.percentage,
+        measure: "percentage"
+      });
+
+      return result;
+    }
+  },
+  methods: {
     handleInput(key) {
       const id = document.querySelector("span.focus").dataset.id;
 
@@ -96,7 +104,6 @@ export default {
           actions.number(id, key, 3);
         }
       }
-      this.calculatePercentage();
     },
     formatWithCommas(number) {
       return formatNumber(number);

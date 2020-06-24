@@ -3,10 +3,10 @@
 
 import { getters, mutations, actions } from "../utils/numeric-keypad-store";
 import { convert } from "../utils/conversion";
-
+import { store_data, apply_data } from "../utils/local_storage";
 const mixin = {
   created() {
-    actions.reset();
+    apply_data(this, this.measure);
   },
   computed: {
     first_input() {
@@ -71,6 +71,13 @@ const mixin = {
           .to(this.select1.abbr);
         mutations.setFirstInput(convertedValue.toString(10));
       }
+      store_data({
+        select1: this.select1,
+        select2: this.select2,
+        firstInput: this.first_input,
+        secondInput: this.second_input,
+        measure: this.measure
+      });
     }
   }
 };
