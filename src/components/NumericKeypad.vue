@@ -39,11 +39,11 @@
         <div class="left__btnrow">
           <button
             class="left__btn"
-            :class="{ 'left__btn--empty': sign }"
+            :class="{ 'left__btn--empty': !sign }"
             @click="clickHandler"
             data-value="Minus"
           >
-            <v-icon color="#09b464" v-if="!sign">{{ plusMinus }}</v-icon>
+            <v-icon color="#09b464" v-if="sign">{{ plusMinus }}</v-icon>
           </button>
           <button class="left__btn" @click="clickHandler" data-value="0">
             0
@@ -81,7 +81,7 @@ export default {
   props: {
     sign: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   data() {

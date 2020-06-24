@@ -1,6 +1,5 @@
-// BMI (2, 4)
-// Discount (3)
-// Percentage (3)
+// this mixin will be used in convert__item component except this components
+// Age, Date, BMI (2, 4), Discount (3), Percentage (3), NumeralSystem
 
 import { getters, mutations, actions } from "../utils/numeric-keypad-store";
 import { convert } from "../utils/conversion";

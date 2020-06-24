@@ -56,7 +56,7 @@
     </v-row>
     <numeric-keypad
       @numeric-key-event="handleInput($event, 'temperature')"
-      :sign="false"
+      :sign="true"
     >
     </numeric-keypad>
   </div>
