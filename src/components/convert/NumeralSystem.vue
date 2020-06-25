@@ -67,15 +67,17 @@ import TitleBar from "../TitleBar.vue";
 import NumeralSystemKeypad from "../NumeralSystemKeypad";
 import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
 import convert from "../../utils/baseConverter";
+import { store_data, apply_data } from "../../utils/local_storage";
 
 export default {
   name: "NumeralSystem",
   created() {
-    actions.reset();
+    apply_data(this, this.measure);
     this.handleChange();
   },
   data() {
     return {
+      measure: "NumeralStorage",
       toggleFocus: true,
       select1: { unit: "Decimal", abbr: "DEC", base: 10 },
       select2: { unit: "Hexadecimal", abbr: "HEX", base: 16 },
@@ -177,6 +179,15 @@ export default {
         );
         mutations.setFirstInput(convertedValue);
       }
+
+      // store in local storage
+      store_data({
+        select1: this.select1,
+        select2: this.select2,
+        firstInput: this.first_input,
+        secondInput: this.second_input,
+        measure: this.measure
+      });
     }
   },
   components: {

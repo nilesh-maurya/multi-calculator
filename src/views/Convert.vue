@@ -10,8 +10,8 @@
         <div class="convert__items">
           <router-link
             class="convert__item"
-            v-for="(i, indices) in item.value"
-            :key="indices"
+            v-for="i in item.value"
+            :key="i.title"
             :to="{ name: i.link }"
             tag="div"
             :data-item="i.title"
@@ -24,9 +24,7 @@
         <v-divider v-if="index < items.length - 1"></v-divider>
       </div>
     </div>
-    <!-- <div v-else> -->
     <router-view />
-    <!-- </div> -->
   </div>
 </template>
 
@@ -144,23 +142,6 @@ export default {
   background-color: var(--grey-lighten-3);
   border: none;
   outline: none;
-}
-
-.titlebar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.titlebar__back {
-  cursor: pointer;
-}
-
-.titlebar__title {
-  flex: 2;
-  font-size: 20px;
 }
 
 .wrapper-convert-element .focus {

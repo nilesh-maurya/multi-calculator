@@ -34,4 +34,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.titlebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.titlebar__back {
+  cursor: pointer;
+}
+
+.titlebar__title {
+  flex: 2;
+  font-size: 20px;
+}
+</style>
