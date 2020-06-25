@@ -1,33 +1,32 @@
 <template>
   <div class="convert">
-    <div class="convert__items" v-if="showConvertItems">
+    <div class="convert__list" v-if="showConvertItems">
       <div
-        class="convert__item"
+        class="convert__list--item"
         v-for="(item, index) in items"
         :key="index"
-        :data-item="item.title"
-        @keydown.enter="showComponent(item)"
-        @click="showComponent(item)"
-        tabindex="0"
       >
-        <v-icon>{{ item.src }} </v-icon>
-        <p :data-item="item.title">{{ item.title }}</p>
+        <v-subheader>{{ item.title }}</v-subheader>
+        <div class="convert__items">
+          <router-link
+            class="convert__item"
+            v-for="(i, indices) in item.value"
+            :key="indices"
+            :to="{ name: i.link }"
+            tag="div"
+            :data-item="i.title"
+            tabindex="0"
+          >
+            <v-icon>{{ i.src }} </v-icon>
+            <p :data-item="i.title">{{ i.title }}</p>
+          </router-link>
+        </div>
+        <v-divider v-if="index < items.length - 1"></v-divider>
       </div>
     </div>
-    <div class="" v-else>
-      <div class="titlebar">
-        <button
-          class="titlebar__back"
-          tabindex="0"
-          @keydown.enter="showConvertItems = true"
-          @click="showConvertItems = true"
-        >
-          <v-icon>{{ mdiArrowLeft }} </v-icon>
-        </button>
-        <h3 class="titlebar__title">{{ currentItem }}</h3>
-      </div>
-      <component :is="currentItemComponent"></component>
-    </div>
+    <!-- <div v-else> -->
+    <router-view />
+    <!-- </div> -->
   </div>
 </template>
 
@@ -48,7 +47,6 @@ import {
   mdiDiceD10Outline,
   mdiHumanMaleHeightVariant,
   mdiAccessPoint,
-  mdiArrowLeft,
   mdiSd,
   mdiLightningBoltOutline,
   mdiGauge
@@ -57,207 +55,60 @@ export default {
   name: "Convert",
   data() {
     return {
-      mdiArrowLeft: mdiArrowLeft,
-      showConvertItems: true,
-      currentItem: "",
       items: [
-        { title: "BMI", src: mdiHumanMaleHeightVariant },
-        { title: "Age", src: mdiCakeVariant },
-        { title: "Date", src: mdiCalendarRange },
-        { title: "Discount", src: mdiTagMultipleOutline },
-        { title: "Percentage", src: mdiPercentOutline },
-        { title: "Angle", src: mdiAngleAcute },
-        { title: "Length", src: mdiRuler },
-        { title: "Area", src: mdiTextureBox },
-        { title: "Volume", src: mdiCubeOutline },
-        { title: "Temperature", src: mdiThermometerLow },
-        { title: "Speed", src: mdiSpeedometerSlow },
-        { title: "Time", src: mdiClockTimeThreeOutline },
-        { title: "Mass", src: mdiWeight },
-        { title: "Energy", src: mdiLightningBoltOutline },
-        { title: "Pressure", src: mdiGauge },
-        { title: "Frequency", src: mdiAccessPoint },
-        { title: "Digital Storage", src: mdiSd },
-        { title: "Numeral System", src: mdiDiceD10Outline }
+        {
+          title: "Growth",
+          value: [
+            { title: "BMI", link: "BMI", src: mdiHumanMaleHeightVariant },
+            { title: "Age", link: "Age", src: mdiCakeVariant },
+            { title: "Date", link: "Date", src: mdiCalendarRange }
+          ]
+        },
+        {
+          title: "Finance",
+          value: [
+            { title: "Discount", link: "Discount", src: mdiTagMultipleOutline },
+            { title: "Percentage", link: "Percentage", src: mdiPercentOutline }
+          ]
+        },
+        {
+          title: "Units",
+          value: [
+            { title: "Angle", link: "Angle", src: mdiAngleAcute },
+            { title: "Length", link: "Length", src: mdiRuler },
+            { title: "Area", link: "Area", src: mdiTextureBox },
+            { title: "Volume", link: "Volume", src: mdiCubeOutline },
+            {
+              title: "Temperature",
+              link: "Temperature",
+              src: mdiThermometerLow
+            },
+            { title: "Speed", link: "Speed", src: mdiSpeedometerSlow },
+            { title: "Time", link: "Time", src: mdiClockTimeThreeOutline },
+            { title: "Mass", link: "Mass", src: mdiWeight },
+            { title: "Energy", link: "Energy", src: mdiLightningBoltOutline },
+            { title: "Pressure", link: "Pressure", src: mdiGauge },
+            { title: "Frequency", link: "Frequency", src: mdiAccessPoint }
+          ]
+        },
+        {
+          title: "Digital",
+          value: [
+            { title: "Digital Storage", link: "DigitalStorage", src: mdiSd },
+            {
+              title: "Numeral System",
+              link: "NumeralSystem",
+              src: mdiDiceD10Outline
+            }
+          ]
+        }
       ]
     };
   },
   computed: {
-    currentItemComponent() {
-      let ret = "";
-      switch (this.currentItem) {
-        case "BMI":
-          ret = "convert-bmi";
-          break;
-        case "Angle":
-          ret = "convert-angle";
-          break;
-        case "Age":
-          ret = "convert-age";
-          break;
-        case "Date":
-          ret = "convert-date";
-          break;
-        case "Discount":
-          ret = "convert-discount";
-          break;
-        case "Percentage":
-          ret = "convert-percentage";
-          break;
-        case "Length":
-          ret = "convert-length";
-          break;
-        case "Area":
-          ret = "convert-area";
-          break;
-        case "Volume":
-          ret = "convert-volume";
-          break;
-        case "Temperature":
-          ret = "convert-temperature";
-          break;
-        case "Speed":
-          ret = "convert-speed";
-          break;
-        case "Time":
-          ret = "convert-time";
-          break;
-        case "Mass":
-          ret = "convert-mass";
-          break;
-        case "Energy":
-          ret = "convert-energy";
-          break;
-        case "Pressure":
-          ret = "convert-pressure";
-          break;
-        case "Frequency":
-          ret = "convert-frequency";
-          break;
-        case "Digital Storage":
-          ret = "convert-digital-storage";
-          break;
-        case "Numeral System":
-          ret = "convert-numeral-system";
-      }
-      return ret;
+    showConvertItems() {
+      return this.$route.name === "convert";
     }
-  },
-  methods: {
-    showComponent(item) {
-      this.showConvertItems = false;
-      this.currentItem = item.title;
-    }
-  },
-  components: {
-    "convert-bmi": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "BMI" */
-        "../components/convert/BMI.vue"
-      ),
-    "convert-angle": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Angle" */
-        "../components/convert/Angle.vue"
-      ),
-    "convert-age": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Age" */
-        "../components/convert/Age.vue"
-      ),
-    "convert-date": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Date" */
-        "../components/convert/Date.vue"
-      ),
-    "convert-discount": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Discount" */
-        "../components/convert/Discount.vue"
-      ),
-    "convert-percentage": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Percentage" */
-        "../components/convert/Percentage.vue"
-      ),
-    "convert-length": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Length" */
-        "../components/convert/Length.vue"
-      ),
-    "convert-area": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Area" */
-        "../components/convert/Area.vue"
-      ),
-    "convert-volume": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Volume" */
-        "../components/convert/Volume.vue"
-      ),
-    "convert-temperature": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Temperature" */
-        "../components/convert/Temperature.vue"
-      ),
-    "convert-speed": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Speed" */
-        "../components/convert/Speed.vue"
-      ),
-    "convert-time": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Time" */
-        "../components/convert/Time.vue"
-      ),
-    "convert-mass": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Mass" */
-        "../components/convert/Mass.vue"
-      ),
-    "convert-pressure": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Pressure" */
-        "../components/convert/Pressure.vue"
-      ),
-    "convert-energy": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Energy" */
-        "../components/convert/Energy.vue"
-      ),
-    "convert-frequency": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "Frequency" */
-        "../components/convert/Frequency.vue"
-      ),
-    "convert-digital-storage": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "DigitalStorage" */
-        "../components/convert/DigitalStorage.vue"
-      ),
-    "convert-numeral-system": () =>
-      import(
-        /* webpackPrefetch: true */
-        /* webpackChunkName: "NumeralSystem" */
-        "../components/convert/NumeralSystem.vue"
-      )
   }
 };
 </script>

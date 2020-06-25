@@ -1,5 +1,6 @@
 <template>
   <div>
+    <title-bar title="Discount"></title-bar>
     <div class="discount">
       <div class="discount__item discount__price unselectable">
         <span class="discount__price--text">Original price</span>
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import { roundNumber, formatNumber } from "../../utils/math_util.js";
 import NumericKeypad from "../NumericKeypad.vue";
 import { getters, actions } from "../../utils/numeric-keypad-store.js";
@@ -112,7 +114,8 @@ export default {
     }
   },
   components: {
-    NumericKeypad
+    NumericKeypad,
+    TitleBar
   }
 };
 </script>

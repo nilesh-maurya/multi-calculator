@@ -1,5 +1,6 @@
 <template>
   <div class="age">
+    <title-bar title="Age"></title-bar>
     <div class="age__input">
       <v-row>
         <v-col cols="12" sm="6">
@@ -152,6 +153,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import { mdiCalendar } from "@mdi/js";
 import { getSummary, findDay, getNextBirthday } from "../../utils/date_util";
 
@@ -203,7 +205,9 @@ export default {
       };
     }
   },
-  methods: {}
+  components: {
+    TitleBar
+  }
 };
 </script>
 

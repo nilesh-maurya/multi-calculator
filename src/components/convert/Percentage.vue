@@ -1,5 +1,6 @@
 <template>
   <div>
+    <title-bar title="Percentage"></title-bar>
     <div class="percentage">
       <div class="percentage__item percentage__total unselectable">
         <span class="percentage__total--text">Total</span>
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import { roundNumber, formatNumber } from "../../utils/math_util.js";
 import NumericKeypad from "../NumericKeypad.vue";
 import { getters, actions } from "../../utils/numeric-keypad-store.js";
@@ -110,7 +112,8 @@ export default {
     }
   },
   components: {
-    NumericKeypad
+    NumericKeypad,
+    TitleBar
   }
 };
 </script>

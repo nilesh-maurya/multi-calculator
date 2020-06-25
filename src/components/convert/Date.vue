@@ -1,5 +1,6 @@
 <template>
   <div class="date">
+    <title-bar title="Date"></title-bar>
     <div class="date__input">
       <v-row>
         <v-col cols="12" sm="6">
@@ -131,6 +132,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import { mdiCalendar } from "@mdi/js";
 import { getSummary, findDay } from "../../utils/date_util";
 import moment from "moment";
@@ -180,6 +182,9 @@ export default {
         summary
       };
     }
+  },
+  components: {
+    TitleBar
   }
 };
 </script>

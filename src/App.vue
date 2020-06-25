@@ -83,7 +83,7 @@ body {
   margin-left: 20px;
 }
 
-#nav a.router-link-exact-active,
+#nav a.router-link-active,
 #nav a:active {
   color: var(--blackish-blue);
   border-bottom: 2px solid #09b464;

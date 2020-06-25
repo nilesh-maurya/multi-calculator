@@ -1,5 +1,6 @@
 <template>
   <div class="numeral wrapper-convert-element">
+    <title-bar title="Numeral System"></title-bar>
     <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
@@ -62,6 +63,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import NumeralSystemKeypad from "../NumeralSystemKeypad";
 import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
 import convert from "../../utils/baseConverter";
@@ -178,7 +180,8 @@ export default {
     }
   },
   components: {
-    NumeralSystemKeypad
+    NumeralSystemKeypad,
+    TitleBar
   }
 };
 </script>

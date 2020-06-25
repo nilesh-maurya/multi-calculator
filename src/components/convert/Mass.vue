@@ -1,5 +1,6 @@
 <template>
   <div class="mass wrapper-convert-element">
+    <title-bar title="Mass"></title-bar>
     <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
@@ -59,6 +60,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import NumericKeypad from "../NumericKeypad";
 import convertMixin from "../../mixins/convertMixin";
 
@@ -92,7 +94,8 @@ export default {
     };
   },
   components: {
-    NumericKeypad
+    NumericKeypad,
+    TitleBar
   }
 };
 </script>

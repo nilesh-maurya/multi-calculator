@@ -1,5 +1,6 @@
 <template>
   <div class="bmi wrapper-convert-element">
+    <title-bar title="BMI"></title-bar>
     <v-row align="center" class="wrapper__item">
       <v-col cols="4">
         <v-select
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+import TitleBar from "../TitleBar.vue";
 import NumericKeypad from "../NumericKeypad";
 import { getters, actions } from "../../utils/numeric-keypad-store";
 import { convert } from "../../utils/conversion";
@@ -159,7 +161,8 @@ export default {
     }
   },
   components: {
-    NumericKeypad
+    NumericKeypad,
+    TitleBar
   }
 };
 </script>
