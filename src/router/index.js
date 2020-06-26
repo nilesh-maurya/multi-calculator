@@ -85,6 +85,16 @@ const routes = [
           )
       },
       {
+        path: "/convert/SplitBill",
+        name: "SplitBill",
+        component: () =>
+          import(
+            /* webpackPrefetch: true */
+            /* webpackChunkName: "SplitBill" */
+            "../components/convert/SplitBill.vue"
+          )
+      },
+      {
         path: "/convert/Length",
         name: "Length",
         component: () =>
