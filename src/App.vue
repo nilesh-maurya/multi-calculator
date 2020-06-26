@@ -1,15 +1,22 @@
 <template>
   <v-app>
     <div id="nav">
-      <router-link :to="{ name: 'history' }" title="History">
-        History
-      </router-link>
-      <router-link :to="{ name: 'calculator' }" title="Calculator">
-        Calculator
-      </router-link>
-      <router-link :to="{ name: 'convert' }" title="Convert">
-        Convert
-      </router-link>
+      <v-tabs
+        fixed-tabs
+        background-color="#09b464"
+        color="white"
+        slider-size="4"
+      >
+        <v-tab :to="{ name: 'history' }" title="History">
+          History
+        </v-tab>
+        <v-tab :to="{ name: 'calculator' }" title="Calculator">
+          Calculator
+        </v-tab>
+        <v-tab :to="{ name: 'convert' }" title="Convert">
+          Convert
+        </v-tab>
+      </v-tabs>
     </div>
     <keep-alive :include="['Calculator']">
       <router-view />
@@ -66,21 +73,8 @@ body {
   min-height: 100%;
 }
 
-#nav {
-  text-align: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
 #nav a {
-  display: inline-block;
-  margin: 10px 20px;
-  color: #757575;
   font-weight: bold;
-  text-decoration: none;
-}
-
-#nav a + a {
-  margin-left: 20px;
 }
 
 #nav a.router-link-active,

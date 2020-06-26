@@ -360,6 +360,10 @@ export default {
   overflow-y: scroll;
   word-break: break-all;
   font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .calculator__result {
