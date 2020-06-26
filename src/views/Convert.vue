@@ -66,7 +66,8 @@ export default {
           title: "Finance",
           value: [
             { title: "Discount", link: "Discount", src: mdiTagMultipleOutline },
-            { title: "Percentage", link: "Percentage", src: mdiPercentOutline }
+            { title: "Percentage", link: "Percentage", src: mdiPercentOutline },
+            { title: "Split Bill", link: "SplitBill", src: mdiPercentOutline }
           ]
         },
         {

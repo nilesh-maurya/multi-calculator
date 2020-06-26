@@ -20,6 +20,7 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch: true */
+        /* webpackChunkName: "convert" */
         "../views/Convert.vue"
       ),
     children: [
@@ -211,6 +212,7 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch: true */
+        /* webpackChunkName: "History" */
         "../views/History.vue"
       )
   }
