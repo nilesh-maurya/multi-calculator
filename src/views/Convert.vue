@@ -1,26 +1,57 @@
 <template>
   <div class="convert">
-    <div class="convert__list" v-if="showConvertItems">
+    <div class="convert__group" v-if="showConvertItems">
+      <!-- toggle view buttons -->
+      <div class="view-type">
+        <v-btn-toggle v-model="isListView" color="#09b464" dense mandatory>
+          <v-btn :value="true" title="List View">
+            <v-icon color="#09b464">{{ mdiFormatAlignJustify }}</v-icon>
+          </v-btn>
+          <v-btn :value="false" title="Grid View">
+            <v-icon color="#09b464">{{ mdiViewGrid }}</v-icon>
+          </v-btn>
+        </v-btn-toggle>
+      </div>
       <div
-        class="convert__list--item"
+        class="convert__group--item"
         v-for="(item, index) in items"
         :key="index"
       >
         <v-subheader>{{ item.title }}</v-subheader>
-        <div class="convert__items">
+
+        <!-- if list view -->
+        <v-list v-if="isListView">
+          <v-list-item
+            v-for="listItem in item.value"
+            :to="{ name: listItem.link }"
+            :key="listItem.title"
+          >
+            <v-list-item-action>
+              <v-icon>{{ listItem.src }} </v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ listItem.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <!-- if grid view -->
+        <div v-else class="convert__items">
           <router-link
             class="convert__item"
-            v-for="i in item.value"
-            :key="i.title"
-            :to="{ name: i.link }"
+            v-for="gridItem in item.value"
+            :key="gridItem.title"
+            :to="{ name: gridItem.link }"
             tag="div"
-            :data-item="i.title"
+            :data-item="gridItem.title"
             tabindex="0"
           >
-            <v-icon>{{ i.src }} </v-icon>
-            <p :data-item="i.title">{{ i.title }}</p>
+            <v-icon>{{ gridItem.src }} </v-icon>
+            <p :data-item="gridItem.title">{{ gridItem.title }}</p>
           </router-link>
         </div>
+
+        <!-- divide different subheaders -->
         <v-divider v-if="index < items.length - 1"></v-divider>
       </div>
     </div>
@@ -30,6 +61,8 @@
 
 <script>
 import {
+  mdiViewGrid,
+  mdiFormatAlignJustify,
   mdiClockTimeThreeOutline,
   mdiSpeedometerSlow,
   mdiTagMultipleOutline,
@@ -47,12 +80,16 @@ import {
   mdiAccessPoint,
   mdiSd,
   mdiLightningBoltOutline,
-  mdiGauge
+  mdiGauge,
+  mdiWallet
 } from "@mdi/js";
 export default {
   name: "Convert",
   data() {
     return {
+      isListView: true,
+      mdiViewGrid,
+      mdiFormatAlignJustify,
       items: [
         {
           title: "Growth",
@@ -67,7 +104,7 @@ export default {
           value: [
             { title: "Discount", link: "Discount", src: mdiTagMultipleOutline },
             { title: "Percentage", link: "Percentage", src: mdiPercentOutline },
-            { title: "Split Bill", link: "SplitBill", src: mdiPercentOutline }
+            { title: "Split Bill", link: "SplitBill", src: mdiWallet }
           ]
         },
         {
@@ -115,6 +152,11 @@ export default {
 <style>
 .convert {
   margin: 1rem;
+}
+
+.view-type {
+  display: flex;
+  justify-content: right;
 }
 
 .convert__items {

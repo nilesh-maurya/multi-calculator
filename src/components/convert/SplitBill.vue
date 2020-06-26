@@ -1,40 +1,38 @@
 <template>
   <div>
-    <title-bar title="Percentage"></title-bar>
-    <div class="percentage">
-      <div class="percentage__item percentage__total unselectable">
-        <span class="percentage__total--text">Total</span>
+    <title-bar title="Split Bill"></title-bar>
+    <div class="SplitBill">
+      <div class="SplitBill__item  unselectable">
+        <span class="SplitBill--text">Amount</span>
         <span
           :class="{ focus: toggleFocus }"
-          class="g-1 percentage__total--result"
+          class="g-1 SplitBill--result"
           data-id="1"
           @keydown.enter="toggleFocus = true"
           @click="toggleFocus = true"
           tabindex="0"
         >
-          {{ this.formatWithCommas(total) }}
+          {{ this.formatWithCommas(amount) }}
         </span>
       </div>
-      <div class="percentage__item percentage__per unselectable">
-        <span class="percentage__per--text">
-          Percentage
-        </span>
+      <div class="SplitBill__item unselectable">
+        <span class="SplitBill--text">No. of People </span>
         <span
           :class="{ focus: !toggleFocus }"
-          class="g-2 percentage__per--result"
+          class="g-2 SplitBill--result"
           data-id="2"
           @keydown.enter="toggleFocus = false"
           @click="toggleFocus = false"
           tabindex="0"
         >
-          {{ percentage }}
+          {{ people }}
         </span>
       </div>
-      <div class="percentage__item percentage__result">
-        <span class="percentage__result--text unselectable">
-          Result
+      <div class="SplitBill__item SplitBill__result">
+        <span class="SplitBill--text unselectable">
+          Split Amount
         </span>
-        <span class="percentage__result--result">
+        <span class="SplitBill--result">
           {{ this.formatWithCommas(result) }}
         </span>
       </div>
@@ -44,15 +42,16 @@
 </template>
 
 <script>
-import TitleBar from "../TitleBar.vue";
-import { roundNumber, formatNumber } from "../../utils/math_util.js";
-import NumericKeypad from "../NumericKeypad.vue";
-import { getters, actions } from "../../utils/numeric-keypad-store.js";
-import { store_data, apply_data } from "../../utils/local_storage";
+import TitleBar from "../TitleBar";
+import NumericKeypad from "../NumericKeypad";
+import { getters, actions } from "../../utils/numeric-keypad-store";
+import { formatNumber, roundNumber } from "../../utils/math_util";
+import { store_data, apply_data } from "../../utils/local_storage.js";
 
 export default {
+  name: "SplitBill",
   created() {
-    apply_data(this, "percentage");
+    apply_data(this, "SplitBill");
   },
   data() {
     return {
@@ -60,25 +59,29 @@ export default {
     };
   },
   computed: {
-    total() {
+    amount() {
       return getters.getFirstInput();
     },
-    percentage() {
+    people() {
       return getters.getSecondInput();
     },
     result() {
-      const total = parseFloat(this.total);
-      const percentage = parseFloat(this.percentage);
+      const amount = parseFloat(this.amount);
+      const people = parseInt(this.people);
 
-      const result = +roundNumber((total * percentage) / 100, 4);
+      let splitAmt = amount;
+      if (people > 0) {
+        splitAmt = +roundNumber(amount / people, 4);
+      }
 
+      // store in local storage
       store_data({
-        firstInput: this.total,
-        secondInput: this.percentage,
-        measure: "percentage"
+        firstInput: amount,
+        secondInput: people,
+        measure: "SplitBill"
       });
 
-      return result;
+      return splitAmt;
     }
   },
   methods: {
@@ -95,14 +98,12 @@ export default {
           break;
         }
         case ".": {
-          actions.decimal(id);
+          if (id !== "2") {
+            actions.decimal(id);
+          }
           break;
         }
         default: {
-          if (id === "2") {
-            let check = parseFloat(this.percentage + key) <= 100.0;
-            if (!check) return;
-          }
           actions.number(id, key, 3);
         }
       }
@@ -119,15 +120,15 @@ export default {
 </script>
 
 <style scoped>
-.percentage .focus {
+.SplitBill .focus {
   color: #09b464;
 }
 
-.percentage {
+.SplitBill {
   margin-top: 30px;
 }
 
-.percentage__item {
+.SplitBill__item {
   display: flex;
   justify-content: space-between;
   margin: 10px 0 20px 0;
