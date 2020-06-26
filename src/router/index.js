@@ -1,6 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Calculator from "../views/Calculator.vue";
+import BMI from "../components/convert/BMI.vue";
+import Angle from "../components/convert/Angle.vue";
+import Age from "../components/convert/Age.vue";
+import Date from "../components/convert/Date.vue";
+import Discount from "../components/convert/Discount.vue";
+import Percentage from "../components/convert/Percentage.vue";
+import SplitBill from "../components/convert/SplitBill.vue";
+import Length from "../components/convert/Length.vue";
+import Area from "../components/convert/Area.vue";
+import Volume from "../components/convert/Volume.vue";
+import Temperature from "../components/convert/Temperature.vue";
+import Speed from "../components/convert/Speed.vue";
+import Time from "../components/convert/Time.vue";
+import Mass from "../components/convert/Mass.vue";
+import Pressure from "../components/convert/Pressure.vue";
+import Energy from "../components/convert/Energy.vue";
+import Frequency from "../components/convert/Frequency.vue";
+import DigitalStorage from "../components/convert/DigitalStorage.vue";
+import NumeralSystem from "../components/convert/NumeralSystem.vue";
 
 Vue.use(VueRouter);
 
@@ -27,192 +46,97 @@ const routes = [
       {
         path: "/convert/BMI",
         name: "BMI",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "BMI" */
-            "../components/convert/BMI.vue"
-          )
+        component: BMI
       },
       {
         path: "/convert/Angle",
         name: "Angle",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Angle" */
-            "../components/convert/Angle.vue"
-          )
+        component: Angle
       },
       {
         path: "/convert/Age",
         name: "Age",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Age" */
-            "../components/convert/Age.vue"
-          )
+        component: Age
       },
       {
         path: "/convert/Date",
         name: "Date",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Date" */
-            "../components/convert/Date.vue"
-          )
+        component: Date
       },
       {
         path: "/convert/Discount",
         name: "Discount",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Discount" */
-            "../components/convert/Discount.vue"
-          )
+        component: Discount
       },
       {
         path: "/convert/Percentage",
         name: "Percentage",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Percentage" */
-            "../components/convert/Percentage.vue"
-          )
+        component: Percentage
       },
       {
         path: "/convert/SplitBill",
         name: "SplitBill",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "SplitBill" */
-            "../components/convert/SplitBill.vue"
-          )
+        component: SplitBill
       },
       {
         path: "/convert/Length",
         name: "Length",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Length" */
-            "../components/convert/Length.vue"
-          )
+        component: Length
       },
       {
         path: "/convert/Area",
         name: "Area",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Area" */
-            "../components/convert/Area.vue"
-          )
+        component: Area
       },
       {
         path: "/convert/Volume",
         name: "Volume",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Volume" */
-            "../components/convert/Volume.vue"
-          )
+        component: Volume
       },
       {
         path: "/convert/Temperature",
         name: "Temperature",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Temperature" */
-            "../components/convert/Temperature.vue"
-          )
+        component: Temperature
       },
       {
         path: "/convert/Speed",
         name: "Speed",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Speed" */
-            "../components/convert/Speed.vue"
-          )
+        component: Speed
       },
       {
         path: "/convert/Time",
         name: "Time",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Time" */
-            "../components/convert/Time.vue"
-          )
+        component: Time
       },
       {
         path: "/convert/Mass",
         name: "Mass",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Mass" */
-            "../components/convert/Mass.vue"
-          )
+        component: Mass
       },
       {
         path: "/convert/Pressure",
         name: "Pressure",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Pressure" */
-            "../components/convert/Pressure.vue"
-          )
+        component: Pressure
       },
       {
         path: "/convert/Energy",
         name: "Energy",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Energy" */
-            "../components/convert/Energy.vue"
-          )
+        component: Energy
       },
       {
         path: "/convert/Frequency",
         name: "Frequency",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "Frequency" */
-            "../components/convert/Frequency.vue"
-          )
+        component: Frequency
       },
       {
         path: "/convert/DigitalStorage",
         name: "DigitalStorage",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "DigitalStorage" */
-            "../components/convert/DigitalStorage.vue"
-          )
+        component: DigitalStorage
       },
       {
         path: "/convert/NumeralSystem",
         name: "NumeralSystem",
-        component: () =>
-          import(
-            /* webpackPrefetch: true */
-            /* webpackChunkName: "NumeralSystem" */
-            "../components/convert/NumeralSystem.vue"
-          )
+        component: NumeralSystem
       }
     ]
   },
