@@ -159,12 +159,22 @@ import { getSummary, findDay, getNextBirthday } from "../../utils/date_util";
 
 export default {
   name: "Age",
+  created() {
+    const age = JSON.parse(window.localStorage.getItem("Age"));
+    if (age) {
+      this.dob = age.dob;
+      this.today = age.today;
+    } else {
+      this.dob = new Date().toISOString().substr(0, 10);
+      this.today = new Date().toISOString().substr(0, 10);
+    }
+  },
   data() {
     return {
       event: mdiCalendar,
-      dob: new Date().toISOString().substr(0, 10),
+      dob: "",
       dobModal: false,
-      today: new Date().toISOString().substr(0, 10),
+      today: "",
       todayModal: false
     };
   },
@@ -197,6 +207,12 @@ export default {
 
       // get right side bar(next birthday)
       const next = getNextBirthday(date[0], date[1]);
+
+      // store(input values) in localstorage
+      window.localStorage.setItem(
+        "Age",
+        JSON.stringify({ dob: this.dob, today: this.today })
+      );
 
       return {
         diff,

@@ -104,6 +104,9 @@ export default {
           break;
         }
         default: {
+          if (id === "2") {
+            if (parseInt(this.people + key) > 1000) return;
+          }
           actions.number(id, key, 3);
         }
       }
