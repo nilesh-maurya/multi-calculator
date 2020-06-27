@@ -85,6 +85,10 @@ import {
 } from "@mdi/js";
 export default {
   name: "Convert",
+  created() {
+    const viewType = JSON.parse(window.localStorage.getItem("isListView"));
+    this.isListView = viewType;
+  },
   data() {
     return {
       isListView: true,
@@ -141,6 +145,14 @@ export default {
       ]
     };
   },
+  watch: {
+    isListView() {
+      window.localStorage.setItem(
+        "isListView",
+        JSON.stringify(this.isListView)
+      );
+    }
+  },
   computed: {
     showConvertItems() {
       return this.$route.name === "convert";
@@ -154,9 +166,15 @@ export default {
   margin: 1rem;
 }
 
+.convert__group {
+  position: relative;
+}
+
 .view-type {
+  position: absolute;
+  right: 0;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .convert__items {

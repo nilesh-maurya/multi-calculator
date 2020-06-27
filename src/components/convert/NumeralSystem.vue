@@ -64,7 +64,7 @@
 
 <script>
 import TitleBar from "../TitleBar.vue";
-import NumeralSystemKeypad from "../NumeralSystemKeypad";
+import NumeralSystemKeypad from "../keypads/NumeralSystemKeypad";
 import { getters, mutations, actions } from "../../utils/numeric-keypad-store";
 import convert from "../../utils/baseConverter";
 import { store_data, apply_data } from "../../utils/local_storage";

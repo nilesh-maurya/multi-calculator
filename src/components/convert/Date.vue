@@ -139,12 +139,22 @@ import moment from "moment";
 
 export default {
   name: "Date",
+  created() {
+    const date = JSON.parse(window.localStorage.getItem("Date"));
+    if (date) {
+      this.from = date.from;
+      this.to = date.to;
+    } else {
+      this.from = new Date().toISOString().substr(0, 10);
+      this.to = new Date().toISOString().substr(0, 10);
+    }
+  },
   data() {
     return {
       event: mdiCalendar,
-      from: new Date().toISOString().substr(0, 10),
+      from: "",
       fromModal: false,
-      to: new Date().toISOString().substr(0, 10),
+      to: "",
       toModal: false
     };
   },
@@ -177,6 +187,13 @@ export default {
       } else {
         diff.day = findDay(date[1], date[0]);
       }
+
+      // store in localstorage
+      window.localStorage.setItem(
+        "Date",
+        JSON.stringify({ from: this.from, to: this.to })
+      );
+
       return {
         diff,
         summary

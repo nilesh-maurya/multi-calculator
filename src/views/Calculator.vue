@@ -14,7 +14,7 @@
 <script>
 import { mdiClose, mdiMinus } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
-import Keypad from "../components/Keypad.vue";
+import Keypad from "../components/keypads/Keypad";
 
 export default {
   name: "Calculator",

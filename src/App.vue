@@ -3,6 +3,7 @@
     <div id="nav">
       <v-tabs
         fixed-tabs
+        dark
         background-color="#09b464"
         color="white"
         slider-size="4"

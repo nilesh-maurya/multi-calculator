@@ -43,7 +43,7 @@
 
 <script>
 import TitleBar from "../TitleBar";
-import NumericKeypad from "../NumericKeypad";
+import NumericKeypad from "../keypads/NumericKeypad";
 import { getters, actions } from "../../utils/numeric-keypad-store";
 import { formatNumber, roundNumber } from "../../utils/math_util";
 import { store_data, apply_data } from "../../utils/local_storage.js";
@@ -76,8 +76,8 @@ export default {
 
       // store in local storage
       store_data({
-        firstInput: amount,
-        secondInput: people,
+        firstInput: this.amount,
+        secondInput: this.people,
         measure: "SplitBill"
       });
 
@@ -104,6 +104,9 @@ export default {
           break;
         }
         default: {
+          if (id === "2") {
+            if (parseInt(this.people + key) > 1000) return;
+          }
           actions.number(id, key, 3);
         }
       }
