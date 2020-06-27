@@ -76,8 +76,8 @@ export default {
 
       // store in local storage
       store_data({
-        firstInput: amount,
-        secondInput: people,
+        firstInput: this.amount,
+        secondInput: this.people,
         measure: "SplitBill"
       });
 

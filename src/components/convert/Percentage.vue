@@ -100,7 +100,7 @@ export default {
         }
         default: {
           if (id === "2") {
-            let check = parseFloat(this.percentage + key) <= 100.0;
+            let check = parseFloat(this.percentage + key) <= 1000.0;
             if (!check) return;
           }
           actions.number(id, key, 3);
