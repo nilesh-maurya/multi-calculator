@@ -46,7 +46,7 @@
 <script>
 import TitleBar from "../TitleBar.vue";
 import { roundNumber, formatNumber } from "../../utils/math_util.js";
-import NumericKeypad from "../NumericKeypad.vue";
+import NumericKeypad from "../keypads/NumericKeypad";
 import { getters, actions } from "../../utils/numeric-keypad-store.js";
 import { store_data, apply_data } from "../../utils/local_storage";
 

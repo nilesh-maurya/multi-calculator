@@ -61,7 +61,7 @@
 
 <script>
 import TitleBar from "../TitleBar.vue";
-import NumericKeypad from "../NumericKeypad";
+import NumericKeypad from "../keypads/NumericKeypad";
 import convertMixin from "../../mixins/convertMixin";
 
 export default {

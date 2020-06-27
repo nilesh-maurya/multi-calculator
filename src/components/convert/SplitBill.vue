@@ -43,7 +43,7 @@
 
 <script>
 import TitleBar from "../TitleBar";
-import NumericKeypad from "../NumericKeypad";
+import NumericKeypad from "../keypads/NumericKeypad";
 import { getters, actions } from "../../utils/numeric-keypad-store";
 import { formatNumber, roundNumber } from "../../utils/math_util";
 import { store_data, apply_data } from "../../utils/local_storage.js";
