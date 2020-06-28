@@ -163,7 +163,7 @@ export default {
     const age = JSON.parse(window.localStorage.getItem("Age"));
     if (age) {
       this.dob = age.dob;
-      this.today = age.today;
+      this.today = new Date().toISOString().substr(0, 10);
     } else {
       this.dob = new Date().toISOString().substr(0, 10);
       this.today = new Date().toISOString().substr(0, 10);

@@ -354,10 +354,10 @@ import {
   mdiSquareRoot
 } from "@mdi/js";
 export default {
-  created() {
+  activated() {
     window.addEventListener("keyup", this.keyupHandler);
   },
-  beforeDestroy() {
+  deactivated() {
     window.removeEventListener("keyup", this.keyupHandler);
   },
   data() {
