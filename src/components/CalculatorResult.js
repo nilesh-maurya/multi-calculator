@@ -10,7 +10,6 @@ export default {
     }
   },
   render: function(createElement, context) {
-    console.log(context);
     let CSSClass = ["calculator__result"];
     if (context.props.wasEnterPress) {
       CSSClass.push("big");
