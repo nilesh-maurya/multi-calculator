@@ -4,35 +4,35 @@
     <div class="numeric-keypad unselectable">
       <div class="left">
         <div class="left__btnrow">
-          <button class="left__btn" @click="clickHandler" data-value="7">
+          <button class="left__btn" @mousedown="clickHandler" data-value="7">
             7
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="8">
+          <button class="left__btn" @mousedown="clickHandler" data-value="8">
             8
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="9">
+          <button class="left__btn" @mousedown="clickHandler" data-value="9">
             9
           </button>
         </div>
         <div class="left__btnrow">
-          <button class="left__btn" @click="clickHandler" data-value="4">
+          <button class="left__btn" @mousedown="clickHandler" data-value="4">
             4
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="5">
+          <button class="left__btn" @mousedown="clickHandler" data-value="5">
             5
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="6">
+          <button class="left__btn" @mousedown="clickHandler" data-value="6">
             6
           </button>
         </div>
         <div class="left__btnrow">
-          <button class="left__btn" @click="clickHandler" data-value="1">
+          <button class="left__btn" @mousedown="clickHandler" data-value="1">
             1
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="2">
+          <button class="left__btn" @mousedown="clickHandler" data-value="2">
             2
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="3">
+          <button class="left__btn" @mousedown="clickHandler" data-value="3">
             3
           </button>
         </div>
@@ -40,15 +40,15 @@
           <button
             class="left__btn"
             :class="{ 'left__btn--empty': !sign }"
-            @click="clickHandler"
+            @mousedown="clickHandler"
             data-value="Minus"
           >
             <v-icon color="#09b464" v-if="sign">{{ plusMinus }}</v-icon>
           </button>
-          <button class="left__btn" @click="clickHandler" data-value="0">
+          <button class="left__btn" @mousedown="clickHandler" data-value="0">
             0
           </button>
-          <button class="left__btn" @click="clickHandler" data-value=".">
+          <button class="left__btn" @mousedown="clickHandler" data-value=".">
             .
           </button>
         </div>
@@ -56,12 +56,12 @@
       <div class="right">
         <button
           class="numeric-btn"
-          @click="clickHandler"
+          @mousedown="clickHandler"
           data-value="Backspace"
         >
           <v-icon color="#09b464">{{ backspace }}</v-icon>
         </button>
-        <button class="numeric-btn" @click="clickHandler" data-value="AC">
+        <button class="numeric-btn" @mousedown="clickHandler" data-value="AC">
           AC
         </button>
       </div>

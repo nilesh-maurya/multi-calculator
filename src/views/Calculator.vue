@@ -2,9 +2,10 @@
   <div class="calculator">
     <div class="calculator__display">
       <calculator-input :input="input"></calculator-input>
-      <div class="calculator__result" :class="{ big: wasEnterPressed }">
-        {{ result }}
-      </div>
+      <calculator-result
+        :result="result"
+        :wasEnterPress="wasEnterPressed"
+      ></calculator-result>
     </div>
     <v-divider></v-divider>
     <keypad @keypad-input="inputHandler"></keypad>
@@ -14,7 +15,9 @@
 <script>
 import { mdiClose, mdiMinus } from "@mdi/js";
 import CalculatorInput from "../components/CalculatorInput.vue";
+import CalculatorResult from "../components/CalculatorResult";
 import Keypad from "../components/keypads/Keypad";
+import { evaluateDivision } from "../utils/math_util";
 
 export default {
   name: "Calculator",
@@ -22,7 +25,8 @@ export default {
     return {
       input: [],
       result: "",
-      wasEnterPressed: false
+      wasEnterPressed: false,
+      SD: false
     };
   },
   methods: {
@@ -152,6 +156,36 @@ export default {
       }
     },
     inputHandler(event) {
+      // if "=" is pressed
+      if (
+        event.type === "Evaluate" &&
+        event.value === "Enter" &&
+        !this.wasEnterPressed
+      ) {
+        // make font bigger
+        this.wasEnterPressed = true;
+        // store in localstorage
+        let items = JSON.parse(window.localStorage.getItem("calculator"));
+        if (!items) {
+          items = [];
+        }
+        items.push({ input: this.input, result: this.result });
+        window.localStorage.setItem("calculator", JSON.stringify(items));
+
+        return;
+      }
+
+      // SD => 3.5 == 2 1/2
+      if (event.type === "Evaluate" && event.value === "SD" && !this.SD) {
+        const fraction = this.result;
+        const result = evaluateDivision(fraction);
+        if (result.denominator !== 1) {
+          this.result = result;
+        }
+        this.SD = true;
+        return;
+      }
+
       // if evaluate done then we have to use `ans` as new input
       if (
         this.wasEnterPressed &&
@@ -162,8 +196,7 @@ export default {
         // if event.type is `operator` then answer will be added as input
         if (event.type === "operator") {
           // add answer as first input
-          // eg. Ans: = 12 (space after equal), we have to remove that to when adding that as input
-          let temp = this.result.slice(2);
+          let temp = this.result;
           // if ans = "Error"
           if (temp != "Error") {
             if (temp[0] == "-") {
@@ -188,6 +221,7 @@ export default {
       }
 
       this.wasEnterPressed = false;
+      this.SD = false;
 
       switch (event.type) {
         case "clear": {
@@ -235,17 +269,6 @@ export default {
         Object.assign({}, this.input[this.input.length - 1])
       );
 
-      if (event.type === "Evaluate") {
-        // make font bigger
-        this.wasEnterPressed = true;
-        // store in localstorage
-        let items = JSON.parse(window.localStorage.getItem("calculator"));
-        if (!items) {
-          items = [];
-        }
-        items.push({ input: this.input, result: this.result });
-        window.localStorage.setItem("calculator", JSON.stringify(items));
-      }
       this.evaluateResult(this.input);
     },
     isParenBalance(arr) {
@@ -324,17 +347,18 @@ export default {
         }
         const errorRegex = /(NaN)|(undefined)|(function)/g;
         if (errorRegex.test(answer)) {
-          this.result = "= Error";
+          this.result = "Error";
         } else {
-          this.result = "= " + answer;
+          this.result = answer.toString();
         }
       } catch (error) {
-        this.result = "= Error";
+        this.result = "Error";
       }
     }
   },
   components: {
     CalculatorInput,
+    CalculatorResult,
     Keypad
   }
 };
@@ -371,8 +395,18 @@ export default {
   text-align: right;
   color: #09b464;
   overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  word-break: break-all;
+  justify-content: flex-end;
+  align-items: center;
 }
 
+.calculator__result--div {
+  padding-left: 6px;
+  font-size: 16px;
+}
 .calculator__input::-webkit-scrollbar,
 .calculator__result::-webkit-scrollbar {
   width: 3px;

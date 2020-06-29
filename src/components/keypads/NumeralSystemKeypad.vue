@@ -4,18 +4,18 @@
     <div class="btn__row">
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="AC"
         style="color:#09b464"
       >
         AC
       </button>
-      <button class="btn" @click="clickHandler" data-value="Backspace">
+      <button class="btn" @mousedown="clickHandler" data-value="Backspace">
         <v-icon color="#09b464">{{ mdiBackspaceOutline }}</v-icon>
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="F"
         :disabled="disableHexBtn"
       >
@@ -23,7 +23,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="E"
         :disabled="disableHexBtn"
       >
@@ -33,7 +33,7 @@
     <div class="btn__row">
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="7"
         :disabled="disable2To7"
       >
@@ -41,7 +41,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="8"
         :disabled="disable8And9"
       >
@@ -49,7 +49,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="9"
         :disabled="disable8And9"
       >
@@ -57,7 +57,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="D"
         :disabled="disableHexBtn"
       >
@@ -67,7 +67,7 @@
     <div class="btn__row">
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="4"
         :disabled="disable2To7"
       >
@@ -75,7 +75,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="5"
         :disabled="disable2To7"
       >
@@ -83,7 +83,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="6"
         :disabled="disable2To7"
       >
@@ -91,7 +91,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="C"
         :disabled="disableHexBtn"
       >
@@ -99,10 +99,10 @@
       </button>
     </div>
     <div class="btn__row">
-      <button class="btn" @click="clickHandler" data-value="1">1</button>
+      <button class="btn" @mousedown="clickHandler" data-value="1">1</button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="2"
         :disabled="disable2To7"
       >
@@ -110,7 +110,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="3"
         :disabled="disable2To7"
       >
@@ -118,7 +118,7 @@
       </button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
         data-value="B"
         :disabled="disableHexBtn"
       >
@@ -126,12 +126,17 @@
       </button>
     </div>
     <div class="btn__row">
-      <button class="btn" @click="clickHandler" data-value="" disabled></button>
-      <button class="btn" @click="clickHandler" data-value="0">0</button>
-      <button class="btn" @click="clickHandler" data-value=".">.</button>
       <button
         class="btn"
-        @click="clickHandler"
+        @mousedown="clickHandler"
+        data-value=""
+        disabled
+      ></button>
+      <button class="btn" @mousedown="clickHandler" data-value="0">0</button>
+      <button class="btn" @mousedown="clickHandler" data-value=".">.</button>
+      <button
+        class="btn"
+        @mousedown="clickHandler"
         data-value="A"
         :disabled="disableHexBtn"
       >

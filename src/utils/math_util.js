@@ -15,6 +15,31 @@ export function roundNumber(num, scale) {
   }
 }
 
+var gcd = function(a, b) {
+  if (b < 0.0000001) return a; // Since there is a limited precision we need to limit the value.
+
+  return gcd(b, Math.floor(a % b)); // Discard any fractions due to limitations in precision.
+};
+
+export function evaluateDivision(fraction) {
+  let len = fraction.toString().length - 2;
+
+  let denominator = Math.pow(10, len);
+  let numerator = fraction * denominator;
+
+  let divisor = gcd(numerator, denominator);
+
+  numerator = parseInt(numerator / divisor);
+  denominator = parseInt(denominator / divisor);
+  let quotient;
+  if (numerator >= 2 * denominator) {
+    quotient = parseInt(numerator / denominator);
+    numerator = numerator % denominator;
+  }
+
+  return { quotient, numerator, denominator };
+}
+
 function getLang() {
   if (navigator.languages && navigator.languages.length) {
     return navigator.languages[0];
