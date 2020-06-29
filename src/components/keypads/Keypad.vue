@@ -1,13 +1,13 @@
 <template>
   <div class="keypad">
     <div class="keypad__row" v-if="isAdvanced">
-      <button class="keypad__btn" @click="clickHandler({ value: 'inv' })">
+      <button class="keypad__btn" @mousedown="clickHandler({ value: 'inv' })">
         inv
       </button>
       <button
         class="keypad__btn"
         v-if="isRadian"
-        @click="clickHandler({ value: 'rad' })"
+        @mousedown="clickHandler({ value: 'rad' })"
         :disabled="isDisabled"
       >
         rad
@@ -15,14 +15,14 @@
       <button
         class="keypad__btn"
         v-else
-        @click="clickHandler({ value: 'deg' })"
+        @mousedown="clickHandler({ value: 'deg' })"
       >
         deg
       </button>
       <button
         class="keypad__btn"
         v-if="isInverse"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -36,7 +36,7 @@
       <button
         class="keypad__btn"
         v-else
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -50,7 +50,7 @@
       <button
         class="keypad__btn"
         v-if="isInverse"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -64,7 +64,7 @@
       <button
         class="keypad__btn"
         v-else
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -78,7 +78,7 @@
       <button
         class="keypad__btn"
         v-if="isInverse"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -92,7 +92,7 @@
       <button
         class="keypad__btn"
         v-else
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'trigonometry',
@@ -107,7 +107,7 @@
     <div class="keypad__row" v-if="isAdvanced">
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'logarithm',
@@ -120,7 +120,7 @@
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'logarithm',
@@ -133,7 +133,7 @@
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'function',
             category: 'logarithm',
@@ -146,42 +146,55 @@
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'paren', value: '(', html: '(' })"
+        @mousedown="clickHandler({ type: 'paren', value: '(', html: '(' })"
       >
         (
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'paren', value: ')', html: ')' })"
+        @mousedown="clickHandler({ type: 'paren', value: ')', html: ')' })"
       >
         )
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" v-if="isAdvanced">
+      <button
+        class="keypad__btn"
+        v-if="isAdvanced"
+        @mousedown="
+          clickHandler({
+            type: 'function',
+            category: 'root',
+            value: 'Math.sqrt',
+            html: 'sqrt'
+          })
+        "
+      >
         <v-icon color="#2c3e50">{{ icon.mdiSquareRoot }}</v-icon>
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'clear', value: 'AC', html: '' })"
+        @mousedown="clickHandler({ type: 'clear', value: 'AC', html: '' })"
       >
         AC
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'clear', value: 'Backspace', html: '' })"
+        @mousedown="
+          clickHandler({ type: 'clear', value: 'Backspace', html: '' })
+        "
       >
         <v-icon color="#2c3e50">{{ icon.mdiBackspaceOutline }}</v-icon>
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'operator', value: '%', html: 'mod' })"
+        @mousedown="clickHandler({ type: 'operator', value: '%', html: 'mod' })"
       >
         mod
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'operator',
             value: '/',
@@ -194,27 +207,30 @@
     </div>
     <div class="keypad__row">
       <button class="keypad__btn" v-if="isAdvanced">X<sup>y</sup></button>
+      <!-- factorial not implemented yet, so button is not included in layout
+       <button class="keypad__btn" v-if="isAdvanced">X!</button>
+        -->
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '7', html: '7' })"
+        @mousedown="clickHandler({ type: 'number', value: '7', html: '7' })"
       >
         7
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '8', html: '8' })"
+        @mousedown="clickHandler({ type: 'number', value: '8', html: '8' })"
       >
         8
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '9', html: '9' })"
+        @mousedown="clickHandler({ type: 'number', value: '9', html: '9' })"
       >
         9
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'operator',
             value: '*',
@@ -226,28 +242,36 @@
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" v-if="isAdvanced">X!</button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '4', html: '4' })"
+        v-if="isAdvanced"
+        @mousedown="
+          clickHandler({ type: 'number', value: 'Math.PI', html: icon.mdiPi })
+        "
+      >
+        <v-icon color="#2c3e50">{{ icon.mdiPi }}</v-icon>
+      </button>
+      <button
+        class="keypad__btn"
+        @mousedown="clickHandler({ type: 'number', value: '4', html: '4' })"
       >
         4
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '5', html: '5' })"
+        @mousedown="clickHandler({ type: 'number', value: '5', html: '5' })"
       >
         5
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '6', html: '6' })"
+        @mousedown="clickHandler({ type: 'number', value: '6', html: '6' })"
       >
         6
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'operator',
             value: '-',
@@ -262,33 +286,33 @@
       <button
         class="keypad__btn"
         v-if="isAdvanced"
-        @click="
-          clickHandler({ type: 'number', value: 'Math.PI', html: icon.mdiPi })
+        @mousedown="
+          clickHandler({ type: 'number', value: 'Math.E', html: 'e' })
         "
       >
-        <v-icon color="#2c3e50">{{ icon.mdiPi }}</v-icon>
+        e
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '1', html: '1' })"
+        @mousedown="clickHandler({ type: 'number', value: '1', html: '1' })"
       >
         1
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '2', html: '2' })"
+        @mousedown="clickHandler({ type: 'number', value: '2', html: '2' })"
       >
         2
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '3', html: '3' })"
+        @mousedown="clickHandler({ type: 'number', value: '3', html: '3' })"
       >
         3
       </button>
       <button
         class="keypad__btn"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'operator',
             value: '+',
@@ -300,33 +324,35 @@
       </button>
     </div>
     <div class="keypad__row">
-      <button class="keypad__btn" @click="clickHandler({ value: 'change' })">
+      <button
+        class="keypad__btn"
+        @mousedown="clickHandler({ value: 'change' })"
+      >
         <v-icon color="#09b464">
           {{ isAdvanced ? icon.mdiArrowCollapse : icon.mdiArrowExpand }}
         </v-icon>
       </button>
       <button
         class="keypad__btn"
-        v-if="isAdvanced"
-        @click="clickHandler({ type: 'number', value: 'Math.E', html: 'e' })"
+        @mousedown="clickHandler({ type: 'number', value: '.', html: '.' })"
       >
-        e
+        .
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '0', html: '0' })"
+        @mousedown="clickHandler({ type: 'number', value: '0', html: '0' })"
       >
         0
       </button>
       <button
         class="keypad__btn"
-        @click="clickHandler({ type: 'number', value: '.', html: '.' })"
+        @mousedown="clickHandler({ type: 'Evaluate', value: 'SD', html: '' })"
       >
-        .
+        <v-icon>{{ icon.mdiAbTesting }}</v-icon>
       </button>
       <button
         class="keypad__btn equal"
-        @click="
+        @mousedown="
           clickHandler({
             type: 'Evaluate',
             value: 'Enter',
@@ -351,7 +377,8 @@ import {
   mdiClose,
   mdiDivision,
   mdiBackspaceOutline,
-  mdiSquareRoot
+  mdiSquareRoot,
+  mdiAbTesting
 } from "@mdi/js";
 export default {
   activated() {
@@ -372,7 +399,8 @@ export default {
         mdiClose,
         mdiDivision,
         mdiBackspaceOutline,
-        mdiSquareRoot
+        mdiSquareRoot,
+        mdiAbTesting
       },
       isAdvanced: false,
       isInverse: false,
