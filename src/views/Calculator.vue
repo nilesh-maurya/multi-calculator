@@ -165,15 +165,25 @@ export default {
         // make font bigger
         this.wasEnterPressed = true;
         // store in localstorage
-        let items = JSON.parse(window.localStorage.getItem("calculator"));
-        if (!items) {
-          items = [];
+        let calculator = JSON.parse(window.localStorage.getItem("calculator"));
+        if (!calculator) {
+          calculator = {};
         }
-        items.push({ input: this.input, result: this.result });
-        window.localStorage.setItem("calculator", JSON.stringify(items));
+
+        let today = new Date();
+        today = `${today.getFullYear()}/${today.getMonth() +
+          1}/${today.getDate()}`;
+
+        if (!calculator[today]) {
+          calculator[today] = [];
+        }
+        calculator[today].push({ input: this.input, result: this.result });
+        window.localStorage.setItem("calculator", JSON.stringify(calculator));
 
         return;
       }
+
+      this.wasEnterPressed = false;
 
       // SD => 3.5 == 2 1/2
       if (event.type === "Evaluate" && event.value === "SD" && !this.SD) {
@@ -185,6 +195,8 @@ export default {
         this.SD = true;
         return;
       }
+
+      this.SD = false;
 
       // if evaluate done then we have to use `ans` as new input
       if (
@@ -219,9 +231,6 @@ export default {
 
         this.result = "";
       }
-
-      this.wasEnterPressed = false;
-      this.SD = false;
 
       switch (event.type) {
         case "clear": {
