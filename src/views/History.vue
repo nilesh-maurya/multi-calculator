@@ -1,10 +1,18 @@
 <template>
   <div class="history">
-    <div class="history__items" v-if="items.length > 0">
-      <div class="history__item" v-for="(item, index) in items" :key="index">
-        <calculator-input :input="item.input"></calculator-input>
-        <div class="history__result">{{ item.result }}</div>
-        <v-divider></v-divider>
+    <div class="history__groups" v-if="items">
+      <div
+        class="history__group"
+        v-for="(item, index) in Object.entries(items)"
+        :key="index"
+      >
+        <v-subheader>{{ formatDate(item[0]) }}</v-subheader>
+        <div class="history__items">
+          <div v-for="(obj, i) in item[1]" :key="i">
+            <history-item :item="obj"></history-item>
+            <v-divider></v-divider>
+          </div>
+        </div>
       </div>
     </div>
     <h2 class="history__nothing" v-else>
@@ -14,7 +22,9 @@
 </template>
 
 <script>
-import CalculatorInput from "../components/CalculatorInput.vue";
+import HistoryItem from "../components/HistoryItem.vue";
+import moment from "moment";
+
 export default {
   name: "History",
   created() {
@@ -28,19 +38,32 @@ export default {
       items: []
     };
   },
+  methods: {
+    formatDate(from) {
+      // const today = moment();
+
+      return moment(from, "YYYY MM DD").fromNow();
+    }
+  },
   components: {
-    CalculatorInput
+    HistoryItem
   }
 };
 </script>
 
 <style scoped>
 .history {
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.history__items {
+  padding: 0 16px;
 }
 
 .history__item {
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .history__result {
