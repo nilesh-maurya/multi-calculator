@@ -34,7 +34,7 @@ export default {
     reset(arr) {
       arr.splice(0, arr.length);
     },
-    backspace(arr) {
+    backspace(arr, event) {
       if (arr.length === 0) {
         // if everything is backspaced then reset to default
         this.reset(arr);
@@ -139,10 +139,20 @@ export default {
       // check for function
       if (last.type === "function") {
         if (!this.isParenBalance(last.value))
-          return this.operator(arr[arr.length - 1].value, event);
+          return this.paren(arr[arr.length - 1].value, event);
+        else {
+          this.operator(arr, {
+            type: "operator",
+            value: "*",
+            html: mdiClose
+          });
+          arr.push(event);
+          return;
+        }
       }
 
       if (event.value === "(") {
+        console.log(event, last);
         if (last.value === ")" || last.type === "number") {
           this.operator(arr, {
             type: "operator",
@@ -291,9 +301,8 @@ export default {
 
       if (opening !== closing) {
         return false;
-      } else {
-        return true;
       }
+      return true;
     },
     balanceParenthesis(text) {
       let opening = 0;

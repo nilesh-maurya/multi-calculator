@@ -8,9 +8,9 @@
         color="white"
         slider-size="4"
       >
-        <v-tab :to="{ name: 'history' }" title="History">
+        <!-- <v-tab :to="{ name: 'history' }" title="History">
           History
-        </v-tab>
+        </v-tab> -->
         <v-tab :to="{ name: 'calculator' }" title="Calculator">
           Calculator
         </v-tab>
