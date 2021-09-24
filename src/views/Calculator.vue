@@ -152,7 +152,7 @@ export default {
       }
 
       if (event.value === "(") {
-        console.log(event, last);
+        // console.log(event, last);
         if (last.value === ")" || last.type === "number") {
           this.operator(arr, {
             type: "operator",
@@ -386,7 +386,7 @@ export default {
 
       // build expression from array
       let exp = this.createExpression(arr);
-      console.log(exp);
+      // console.log(exp);
       try {
         exp = this.balanceParenthesis(exp);
         let answer = eval(exp);

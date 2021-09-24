@@ -1,23 +1,23 @@
 <template>
   <v-app>
     <div id="nav">
-      <v-tabs
+      <!-- <v-tabs
         fixed-tabs
         dark
         background-color="#09b464"
         color="white"
         slider-size="4"
       >
-        <!-- <v-tab :to="{ name: 'history' }" title="History">
+        <v-tab :to="{ name: 'history' }" title="History">
           History
-        </v-tab> -->
-        <v-tab :to="{ name: 'calculator' }" title="Calculator">
+        </v-tab>
+      <v-tab :to="{ name: 'calculator' }" title="Calculator">
           Calculator
         </v-tab>
-        <v-tab :to="{ name: 'convert' }" title="Convert">
+      <v-tab :to="{ name: 'convert' }" title="Convert">
           Convert
         </v-tab>
-      </v-tabs>
+      </v-tabs> -->
     </div>
     <keep-alive :include="['Calculator']">
       <router-view />
