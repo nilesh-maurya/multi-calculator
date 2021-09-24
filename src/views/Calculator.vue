@@ -165,6 +165,45 @@ export default {
         arr.push(event);
       }
     },
+    functionType(arr, event) {
+      if (event.category) {
+        if (arr.length === 0) {
+          arr.push({
+            type: "function",
+            value: [
+              { type: event.category, value: event.value, html: event.html },
+              { type: "paren", value: "(", html: "(" }
+            ]
+          });
+        } else {
+          const last = arr[arr.length - 1];
+
+          if (last.type === "function") {
+            const currentLast = arr[arr.length - 1].value;
+
+            if (currentLast[currentLast.length - 1].type !== "operator") {
+              this.operator(arr[arr.length - 1].value, {
+                type: "operator",
+                value: "*",
+                html: mdiClose
+              });
+            }
+            if (!this.isParenBalance(last.value)) {
+              this.functionType(arr[arr.length - 1].value, event);
+            }
+          } else {
+            arr.push({
+              type: "function",
+              value: [
+                { type: event.category, value: event.value, html: event.html },
+                { type: "paren", value: "(", html: "(" }
+              ]
+            });
+            return;
+          }
+        }
+      }
+    },
     inputHandler(event) {
       // if "=" is pressed
       if (
@@ -267,15 +306,7 @@ export default {
         }
 
         case "function": {
-          if (event.category) {
-            this.input.push({
-              type: "function",
-              value: [
-                { type: event.category, value: event.value, html: event.html },
-                { type: "paren", value: "(", html: "(" }
-              ]
-            });
-          }
+          this.functionType(this.input, event);
           break;
         }
       }
@@ -355,6 +386,7 @@ export default {
 
       // build expression from array
       let exp = this.createExpression(arr);
+      console.log(exp);
       try {
         exp = this.balanceParenthesis(exp);
         let answer = eval(exp);
